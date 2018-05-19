@@ -31,3 +31,7 @@
 # Debug files
 *.dSYM/
 *.su
+
+doc/*
+Rapport/*
+settings.json
