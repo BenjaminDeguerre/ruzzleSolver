@@ -54,16 +54,16 @@ int BT_isEmpty(BT_BinaryTree myBT);
  *	\fn void BT_setLeftChild(BT_BinaryTree *myBT, BT_BinaryTree *leftChild)
  *	\brief Set the left child of the tree.
  *	\param *mySBR pointeur sur un arbre
- *	\param *leftChild pointeur sur un arbre, fils à fixer
+ *	\param *leftChild pointeur sur un arbre, fils à set
  *	\return void
  */ 
 void BT_setLeftChild(BT_BinaryTree *myBT, BT_BinaryTree leftChild);
 
 /** 
  *	\fn void BT_setRightChild(BT_BinaryTree *myBT, BT_BinaryTree *rightChild)
- *	\brief Permet de fixer le fils droit de l'arbre
+ *	\brief Permet de set le fils droit de l'arbre
  *	\param *mySBR pointeur sur un arbre
- *	\param *rightChild pointeur sur un arbre, fils à fixer
+ *	\param *rightChild pointeur sur un arbre, fils à set
  *	\return void
  */ 
 void BT_setRightChild(BT_BinaryTree *myBT, BT_BinaryTree rightChild);

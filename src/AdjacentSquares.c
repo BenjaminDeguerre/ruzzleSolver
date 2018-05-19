@@ -80,20 +80,20 @@ LL_LinkedList AS_getPossibleNeighbours(G_Grid *grid, AS_AdjacentSquares *adjacen
 {
 	errno = 0;
 	S_SQUARE *square = LL_getElement(adjacentSquare->linkedList);
-	LL_LinkedList lONeighbours = G_getNeighbours(*grid, *square);
-	LL_LinkedList lOPossibleNeighbours = LL_createLinkedList();
+	LL_LinkedList listNeighbours = G_getNeighbours(*grid, *square);
+	LL_LinkedList listPossibleNeighbours = LL_createLinkedList();
 
 	do
 	{
-		S_SQUARE *squareToCheck = LL_getElement(lONeighbours);
+		S_SQUARE *squareToCheck = LL_getElement(listNeighbours);
 
 		if (squareToCheck != NULL)
 		{
 		}
 
-	} while (LL_getNextList(lONeighbours) != NULL);
+	} while (LL_getNextList(listNeighbours) != NULL);
 
-	return lOPossibleNeighbours;
+	return listPossibleNeighbours;
 }
 
 void AS_addSquare(AS_AdjacentSquares *adjacentSquare, S_SQUARE *square)
@@ -157,7 +157,7 @@ int AS_countPoints(AS_AdjacentSquares adjacentSquare)
 
 int AS_getLength(AS_AdjacentSquares adjacentSquare)
 {
-	return LL_longueur(adjacentSquare.linkedList);
+	return LL_length(adjacentSquare.linkedList);
 }
 
 int AS_getBonus(AS_AdjacentSquares adjacentSquare)
