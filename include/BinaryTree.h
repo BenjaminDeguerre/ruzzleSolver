@@ -2,130 +2,130 @@
 /* Alexandre DUVAL - 02/01/2015 */
  
 /** \file BinaryTree.h
- *	\brief Implémentation du TAD BinaryTree
+ *	\brief Implementation of abstract data type BinaryTree
  *	\version 1.0
  *	\date 26/12/2014
  */
-#ifndef __ARBRE_BINAIRE_DE_RECHERCHE__
-#define __ARBRE_BINAIRE_DE_RECHERCHE__
+#ifndef __SEARCH_BINARY_TREE__
+#define __SEARCH_BINARY_TREE__
 
-#include "Noeud.h"
+#include "Node.h"
 #include "elementCollection.h"
 
 /** 
- *	\typedef AB_BinaryTree
+ *	\typedef BT_BinaryTree
  */
-typedef struct AB_Noeud* AB_BinaryTree;
+typedef struct BT_Node* BT_BinaryTree;
 
 /**
- *	\typedef AB_Noeud
- *	\struct AB_Noeud
- *	\brief structure d'un arbre binaire de recherche
+ *	\typedef BT_Node
+ *	\struct BT_Node
+ *	\brief Structure of a search binary tree.
  */
-typedef struct AB_Noeud {	
-	N_Noeud *racine; /**< racine de l'arbre */
-	AB_BinaryTree sAG; /**< fils gauche de l'arbre, aussi un arbre */
-	AB_BinaryTree sAD; /**< fils droit de l'arbre, aussi un arbre */
-	int estTraite;
-} AB_Noeud;
+typedef struct BT_Node {	
+	N_Node *root; /**< tree's root */
+	BT_BinaryTree leftChild; /**< left child, tree too */
+	BT_BinaryTree rightChild; /**< right child, tree too */
+	int isProcessed;
+} BT_Node;
 
-#define AB_ERREUR_MEMOIRE 1
+#define BT_MEMORY_ERROR 1
 
 /** 
- *	\fn AB_BinaryTree AB_creerABR()
- *	\brief Creer un arbre binaire de recheche vide.
+ *	\fn BT_BinaryTree BT_createSBT()
+ *	\brief Create an empty search binary tree.
  *	
- *	L'arbre binaire est initilisé sur la valeur NULL.
- *	\return AB_BinaryTree
+ *	The tree is initialized to NULL.
+ *	\return BT_BinaryTree
  */
-AB_BinaryTree AB_creerABR();
+BT_BinaryTree BT_createSBT();
 
 /** 
- *	\fn int AB_estVide(AB_BinaryTree *monABR)
- *	\brief Permet de savoir si un arbre est vide ou non
+ *	\fn int BT_isEmpty(BT_BinaryTree *mySBR)
+ *	\brief To know if the tree is empty or not.
  *
- *	La fonction renvoie 0 si faux, 1 sinon.
- *	\param *monABR pointeur un arbre
+ *	Return 0 is false, 1 else.
+ *	\param *myBT pointer to a tree.
  *	\return int
  */ 
-int AB_estVide(AB_BinaryTree monABR);
+int BT_isEmpty(BT_BinaryTree myBT);
 
 /** 
- *	\fn void AB_fixerFilsGauche(AB_BinaryTree *monArbre, AB_BinaryTree *filsGauche)
- *	\brief Permet de fixer le fils gauche de l'arbre
- *	\param *monABR pointeur sur un arbre
- *	\param *filsGauche pointeur sur un arbre, fils à fixer
+ *	\fn void BT_setLeftChild(BT_BinaryTree *myBT, BT_BinaryTree *leftChild)
+ *	\brief Set the left child of the tree.
+ *	\param *mySBR pointeur sur un arbre
+ *	\param *leftChild pointeur sur un arbre, fils à fixer
  *	\return void
  */ 
-void AB_fixerFilsGauche(AB_BinaryTree *monArbre, AB_BinaryTree filsGauche);
+void BT_setLeftChild(BT_BinaryTree *myBT, BT_BinaryTree leftChild);
 
 /** 
- *	\fn void AB_fixerFilsDroit(AB_BinaryTree *monArbre, AB_BinaryTree *filsDroit)
+ *	\fn void BT_setRightChild(BT_BinaryTree *myBT, BT_BinaryTree *rightChild)
  *	\brief Permet de fixer le fils droit de l'arbre
- *	\param *monABR pointeur sur un arbre
- *	\param *filsDroit pointeur sur un arbre, fils à fixer
+ *	\param *mySBR pointeur sur un arbre
+ *	\param *rightChild pointeur sur un arbre, fils à fixer
  *	\return void
  */ 
-void AB_fixerFilsDroit(AB_BinaryTree *monArbre, AB_BinaryTree filsDroit);
+void BT_setRightChild(BT_BinaryTree *myBT, BT_BinaryTree rightChild);
 
 /** 
- *	\fn AB_BinaryTree AB_ajouterRacine(AB_BinaryTree *filsGauche, AB_BinaryTree *filsDroit, N_Noeud *noeud, EC_copier copier)
- *	\brief Permet de racroccher deux arbres à une même racine (noeud)
- *	\param *filsGauche pointeur sur un arbre, nouveau fils gauche du noeud
- *	\param *filsDroit pointeur sur un arbre, nouveau fils droit du noeud
- *	\param *noeud pointeur sur un noeud, nouvelle racine
- *	\param copier fonction permettant la copie d'un noeud
- *	\return AB_BinaryTree
+ *	\fn BT_BinaryTree BT_addRoot(BT_BinaryTree *leftChild, BT_BinaryTree *rightChild, N_Node *node, EC_copy copy)
+ *	\brief Permet de racroccher deux arbres à une même root (node)
+ *	\param *leftChild pointeur sur un arbre, nouveau fils gauche du node
+ *	\param *rightChild pointeur sur un arbre, nouveau fils droit du node
+ *	\param *node pointeur sur un node, nouvelle root
+ *	\param copy fonction permettant la copie d'un node
+ *	\return BT_BinaryTree
  */ 
-AB_BinaryTree AB_ajouterRacine(AB_BinaryTree filsGauche, AB_BinaryTree filsDroit, N_Noeud *noeud, EC_copier copier);
+BT_BinaryTree BT_addRoot(BT_BinaryTree leftChild, BT_BinaryTree rightChild, N_Node *node, EC_copy copy);
 
 /** 
- *	\fn N_Noeud* AB_obtenirRacine(AB_BinaryTree *abr)
- *	\brief Permet d'obtenir la racine d'un arbre binaire de recherche
- *	\param *abr pointeur sur un arbre, arbre dont on veut la racine
- *	\return N_Noeud*
+ *	\fn N_Node* BT_getRoot(BT_BinaryTree *abr)
+ *	\brief Permet d'obtenir la root d'un arbre binaire de recherche
+ *	\param *abr pointeur sur un arbre, arbre dont on veut la root
+ *	\return N_Node*
  */ 
-N_Noeud* AB_obtenirRacine(AB_BinaryTree aBR);
+N_Node* BT_getRoot(BT_BinaryTree myBT);
 
 /** 
- *	\fn void AB_supprimerRacine(AB_BinaryTree* a, AB_BinaryTree* sAG, AB_BinaryTree* sAD, EC_supprimer libererNoeud)
- *	\brief Permet de supprimer la racine d'un arbre binaire de recherche (deux sous arbre sont "créés")
- *	\param *a pointeur sur un arbre, celui dont on veut supprimer la racine
- *	\param *sAG pointeur sur un arbre, (sortie) sous arbre gauche résultant de la suppression de la racine
- *	\param *sAD pointeur sur un arbre, (sortie) sous arbre droit résultant de la suppression de la racine
- *	\param libererNoeud fonction permettant de libérer l'espace mémoire occupé par le noeud
+ *	\fn void BT_deleteRoot(BT_BinaryTree* a, BT_BinaryTree* leftChild, BT_BinaryTree* rightChild, EC_delete freeNode)
+ *	\brief Permet de delete la root d'un arbre binaire de recherche (deux sous arbre sont "créés")
+ *	\param *a pointeur sur un arbre, celui dont on veut delete la root
+ *	\param *leftChild pointeur sur un arbre, (sortie) sous arbre gauche résultant de la suppression de la root
+ *	\param *rightChild pointeur sur un arbre, (sortie) sous arbre droit résultant de la suppression de la root
+ *	\param freeNode fonction permettant de libérer l'espace mémoire occupé par le node
  *	\return void
  */ 
-void AB_supprimerRacine(AB_BinaryTree* a, AB_BinaryTree* sAG, AB_BinaryTree* sAD, EC_supprimer libererNoeud);
+void BT_deleteRoot(BT_BinaryTree *myBT BT_BinaryTree* leftChild, BT_BinaryTree* rightChild, EC_delete freeNode);
 
 /** 
- *	\fn void AB_supprimer(AB_BinaryTree* a, EC_supprimer libererNoeud)
+ *	\fn void BT_delete(BT_BinaryTree* a, EC_delete freeNode)
  *	\brief Supprime un arbre binaire de recherche en entier
- *	\param *a pointeur sur l'arbre à supprimer
- *	\param libererNoeud fonction permettant de libérer l'espace mémoire occupé par le noeud
+ *	\param *a pointeur sur l'arbre à delete
+ *	\param freeNode fonction permettant de libérer l'espace mémoire occupé par le node
  *	\return void
  */
-void AB_supprimer(AB_BinaryTree* a, EC_supprimer libererNoeud);
+void BT_delete(BT_BinaryTree* a, EC_delete freeNode);
 
 /** 
- *	\fn AB_BinaryTree* AB_obtenirFilsDroit(AB_BinaryTree *monABR)
- *	\brief Getter, permet d'obtenir le fils droit de la racine d'un arbre
- *	\param *monABR pointeur sur l'abre dont on veut le fils droitx	
- *	\return AB_BinaryTree*
+ *	\fn BT_BinaryTree* BT_getRightChild(BT_BinaryTree *mySBR)
+ *	\brief Getter, permet d'obtenir le fils droit de la root d'un arbre
+ *	\param *mySBR pointeur sur l'abre dont on veut le fils droitx	
+ *	\return BT_BinaryTree*
  */
-AB_BinaryTree AB_obtenirFilsDroit(AB_BinaryTree monABR);
+BT_BinaryTree BT_getRightChild(BT_BinaryTree mySBR);
 
 /** 
- *	\fn AB_BinaryTree* AB_obtenirFilsGauche(AB_BinaryTree *monABR)
- *	\brief Getter, permet d'obtenir le fils gauche de la racine d'un arbre
- *	\param *monABR pointeur sur l'abre dont on veut le fils gauche
- *	\return AB_BinaryTree*
+ *	\fn BT_BinaryTree* BT_getLeftChild(BT_BinaryTree *mySBR)
+ *	\brief Getter, permet d'obtenir le fils gauche de la root d'un arbre
+ *	\param *mySBR pointeur sur l'abre dont on veut le fils gauche
+ *	\return BT_BinaryTree*
  */ 
-AB_BinaryTree AB_obtenirFilsGauche(AB_BinaryTree monABR);
+BT_BinaryTree BT_getLeftChild(BT_BinaryTree mySBR);
 
 
-void AB_fixerEstTraite(AB_BinaryTree *a, int b);
+void BT_setIsProcessed(BT_BinaryTree *myBT int processed);
 
-int AB_estTraite(AB_BinaryTree *a);
+int BT_isProcessed(BT_BinaryTree *myBT);
 
 #endif

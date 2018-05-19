@@ -7,84 +7,84 @@
 
 #include "BinaryTree.h"
 
-AB_BinaryTree AB_creerABR() {
-	AB_BinaryTree abr = NULL;
-	return abr; 
+BT_BinaryTree BT_createSBT() {
+	BT_BinaryTree tree = NULL;
+	return tree; 
 }
 
-int AB_estVide(AB_BinaryTree a) {
-	return a == NULL;
+int BT_isEmpty(BT_BinaryTree myBT) {
+	return myBT == NULL;
 }
 
-void AB_fixerFilsGauche(AB_BinaryTree *a, AB_BinaryTree filsGauche) {
-	assert(!AB_estVide(*a));
-	(*a)->sAG = filsGauche;
+void BT_setLeftChild(BT_BinaryTree *myBT BT_BinaryTree leftChild) {
+	assert(!BT_isEmpty(*myBT));
+	(*myBT)->leftChild = leftChild;
 }
 
-void AB_fixerFilsDroit(AB_BinaryTree *a, AB_BinaryTree filsDroit) {
-	assert(!AB_estVide(*a));
-	(*a)->sAD = filsDroit;
+void BT_setRightChild(BT_BinaryTree *myBT BT_BinaryTree rightChild) {
+	assert(!BT_isEmpty(*myBT));
+	(*myBT)->rightChild = rightChild;
 }
 
-void AB_fixerEstTraite(AB_BinaryTree *a, int b) {
-	assert(!AB_estVide(*a));
-	(*a)->estTraite = b;
+void BT_setIsProcessed(BT_BinaryTree *myBT int processed) {
+	assert(!BT_isEmpty(*myBT));
+	(*myBT)->isProcessed = processed;
 }
 
-int AB_estTraite(AB_BinaryTree *a) {
-	assert(!AB_estVide(*a));
-	return (*a)->estTraite;
+int BT_isProcessed(BT_BinaryTree *myBT) {
+	assert(!BT_isEmpty(*myBT));
+	return (*myBT)->isProcessed;
 }
 
-AB_BinaryTree AB_ajouterRacine(AB_BinaryTree filsGauche, AB_BinaryTree filsDroit, N_Noeud *noeud, EC_copier copier) {	
-	AB_BinaryTree a = (AB_BinaryTree)malloc(sizeof(AB_Noeud));
-	N_Noeud* racine = (N_Noeud *)copier(noeud);
-	if((noeud != NULL) || (a != NULL)) {
+BT_BinaryTree BT_addRoot(BT_BinaryTree leftChild, BT_BinaryTree rightChild, N_Node *node, EC_copy copy) {	
+	BT_BinaryTree tree = (BT_BinaryTree)malloc(sizeof(BT_Node));
+	N_Node* root = (N_Node *)copy(node);
+	if((node != NULL) || (tree != NULL)) {
 		errno = 0;
  
-		a->racine = racine;     
-		a->sAG = filsGauche;
-		a->sAD = filsDroit;
-		a->estTraite = 0;
+		tree->root = root;     
+		tree->leftChild = leftChild;
+		tree->rightChild = rightChild;
+		tree->isProcessed = 0;
 
-		return a;	
+		return tree;	
 	} else  {
-		errno = AB_ERREUR_MEMOIRE;
-		return AB_creerABR();
+		errno = BT_MEMORY_ERROR;
+		return BT_createSBT();
 	}
 }
 
-N_Noeud* AB_obtenirRacine(AB_BinaryTree abr) {
-	assert(!AB_estVide(abr));
-	return abr->racine;
+N_Node* BT_getRoot(BT_BinaryTree myBT) {
+	assert(!BT_isEmpty(myBT));
+	return myBT->root;
 }
 
-void AB_supprimerRacine(AB_BinaryTree* a, AB_BinaryTree* sAG, AB_BinaryTree* sAD, EC_supprimer libererNoeud) {
-	*sAG = AB_obtenirFilsGauche(*a);
-	*sAD = AB_obtenirFilsDroit(*a);
+void BT_deleteRoot(BT_BinaryTree *myBT, BT_BinaryTree *leftChild, BT_BinaryTree *rightChild, EC_delete freeNode) {
+	*leftChild = BT_getLeftChild(*myBT);
+	*rightChild = BT_getRightChild(*myBT);
 
-	libererNoeud(AB_obtenirRacine(*a));
-	*a = NULL;
-	free(*a);
+	freeNode(BT_getRoot(*myBT));
+	*myBT = NULL;
+	free(*myBT);
 }
 
-void AB_supprimer(AB_BinaryTree* a, EC_supprimer libererNoeud) {
-	AB_BinaryTree sAG = AB_creerABR();
-	AB_BinaryTree sAD = AB_creerABR();
+void BT_delete(BT_BinaryTree* myBT, EC_delete freeNode) {
+	BT_BinaryTree leftChild = BT_createSBT();
+	BT_BinaryTree rightChild = BT_createSBT();
 
-	if(!(AB_estVide(*a))) {
-		AB_supprimerRacine(a, &sAG, &sAD, libererNoeud);
-		AB_supprimer(&sAG, libererNoeud);
-		AB_supprimer(&sAD, libererNoeud);
+	if(!(BT_isEmpty(*myBT))) {
+		BT_deleteRoot(myBT, &leftChild, &rightChild, freeNode);
+		BT_delete(&leftChild, freeNode);
+		BT_delete(&rightChild, freeNode);
 	}
 }
 
-AB_BinaryTree AB_obtenirFilsDroit(AB_BinaryTree a) {
-	assert(!AB_estVide(a));
-	return a->sAD;	
+BT_BinaryTree BT_getRightChild(BT_BinaryTree myBT) {
+	assert(!BT_isEmpty(myBT));
+	return myBT->rightChild;	
 }
 
-AB_BinaryTree AB_obtenirFilsGauche(AB_BinaryTree a) {
-	assert(!AB_estVide(a));
-	return a->sAG;
+BT_BinaryTree BT_getLeftChild(BT_BinaryTree myBT) {
+	assert(!BT_isEmpty(myBT));
+	return myBT->leftChild;
 }
