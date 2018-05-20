@@ -85,10 +85,10 @@ LL_LinkedList LL_getNextList(LL_LinkedList list);
 void LL_setNextList(LL_LinkedList *list, LL_LinkedList newtList);
 
 /**
- *	\fn	void LL_setElement(LL_LinkedList*, void*, EC_copy, ES_delete)
+ *	\fn	void LL_setElement(LL_LinkedList*, void*, EC_copy, EC_delete)
  *	\brief	Permet de set un element sur une liste NON VIDE
  *
- * Si ES_delete utilise free, si un élément a été radd d'une manière autre
+ * Si EC_delete utilise free, si un élément a été radd d'une manière autre
  *qu'avec les fonction du TAD, la fonction bug
  *	\param *list liste dont on veut modifier l'élément (pointeur)
  *	\param void* source l'élément à add
@@ -97,25 +97,25 @@ void LL_setNextList(LL_LinkedList *list, LL_LinkedList newtList);
  *	\return void
  */
 void LL_setElement(LL_LinkedList *list, void *source, EC_copy copyElement,
-                   ES_delete freeElement);
+                   EC_delete freeElement);
 
 /**
- *	\fn void LL_deleteHead(LL_LinkedList*, ES_delete);
+ *	\fn void LL_deleteHead(LL_LinkedList*, EC_delete);
  *	\brief permet de delete la tete de la liste stringe
  *	\param list* un pointeur sur une liste stringe
  *	\param freeElement
  *	\return void
  */
-void LL_deleteHead(LL_LinkedList *list, ES_delete freeElement);
+void LL_deleteHead(LL_LinkedList *list, EC_delete freeElement);
 
 /**
- *	\fn void LL_delete(LL_LinkedList* list, ES_delete);
+ *	\fn void LL_delete(LL_LinkedList* list, EC_delete);
  *	\brief permet de delete un element de la liste
  *	\param *list un pointeur sur une liste stringe
  *	\param freeElement
  *	\return void
  */
-void LL_delete(LL_LinkedList *list, ES_delete freeElement);
+void LL_delete(LL_LinkedList *list, EC_delete freeElement);
 
 /**
  *	\fn LL_LinkedList LL_copy(LL_LinkedList, EC_copy);
@@ -127,7 +127,7 @@ void LL_delete(LL_LinkedList *list, ES_delete freeElement);
 LL_LinkedList LL_copy(LL_LinkedList list, EC_copy copyElement);
 
 /**
- *	\fn int LL_equals(LL_LinkedList, LL_LinkedList, ES_compare);
+ *	\fn int LL_equals(LL_LinkedList, LL_LinkedList, EC_compare);
  *	\brief permet de savoir si deux listes sont egales
  *	\param list1 une liste stringe
  *	\param list2 une liste ordonne
@@ -135,7 +135,7 @@ LL_LinkedList LL_copy(LL_LinkedList list, EC_copy copyElement);
  *	\return int
  */
 int LL_equals(LL_LinkedList list1, LL_LinkedList list2,
-              ES_compare compareElement);
+              EC_compare compareElement);
 
 /**
  *	\fn int LL_length(LL_LinkedList list);

@@ -10,7 +10,7 @@
 /*#define NDEBUG */
 
 /* private */
-void LL_deleteR(LL_LinkedList *list, ES_delete freeElement) {
+void LL_deleteR(LL_LinkedList *list, EC_delete freeElement) {
   errno = 0;
   if (!LL_isEmpty(*list)) {
     LL_deleteHead(list, freeElement);
@@ -80,7 +80,7 @@ void LL_setNextList(LL_LinkedList *list, LL_LinkedList newtList) {
 }
 
 void LL_setElement(LL_LinkedList *list, void *source, EC_copy copyElement,
-                   ES_delete freeElement) {
+                   EC_delete freeElement) {
   assert(!LL_isEmpty(*list));
   errno = 0;
 
@@ -96,7 +96,7 @@ void LL_setElement(LL_LinkedList *list, void *source, EC_copy copyElement,
   }
 }
 
-void LL_deleteHead(LL_LinkedList *list, ES_delete freeElement) {
+void LL_deleteHead(LL_LinkedList *list, EC_delete freeElement) {
   LL_LinkedList tmp;
 
   assert(!LL_isEmpty(*list));
@@ -109,7 +109,7 @@ void LL_deleteHead(LL_LinkedList *list, ES_delete freeElement) {
   *list = tmp;
 }
 
-void LL_delete(LL_LinkedList *list, ES_delete freeElement) {
+void LL_delete(LL_LinkedList *list, EC_delete freeElement) {
 
   errno = 0;
   LL_deleteR(list, freeElement);
@@ -132,7 +132,7 @@ LL_LinkedList LL_copy(LL_LinkedList list, EC_copy copyElement) {
 }
 
 int LL_equals(LL_LinkedList list1, LL_LinkedList list2,
-              ES_compare compareElement) {
+              EC_compare compareElement) {
   errno = 0;
 
   if (LL_isEmpty(list1) && LL_isEmpty(list2)) {
