@@ -12,12 +12,13 @@
 
 /**
  *	\typedef N_Node
- *	\brief contient une value char et un booleen pour indique si il est le dernier node  d'une suite de node
+ *	\brief contient une value char et un booleen pour indique si il est le
+ *dernier node  d'une suite de node
  */
-typedef struct
-{
-	char value; /**< value du node, une string de caractères*/
-	int isLast; /**< booleen indiquant si le node est fin ou non d'une suite de nodes*/
+typedef struct {
+  char value; /**< value du node, une string de caractères*/
+  int isLast; /**< booleen indiquant si le node est fin ou non d'une suite de
+                 nodes*/
 } N_Node;
 
 #define N_MEMORY_ERROR 1
@@ -25,7 +26,7 @@ typedef struct
  *	\fn N_Node N_createNode(int, char)
  *	\brief Créer un node et l'initialise sur les values isLast et value
  *	\param isLast int donnant la value de finalité du node
- *	\param value char, value du node 
+ *	\param value char, value du node
  *	\return N_Node*
  */
 N_Node *N_createNode(int isLast, char value);
@@ -42,7 +43,7 @@ int N_isLast(N_Node node);
  *	\fn void N_defineValue(N_Node *n, char *value)
  *	\brief Permet de définir la value d'un node
  *	\param *n le node dont on veut changer la value (pointeur)
- *	\param value la nouvelle value du node
+ *	\param value la new value du node
  *	\return void
  */
 void N_defineValue(N_Node *node, char value);
@@ -51,14 +52,14 @@ void N_defineValue(N_Node *node, char value);
  *	\fn void N_defineEnd(N_Node *n, int isLast)
  *	\brief Permet de défnir la value de isLast
  *	\param *n le node dont on veut changer la value de isLast (pointeur)
- *	\param isLast la nouvelle value de isLast du node
+ *	\param isLast la new value de isLast du node
  *	\return void
  */
 void N_defineEnd(N_Node *node, int isLast);
 
 /**
  *	\fn N_getValue(N_Node n)
- *	\brief	Permet d'get la value d'un node 
+ *	\brief	Permet d'get la value d'un node
  *	\param	n le node cible
  *	\return char
  */
@@ -74,7 +75,8 @@ void N_free(void *node);
 
 /**
  *	\fn N_copy(N_Node*)
- *	\brief Permet de faire la copie d'un node (retourne le node sous le type void*, à transtyper)
+ *	\brief Permet de faire la copie d'un node (retourne le node sous le type
+ *void*, à transtyper)
  *
  *	match avec les typedef de élements collection
  *	\param *n le node à copy
@@ -84,9 +86,12 @@ void *N_copy(void *node);
 
 /**
  *	\fn N_compare(N_Node*, N_Node*)
- *	\brief Compare deux nodes. Ne compare que les strings de caractères des deux nodes
+ *	\brief Compare deux nodes. Ne compare que les strings de caractères des
+ *deux nodes
  *
- *	retourne 0 si les deux nodes sont égaux, un nombre positif si la string de caractère de node1 est lexicographiquement supérieure à celle de node2, un nombre négatif sinon
+ *	retourne 0 si les deux nodes sont égaux, un nombre positif si la string
+ *de caractère de node1 est lexicographiquement supérieure à celle de node2, un
+ *nombre négatif sinon
  *	\param *node1 le premier node à compare (pointeur)
  *	\param *node2 le deuxième node à compare (pointeur)
  *	\return int

@@ -6,46 +6,45 @@
 
 #include <stdio.h>
 
-#include "Word.h"
 #include "BinaryTree.h"
+#include "Word.h"
 #include "elementCollection.h"
-#include "subString.h"
 #include "openFile.h"
+#include "subString.h"
 
-/** 
+/**
  *	\typedef D_Dictionary
  *	\struct BT_BinaryTree
  */
-typedef struct D_Dictionary
-{
-	BT_BinaryTree wordsBT;
-	int size;
+typedef struct D_Dictionary {
+  BT_BinaryTree wordsBT;
+  int size;
 } D_Dictionary;
 
 #define D_MEMORY_ERROR 1
 /**
- *	\fn D_Dictionary D_createDictionary(); 
+ *	\fn D_Dictionary D_createDictionary();
  *	\brief permet de create un dictionary
  *	\return un D_Dictionary
  */
 D_Dictionary D_createDictionary();
 
 /**
- *	\fn int D_wordIsIN (W_Word *word, D_Dictionary dictionaryictionary);
+ *	\fn int D_wordIsIN (W_Word *word, D_Dictionary dictionarytionary);
  *	\brief permet de savoir si un mot est contenu dans le dictionary
  *	\param *word pointeur sur un mot
  *	\param D_Dictionary un dictionary de mots
  *	\return int
  */
-int D_wordIsIN(W_Word *word, D_Dictionary dictionaryictionary);
+int D_wordIsIN(W_Word *word, D_Dictionary dictionarytionary);
 
 /**
- *	\fn int D_size (D_Dictionary dictionaryictionary);
+ *	\fn int D_size (D_Dictionary dictionarytionary);
  *	\brief permet d'get la size du dictionary
  *	\param dictionary un dictionary
  *	\return int
  */
-int D_size(D_Dictionary dictionaryictionary);
+int D_size(D_Dictionary dictionarytionary);
 
 /**
  *	\fn void D_add(W_Word *word, D_Dictionary *dictionary);
@@ -74,16 +73,16 @@ void D_remove(W_Word *word, D_Dictionary *dictionary);
 int D_isEmpty(D_Dictionary *dictionary);
 
 /**
- *	\fn int D_serialize(D_Dictionary dictionaryictionary, FILE* targetFile); 
+ *	\fn int D_serialize(D_Dictionary dictionarytionary, FILE* targetFile);
  *	\brief ecrit le dictionary dans un file
  *	\param dictionary un dictionary
  *	\param *targetFile un pointeur sur un file
  *	\return int
  */
-int D_serialize(D_Dictionary dictionaryictionary, FILE *targetFile);
+int D_serialize(D_Dictionary dictionarytionary, FILE *targetFile);
 
 /**
- *	\fn D_Dictionary D_unserialize(char *pathToFile); 
+ *	\fn D_Dictionary D_unserialize(char *pathToFile);
  *	\brief lit le dictionary depuis un file
  *	\param *pathToFile un pointeur sur le chemin du file
  *	\return D_Dictionary

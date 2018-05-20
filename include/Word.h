@@ -13,8 +13,7 @@
  *	\typedef W_Word
  *	\brief	structure d'un mot, contient le mot et sa length
  */
-typedef struct
-{
+typedef struct {
   char *value; /**< le mot */
   int length;  /**< la length du mot */
 } W_Word;
@@ -23,7 +22,7 @@ typedef struct
 
 /**
  *	\fn W_Word* W_createWord(char *value)
- *	\brief Permet de create un nouveau mot
+ *	\brief Permet de create un new mot
  *	\param *value la string de caractère représentant le mot
  *	\return W_Word*
  */
@@ -67,15 +66,15 @@ void *W_copy(void *word);
 /**
  *	\fn void W_remove(W_Word *wordyWord)
  *	\brief Permet d'effacer la value d'un mot
- *	\param *wordyWord le mot à effacer 
+ *	\param *wordyWord le mot à effacer
  *	\return void
  */
 void W_remove(void *word);
 
 /**
  *	\fn void W_remove(W_Word *wordyWord)
- *	\brief Permet d'effacer un mot 
- *	\param *wordyWord le mot à effacer 
+ *	\brief Permet d'effacer un mot
+ *	\param *wordyWord le mot à effacer
  *	\return void
  */
 void W_delete(void *word);
@@ -83,8 +82,10 @@ void W_delete(void *word);
 /**
  *	\fn int W_compareString(W_Word *word1, W_Word *word2)
  *	\brief Permet de compare deux mot de façon lexicographique
- *	
- *	renvoie 0 si les deux chaînes sont égales, un nombre positif si m1 est lexicographiquement supérieure à m2, et un nombre négatif si m1 est lexicographiquement inférieure à m2
+ *
+ *	renvoie 0 si les deux chaînes sont égales, un nombre positif si m1 est
+ *lexicographiquement supérieure à m2, et un nombre négatif si m1 est
+ *lexicographiquement inférieure à m2
  *	\param *word1 le premier mot à compare (pointeur)
  *	\param *word2 le deuxième mot à compare
  *	\return int
