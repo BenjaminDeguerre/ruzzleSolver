@@ -10,7 +10,7 @@
 #include "BinaryTree.h"
 #include "elementCollection.h"
 #include "subString.h"
-#include "ouvrirFichier.h"
+#include "openFile.h"
 
 /** 
  *	\typedef D_Dictionary
