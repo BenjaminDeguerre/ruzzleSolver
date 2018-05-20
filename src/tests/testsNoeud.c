@@ -1,102 +1,109 @@
 /* Deguerre Benjamin - 28/12/2014 */
 /* Deguerre Benjamin - 28/12/2014 */
 
-
 #include <stdio.h>
 #include <CUnit/Basic.h>
 #include <string.h>
-#include "Noeud.h"
+#include "Node.h"
 #include <CUnit/CUnit.h>
 
-
-int init_suite_success (void) {
-	return 0;
-}
- 
-int clean_suite_success (void) {
+int init_suite_success(void)
+{
 	return 0;
 }
 
-void test_1_Noeud(void){
-	N_Noeud *n = N_creerNoeud(1,'p');
-	CU_ASSERT(n->valeur == 'p');
-	CU_ASSERT(n->estFin);
+int clean_suite_success(void)
+{
+	return 0;
 }
 
-void test_2_Noeud(void){
-	N_Noeud *n = N_creerNoeud(1,'p');
-	char test = N_obtenirValeur(*n);
+void test_1_Node(void)
+{
+	N_Node *n = N_createNode(1, 'p');
+	CU_ASSERT(n->value == 'p');
+	CU_ASSERT(n->isLast);
+}
+
+void test_2_Node(void)
+{
+	N_Node *n = N_createNode(1, 'p');
+	char test = N_getValue(*n);
 	CU_ASSERT_EQUAL(test, 'p');
-
 }
 
-
-void test_3_Noeud(void){
-	N_Noeud *n = N_creerNoeud(1,'a');
-	CU_ASSERT(N_estFin(*n));
+void test_3_Node(void)
+{
+	N_Node *n = N_createNode(1, 'a');
+	CU_ASSERT(N_isLast(*n));
 }
 
-void test_4_Noeud(void){
-	N_Noeud *n = N_creerNoeud(1,'p');
-	N_definirValeur(n,'u');
-	char test = N_obtenirValeur(*n);
-	CU_ASSERT_EQUAL(test,'u');
+void test_4_Node(void)
+{
+	N_Node *n = N_createNode(1, 'p');
+	N_defineValue(n, 'u');
+	char test = N_getValue(*n);
+	CU_ASSERT_EQUAL(test, 'u');
 }
 
-void test_5_Noeud(void){
-	N_Noeud *n = N_creerNoeud(1,'p');
-	N_definirFin(n,0);
-	int test = N_estFin(*n);
+void test_5_Node(void)
+{
+	N_Node *n = N_createNode(1, 'p');
+	N_defineEnd(n, 0);
+	int test = N_isLast(*n);
 	CU_ASSERT_FALSE(test);
 }
 
-
-void test_6_Noeud(void){
-	N_Noeud *n1 = N_creerNoeud(1,'p');
-	N_Noeud *n2 = N_creerNoeud(1,'p');
-	CU_ASSERT(N_comparer(n1, n2) == 0);
+void test_6_Node(void)
+{
+	N_Node *node1 = N_createNode(1, 'p');
+	N_Node *node2 = N_createNode(1, 'p');
+	CU_ASSERT(N_compare(node1, node2) == 0);
 }
 
-void test_7_Noeud(void){
-	N_Noeud *n1 = N_creerNoeud(1,'p');
-	N_Noeud *n2 = N_creerNoeud(1,'a');
-	CU_ASSERT(N_comparer(n1, n2) > 0);
+void test_7_Node(void)
+{
+	N_Node *node1 = N_createNode(1, 'p');
+	N_Node *node2 = N_createNode(1, 'a');
+	CU_ASSERT(N_compare(node1, node2) > 0);
 }
 
-int test_Noeud(CU_pSuite pSuite){
-	return ((NULL == CU_add_test(pSuite, "initialisation d'un noeud, valeur == plop, estFin == 1", test_1_Noeud)) || (NULL == CU_add_test(pSuite, "test fonction N_obtenirValeur", test_2_Noeud)) || (NULL == CU_add_test(pSuite, "test fonction N_estFin", test_3_Noeud)) || (NULL == CU_add_test(pSuite, "test fonction N_definirValeur", test_4_Noeud)) || (NULL == CU_add_test(pSuite, "test fonction N_definirFin", test_5_Noeud)) || (NULL == CU_add_test(pSuite, "test fonction N_comparer (vrai)", test_6_Noeud)) || (NULL == CU_add_test(pSuite, "test fonction N_comparer (faux)", test_7_Noeud)));
+int test_Node(CU_pSuite pSuite)
+{
+	return ((NULL == CU_add_test(pSuite, "initialisation d'un node, value == plop, isLast == 1", test_1_Node)) || (NULL == CU_add_test(pSuite, "test fonction N_getValue", test_2_Node)) || (NULL == CU_add_test(pSuite, "test fonction N_isLast", test_3_Node)) || (NULL == CU_add_test(pSuite, "test fonction N_defineValue", test_4_Node)) || (NULL == CU_add_test(pSuite, "test fonction N_defineEnd", test_5_Node)) || (NULL == CU_add_test(pSuite, "test fonction N_compare (vrai)", test_6_Node)) || (NULL == CU_add_test(pSuite, "test fonction N_compare (faux)", test_7_Node)));
 }
 
-int main(){
-	
+int main()
+{
+
 	CU_pSuite pSuite = NULL;
-	
+
 	/* initialisation du registre de test */
 	if (CUE_SUCCESS != CU_initialize_registry())
 		return CU_get_error();
-		
+
 	/* ajout d’une suite de test */
-	pSuite = CU_add_suite("Tests boite blanche", init_suite_success , clean_suite_success ) ;
-	if (NULL == pSuite) {
-		CU_cleanup_registry () ;
-		return CU_get_error () ;
-	}
-	
-	/* ajout des tests à la suite de tests*/
-	if (test_Noeud(pSuite)){
+	pSuite = CU_add_suite("Tests boite blanche", init_suite_success, clean_suite_success);
+	if (NULL == pSuite)
+	{
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
-		
+
+	/* ajout des tests à la suite de tests*/
+	if (test_Node(pSuite))
+	{
+		CU_cleanup_registry();
+		return CU_get_error();
+	}
+
 	/* Lancement des tests */
-	CU_basic_set_mode(CU_BRM_VERBOSE);
+	CU_basic_set_mode(CU_BRW_VERBOSE);
 	CU_basic_run_tests();
 	printf("\n");
-	CU_basic_show_failures(CU_get_failure_list()) ;
+	CU_basic_show_failures(CU_get_failure_list());
 	printf("\n\n");
-	
+
 	/*Netoyage du registre */
 	CU_cleanup_registry();
 	return CU_get_error();
-
 }

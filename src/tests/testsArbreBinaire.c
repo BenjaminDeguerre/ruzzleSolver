@@ -39,7 +39,7 @@ void test_5_BinaryTree(void){
 }
 
 int test_BinaryTree(CU_pSuite pSuite){
-	return ((NULL == CU_add_test(pSuite, "C_estVide(C_creerCase() == 1", test_1_BinaryTree)) || (NULL == CU_add_test(pSuite, "C_obtenirLettre(C_definirCase(c,b2MD) == b", test_2_BinaryTree)) || (NULL == CU_add_test(pSuite, "C_definirCase(c,b2MD) == 2 ", test_3_BinaryTree)) || (NULL == CU_add_test(pSuite, "C_definirCase(c,b2MD) == MD", test_4_BinaryTree)) || (NULL == CU_add_test(pSuite, "C_definirCase(c,b2MD) == MD", test_5_BinaryTree)));
+	return ((NULL == CU_add_test(pSuite, "S_isEmpty(S_createSquare() == 1", test_1_BinaryTree)) || (NULL == CU_add_test(pSuite, "S_getLetter(S_defineSquare(c,b2MD) == b", test_2_BinaryTree)) || (NULL == CU_add_test(pSuite, "S_defineSquare(c,b2MD) == 2 ", test_3_BinaryTree)) || (NULL == CU_add_test(pSuite, "S_defineSquare(c,b2MD) == MD", test_4_BinaryTree)) || (NULL == CU_add_test(pSuite, "S_defineSquare(c,b2MD) == MD", test_5_BinaryTree)));
 }
 
 
@@ -65,7 +65,7 @@ int main () {
 	}
 		
 	/* Lancement des tests */
-	CU_basic_set_mode(CU_BRM_VERBOSE);
+	CU_basic_set_mode(CU_BRW_VERBOSE);
 	CU_basic_run_tests();
 	printf("\n");
 	CU_basic_show_failures(CU_get_failure_list()) ;

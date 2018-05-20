@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <CUnit/Basic.h>
 #include <string.h>
-#include "obtenirCombinaison.h"
+#include "getCombinaison.h"
 
 
 int init_suite_success (void) {
@@ -18,28 +18,28 @@ int clean_suite_success (void) {
 	return 0;
 }
 
-void test_1_obtenirCombinaison(void){
+void test_1_getCombinaison(void){
 
 }
 
-void test_2_obtenirCombinaison(void){
+void test_2_getCombinaison(void){
 	
 }
 
-void test_3_obtenirCombinaison(void){
+void test_3_getCombinaison(void){
 	
 }
 
-void test_4_obtenirCombinaison(void){
+void test_4_getCombinaison(void){
 	
 }
 
-void test_5_obtenirCombinaison(void){
+void test_5_getCombinaison(void){
 	
 }
 
-int test_obtenirCombinaison(CU_pSuite pSuite){
-	return ((NULL == CU_add_test(pSuite, "C_estVide(C_creerCase() == 1", test_1_obtenirCombinaison)) || (NULL == CU_add_test(pSuite, "C_obtenirLettre(C_definirCase(c,b2MD) == b", test_2_obtenirCombinaison)) || (NULL == CU_add_test(pSuite, "C_definirCase(c,b2MD) == 2 ", test_3_obtenirCombinaison)) || (NULL == CU_add_test(pSuite, "C_definirCase(c,b2MD) == MD", test_4_obtenirCombinaison)) || (NULL == CU_add_test(pSuite, "C_definirCase(c,b2MD) == MD", test_5_obtenirCombinaison)));
+int test_getCombinaison(CU_pSuite pSuite){
+	return ((NULL == CU_add_test(pSuite, "S_isEmpty(S_createSquare() == 1", test_1_getCombinaison)) || (NULL == CU_add_test(pSuite, "S_getLetter(S_defineSquare(c,b2MD) == b", test_2_getCombinaison)) || (NULL == CU_add_test(pSuite, "S_defineSquare(c,b2MD) == 2 ", test_3_getCombinaison)) || (NULL == CU_add_test(pSuite, "S_defineSquare(c,b2MD) == MD", test_4_getCombinaison)) || (NULL == CU_add_test(pSuite, "S_defineSquare(c,b2MD) == MD", test_5_getCombinaison)));
 }
 
 
@@ -59,13 +59,13 @@ int main () {
 	}
 	
 	/* ajout des tests à la suite de tests boite noire */
-	if (test_obtenirCombinaison(pSuite)){
+	if (test_getCombinaison(pSuite)){
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
 		
 	/* Lancement des tests */
-	CU_basic_set_mode(CU_BRM_VERBOSE);
+	CU_basic_set_mode(CU_BRW_VERBOSE);
 	CU_basic_run_tests();
 	printf("\n");
 	CU_basic_show_failures(CU_get_failure_list()) ;

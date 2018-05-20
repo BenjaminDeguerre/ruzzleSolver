@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <CUnit/Basic.h>
 #include <string.h>
-#include "estUneSolution.h"
+#include "isSolution.h"
 
 
 int init_suite_success (void) {
@@ -18,28 +18,28 @@ int clean_suite_success (void) {
 	return 0;
 }
 
-void test_1_estUneSolution(void){
+void test_1_isSolution(void){
 
 }
 
-void test_2_estUneSolution(void){
+void test_2_isSolution(void){
 	
 }
 
-void test_3_estUneSolution(void){
+void test_3_isSolution(void){
 	
 }
 
-void test_4_estUneSolution(void){
+void test_4_isSolution(void){
 	
 }
 
-void test_5_estUneSolution(void){
+void test_5_isSolution(void){
 	
 }
 
-int test_estUneSolution(CU_pSuite pSuite){
-	return ((NULL == CU_add_test(pSuite, "C_estVide(C_creerCase() == 1", test_1_estUneSolution)) || (NULL == CU_add_test(pSuite, "C_obtenirLettre(C_definirCase(c,b2MD) == b", test_2_estUneSolution)) || (NULL == CU_add_test(pSuite, "C_definirCase(c,b2MD) == 2 ", test_3_estUneSolution)) || (NULL == CU_add_test(pSuite, "C_definirCase(c,b2MD) == MD", test_4_estUneSolution)) || (NULL == CU_add_test(pSuite, "C_definirCase(c,b2MD) == MD", test_5_estUneSolution)));
+int test_isSolution(CU_pSuite pSuite){
+	return ((NULL == CU_add_test(pSuite, "S_isEmpty(S_createSquare() == 1", test_1_isSolution)) || (NULL == CU_add_test(pSuite, "S_getLetter(S_defineSquare(c,b2MD) == b", test_2_isSolution)) || (NULL == CU_add_test(pSuite, "S_defineSquare(c,b2MD) == 2 ", test_3_isSolution)) || (NULL == CU_add_test(pSuite, "S_defineSquare(c,b2MD) == MD", test_4_isSolution)) || (NULL == CU_add_test(pSuite, "S_defineSquare(c,b2MD) == MD", test_5_isSolution)));
 }
 
 
@@ -59,13 +59,13 @@ int main () {
 	}
 	
 	/* ajout des tests à la suite de tests boite noire */
-	if (test_estUneSolution(pSuite)){
+	if (test_isSolution(pSuite)){
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
 		
 	/* Lancement des tests */
-	CU_basic_set_mode(CU_BRM_VERBOSE);
+	CU_basic_set_mode(CU_BRW_VERBOSE);
 	CU_basic_run_tests();
 	printf("\n");
 	CU_basic_show_failures(CU_get_failure_list()) ;

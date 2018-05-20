@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <CUnit/Basic.h>
 #include <string.h>
-#include "Case.h"
+#include "Square.h"
 
 
 int init_suite_success (void) {
@@ -18,51 +18,51 @@ int clean_suite_success (void) {
 	return 0;
 }
 
-void test_1_Case(void){
-	C_Case *c = C_creerCase();
-	CU_ASSERT_TRUE(C_estVide(*c) == 1);
-	C_supprimer((void*)c);
+void test_1_Square(void){
+	S_SQUARE *square = S_createSquare();
+	CU_ASSERT_TRUE(S_isEmpty(*square) == 1);
+	S_delete((void*)c);
 }
 
-void test_2_Case(void){
-	C_Case *c = C_creerCase();
-	C_definirCase(c,"b2MD",1);
-	CU_ASSERT_TRUE(C_obtenirLettre(*c) == 'b');
-	C_supprimer((void*)c);
+void test_2_Square(void){
+	S_SQUARE *square = S_createSquare();
+	S_defineSquare(c,"b2MD",1);
+	CU_ASSERT_TRUE(S_getLetter(*square) == 'b');
+	S_delete((void*)c);
 }
 
-void test_3_Case(void){
-	C_Case *c = C_creerCase();
-	C_definirCase(c,"b2MD",1);
-	CU_ASSERT_TRUE(C_obtenirNombrePoints(*c) == '2' );
-	C_supprimer((void*)c);
+void test_3_Square(void){
+	S_SQUARE *square = S_createSquare();
+	S_defineSquare(c,"b2MD",1);
+	CU_ASSERT_TRUE(S_getPointsNumber(*square) == '2' );
+	S_delete((void*)c);
 }
 
-void test_4_Case(void){
-	C_Case *c = C_creerCase();
-	C_definirCase(c,"b2MD",1);
-	char* test = C_obtenirBonus(*c);
+void test_4_Square(void){
+	S_SQUARE *square = S_createSquare();
+	S_defineSquare(c,"b2MD",1);
+	char* test = S_getBonus(*square);
 	CU_ASSERT_STRING_EQUAL(test, "MD" );
-	C_supprimer((void*)c);
+	S_delete((void*)c);
 	free(test);
 }
 
-void test_5_Case(void){
-	C_Case *c1 = C_creerCase(), *c2 = C_creerCase();
-	C_definirCase(c1,"b2MD",1);
-	c2 = (C_Case*)C_copier((void*)c1);
-	char* test1 = C_obtenirBonus(*c1);
-	char* test2 = C_obtenirBonus(*c2);
+void test_5_Square(void){
+	S_SQUARE *square1 = S_createSquare(), *square2 = S_createSquare();
+	S_defineSquare(c1,"b2MD",1);
+	c2 = (S_SQUARE*)S_copy((void*)c1);
+	char* test1 = S_getBonus(*square1);
+	char* test2 = S_getBonus(*square2);
 	CU_ASSERT_STRING_EQUAL(test1,test2);
-	CU_ASSERT_TRUE(C_obtenirPosition(*c1) == C_obtenirPosition(*c2));
-	C_supprimer((void*)c1);
-	C_supprimer((void*)c2);
+	CU_ASSERT_TRUE(S_getPosition(*square1) == S_getPosition(*square2));
+	S_delete((void*)c1);
+	S_delete((void*)c2);
 	free(test1);
 	free(test2);
 }
 
-int test_Case(CU_pSuite pSuite){
-	return ((NULL == CU_add_test(pSuite, "C_estVide(C_creerCase() == 1", test_1_Case)) || (NULL == CU_add_test(pSuite, "C_obtenirLettre(C_definirCase(c,b2MD) == b", test_2_Case)) || (NULL == CU_add_test(pSuite, "C_definirCase(c,b2MD) == 2 ", test_3_Case)) || (NULL == CU_add_test(pSuite, "C_definirCase(c,b2MD) == MD", test_4_Case)) || (NULL == CU_add_test(pSuite, "C_copier", test_5_Case)));
+int test_Square(CU_pSuite pSuite){
+	return ((NULL == CU_add_test(pSuite, "S_isEmpty(S_createSquare() == 1", test_1_Square)) || (NULL == CU_add_test(pSuite, "S_getLetter(S_defineSquare(c,b2MD) == b", test_2_Square)) || (NULL == CU_add_test(pSuite, "S_defineSquare(c,b2MD) == 2 ", test_3_Square)) || (NULL == CU_add_test(pSuite, "S_defineSquare(c,b2MD) == MD", test_4_Square)) || (NULL == CU_add_test(pSuite, "S_copy", test_5_Square)));
 }
 
 
@@ -82,13 +82,13 @@ int main () {
 	}
 	
 	/* ajout des tests à la suite de tests boite noire */
-	if (test_Case(pSuite)){
+	if (test_Square(pSuite)){
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
 		
 	/* Lancement des tests */
-	CU_basic_set_mode(CU_BRM_VERBOSE);
+	CU_basic_set_mode(CU_BRW_VERBOSE);
 	CU_basic_run_tests();
 	printf("\n");
 	CU_basic_show_failures(CU_get_failure_list()) ;
