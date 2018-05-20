@@ -3,10 +3,9 @@
 
 #include "isSolution.h"
 
-int isSolution(D_Dictionary *dictionary, char *stringToTest)
-{
-	W_Word *word = W_createWord(stringToTest);
-	int res = D_wordIsIN(m, *dictionary);
-	W_delete(m);
-	return res;
+int isSolution(D_Dictionary *dictionary, char *stringToTest) {
+  W_Word *word = W_createWord(stringToTest);
+  int res = D_wordIsIN(word, *dictionary);
+  W_delete(word);
+  return res;
 }
