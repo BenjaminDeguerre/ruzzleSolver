@@ -12,28 +12,28 @@
 /* partie publique */
 
 
-#include "sousChaine.h"
+#include "subString.h"
 #include <assert.h>
 #include <string.h>
 #include <errno.h>
 #include <stdlib.h>
 	
-char *sousChaine(char *ch, int debut, int fin) {
-	char *res = malloc(sizeof(char)*(fin - debut + 2));
-	res[fin-debut+1] = '\0';
+char *subString(char *string, int begin, int end) {
+	char *res = malloc(sizeof(char)*(end - begin + 2));
+	res[end-begin+1] = '\0';
 	int i;
 	
-	assert(fin >= debut);
-	assert(fin <= strlen(ch));
-	assert(debut >= 0);
+	assert(end >= begin);
+	assert(end <= strlen(string));
+	assert(begin >= 0);
 	
 	if (res == NULL) {
    		errno = 1;
     	exit(errno);
   	}
 
-	for (i = debut; i <= fin; i++){
-		res[i-debut] = ch[i];					
+	for (i = begin; i <= end; i++){
+		res[i-begin] = string[i];					
 	}
 
 	return res;	
