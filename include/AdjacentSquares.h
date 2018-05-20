@@ -38,7 +38,7 @@ AS_AdjacentSquares *AS_createAdjacentSquares();
 
 /**
  *	\fn LL_LinkedList AS_getPossibleNeighbours(G_Grid *grid, AS_AdjacentSquares *adjacentSquare)
- *	\brief Permet d'get tout les cases voisins possible de la dernière case
+ *	\brief Permet d'get tout les cases neighbourgs possible de la dernière case
  *
  *	Les cases déjà préssentes dans la suite de cases contigues ne seront pas renvoyées
  *	\param *grid la grille dans laquelle se trouve la case (pointeur)
