@@ -305,14 +305,14 @@ int D_serialize(D_Dictionary dictionary, FILE *targetFile)
 D_Dictionary D_unserialize(char *pathToFile)
 {
   D_Dictionary dictionary = D_createDictionary();
-  FILE *fileEntree = fopen(pathToFIle, "r+");
+  FILE *inputFile = fopen(pathToFIle, "r+");
 
-  if (fileEntree == NULL)
+  if (inputFile == NULL)
   {
     fprintf(stderr, "\tERROR : impossible to open %s, check if the file exists and the permission on it.\n\t (Dictionary.c)\n", pathToFIle);
     exit(1);
   }
-  unserializeTree(fileEntree, &(dictionary.wordsBT));
+  unserializeTree(inputFile, &(dictionary.wordsBT));
 
   return d;
 }
