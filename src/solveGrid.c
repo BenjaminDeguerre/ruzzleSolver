@@ -27,7 +27,7 @@ void solveGridRecurrent(D_Dictionary dictionary, G_Grid grid,
 
   int i, position;
   S_SQUARE *newSquare;
-  usedSquare[S_getPosition(c)] = 1;
+  usedSquare[S_getPosition(square)] = 1;
   char *newWordToTest = append(wordToTest, S_getLetter(square));
 
   AS_addSquare(adjacentSquare, &square);
@@ -56,7 +56,7 @@ void solveGridRecurrent(D_Dictionary dictionary, G_Grid grid,
         for (int j = 0; j < G_LENGTH; j++) {
           tmpSquareUsed[j] = usedSquare[j];
         }
-        solveGridRecurrent(dictionary, g, tmpSquareUsed, *newSquare,
+        solveGridRecurrent(dictionary, grid, tmpSquareUsed, *newSquare,
                            newWordToTest, l, adjacentSquare);
         AS_deleteSquare(adjacentSquare);
         free(tmpSquareUsed);
