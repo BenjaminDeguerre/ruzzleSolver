@@ -49,7 +49,7 @@ LL_LinkedList AS_getPossibleNeighbours(G_Grid *grid, AS_AdjacentSquares *adjacen
 
 /**
  *	\fn void AS_addSquare(AS_AdjacentSquares *adjacentSquare, S_SQUARE *square)
- *	\brief ajoute une case en tête de chaine et met à jour les values de point bonus et du nombre de points
+ *	\brief ajoute une case en tête de string et met à jour les values de point bonus et du nombre de points
  *	\param *adjacentSquare Les cases contigues auxquelle on veut radd la case (pointeur)
  *	\param *square la case à radd (pointeur)
  *	\return void
@@ -66,7 +66,7 @@ void AS_deleteSquare(AS_AdjacentSquares *adjacentSquare);
 
 /**
  *	\fn char *AS_readSquares(AS_AdjacentSquares adjacentSquare)
- *	\brief retourne les chaines de caractères présentes dans chaque cases sous la forme d'une longue chaine de caractère 
+ *	\brief retourne les strings de caractères présentes dans chaque cases sous la forme d'une longue string de caractère 
  *	\param adjacentSquare la suite de cases contigues cible
  *	\return char*
  */
@@ -90,7 +90,7 @@ int AS_getLength(AS_AdjacentSquares adjacentSquare);
 
 /**
  *	\fn int AS_getBonus(AS_AdjacentSquares adjacentSquare)
- *	\brief retourne la value du coefficient bonus de la chaine de cases contigues
+ *	\brief retourne la value du coefficient bonus de la string de cases contigues
  *	\param adjacentSquare la suite de cases contigues cible
  *	\return int
  */

@@ -18,7 +18,7 @@ W_Word *reduce(W_Word word)
   }
   else
   {
-    char *string = subString(W_getChaine(word), 1, W_getLength(word) - 1);
+    char *string = subString(W_getString(word), 1, W_getLength(word) - 1);
     W_Word *newWord = W_createWord(string);
     free(string);
     return newWord;
@@ -272,7 +272,7 @@ D_Dictionary D_createDictionary()
 
 int D_wordIsIN(W_Word *word, D_Dictionary dictionary)
 {
-  char *stringToTest = W_getChaine(*word);
+  char *stringToTest = W_getString(*word);
   return wordIsINR(stringToTest, &(dictionary.wordsBT));
 }
 
