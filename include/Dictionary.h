@@ -84,7 +84,7 @@ int D_serialize(D_Dictionary dictionaryictionary, FILE *targetFile);
 
 /**
  *	\fn D_Dictionary D_unserialize(char *pathToFile); 
- *	\brief lit le dico depuis un file
+ *	\brief lit le dictionary depuis un file
  *	\param *pathToFile un pointeur sur le chemin du file
  *	\return D_Dictionary
  */
