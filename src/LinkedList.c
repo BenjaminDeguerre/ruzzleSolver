@@ -46,7 +46,7 @@ int LL_isEmpty(LL_LinkedList list) {
   return (list->element == NULL) && (list->newtLinkedList == NULL);
 }
 
-void LL_add(LL_LinkedList *list, void *source, ES_copy copyElement) {
+void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement) {
   LL_LinkedList pNode = (LL_LinkedList)malloc(sizeof(LL_Node));
   void *donnee = copyElement(source);
   if ((pNode != NULL) || (donnee != NULL)) {
@@ -79,7 +79,7 @@ void LL_setNextList(LL_LinkedList *list, LL_LinkedList newtList) {
   (*list)->newtLinkedList = newtList;
 }
 
-void LL_setElement(LL_LinkedList *list, void *source, ES_copy copyElement,
+void LL_setElement(LL_LinkedList *list, void *source, EC_copy copyElement,
                    ES_delete freeElement) {
   assert(!LL_isEmpty(*list));
   errno = 0;
@@ -116,7 +116,7 @@ void LL_delete(LL_LinkedList *list, ES_delete freeElement) {
   free(*list);
 }
 
-LL_LinkedList LL_copy(LL_LinkedList list, ES_copy copyElement) {
+LL_LinkedList LL_copy(LL_LinkedList list, EC_copy copyElement) {
   LL_LinkedList tmp;
 
   errno = 0;

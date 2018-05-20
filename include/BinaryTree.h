@@ -104,7 +104,7 @@ N_Node *BT_getRoot(BT_BinaryTree myBT);
  *par le node
  *	\return void
  */
-void BT_deleteRoot(BT_BinaryTree *myBT BT_BinaryTree *leftChild,
+void BT_deleteRoot(BT_BinaryTree *myBT, BT_BinaryTree *leftChild,
                    BT_BinaryTree *rightChild, EC_delete freeNode);
 
 /**
@@ -115,7 +115,7 @@ void BT_deleteRoot(BT_BinaryTree *myBT BT_BinaryTree *leftChild,
  *par le node
  *	\return void
  */
-void BT_delete(BT_BinaryTree *a, EC_delete freeNode);
+void BT_delete(BT_BinaryTree *tree, EC_delete freeNode);
 
 /**
  *	\fn BT_BinaryTree* BT_getRightChild(BT_BinaryTree *mySBR)
@@ -133,7 +133,7 @@ BT_BinaryTree BT_getRightChild(BT_BinaryTree mySBR);
  */
 BT_BinaryTree BT_getLeftChild(BT_BinaryTree mySBR);
 
-void BT_setIsProcessed(BT_BinaryTree *myBT int processed);
+void BT_setIsProcessed(BT_BinaryTree *myBT, int processed);
 
 int BT_isProcessed(BT_BinaryTree *myBT);
 

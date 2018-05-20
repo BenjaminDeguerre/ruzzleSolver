@@ -49,7 +49,7 @@ int LL_newtListIsNull(LL_LinkedList list);
 int LL_isEmpty(LL_LinkedList list);
 
 /**
- *	\fn void LL_add(LL_LinkedList* , void* source, ES_copy copyElement);
+ *	\fn void LL_add(LL_LinkedList* , void* source, EC_copy copyElement);
  *	\brief permet d'add un element en tête de liste, après la fonction, list
  *pointe sur le nouvel élément
  *	\param *list un pointeur sur une liste stringe
@@ -57,7 +57,7 @@ int LL_isEmpty(LL_LinkedList list);
  *	\param fonction pour copy l'element
  *	\return void
  */
-void LL_add(LL_LinkedList *list, void *source, ES_copy copyElement);
+void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement);
 
 /**
  *	\fn void* LL_getElement(LL_LinkedList);
@@ -85,7 +85,7 @@ LL_LinkedList LL_getNextList(LL_LinkedList list);
 void LL_setNextList(LL_LinkedList *list, LL_LinkedList newtList);
 
 /**
- *	\fn	void LL_setElement(LL_LinkedList*, void*, ES_copy, ES_delete)
+ *	\fn	void LL_setElement(LL_LinkedList*, void*, EC_copy, ES_delete)
  *	\brief	Permet de set un element sur une liste NON VIDE
  *
  * Si ES_delete utilise free, si un élément a été radd d'une manière autre
@@ -96,7 +96,7 @@ void LL_setNextList(LL_LinkedList *list, LL_LinkedList newtList);
  *	\param freeElement la fonction de suppression de l'élément
  *	\return void
  */
-void LL_setElement(LL_LinkedList *list, void *source, ES_copy copyElement,
+void LL_setElement(LL_LinkedList *list, void *source, EC_copy copyElement,
                    ES_delete freeElement);
 
 /**
@@ -118,13 +118,13 @@ void LL_deleteHead(LL_LinkedList *list, ES_delete freeElement);
 void LL_delete(LL_LinkedList *list, ES_delete freeElement);
 
 /**
- *	\fn LL_LinkedList LL_copy(LL_LinkedList, ES_copy);
+ *	\fn LL_LinkedList LL_copy(LL_LinkedList, EC_copy);
  *	\brief
  *	\param list une liste stringe
  *	\param copyElement
  *	\return LL_LinkedList
  */
-LL_LinkedList LL_copy(LL_LinkedList list, ES_copy copyElement);
+LL_LinkedList LL_copy(LL_LinkedList list, EC_copy copyElement);
 
 /**
  *	\fn int LL_equals(LL_LinkedList, LL_LinkedList, ES_compare);
