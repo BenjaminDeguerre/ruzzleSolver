@@ -100,10 +100,10 @@ void AS_addSquare(AS_AdjacentSquares *adjacentSquare, S_SQUARE *square)
 {
 
 	char *Bonus = S_getBonus(*square);
-	int vBonusMot = AS_getValueBonusWord(Bonus);
+	int vBonusWord = AS_getValueBonusWord(Bonus);
 	int vBonusLetter = AS_getValueBonusLetter(Bonus);
 	LL_add(&(adjacentSquare->linkedList), (void *)c, S_copy);
-	AS_setBonus(adjacentSquare, AS_getBonus(*adjacentSquare) + vBonusMot);
+	AS_setBonus(adjacentSquare, AS_getBonus(*adjacentSquare) + vBonusWord);
 	if (vBonusLetter == 0)
 	{
 		AS_setNbPoints(adjacentSquare, AS_getNumberOfPoints(*adjacentSquare) + S_getPointsNumber(*square) - 48);
@@ -120,8 +120,8 @@ void AS_deleteSquare(AS_AdjacentSquares *adjacentSquare)
 
 	S_SQUARE *square = AS_getSquare(adjacentSquare, 1);
 	int vBonusLetter = AS_getValueBonusLetter(S_getBonus(*square));
-	int vBonusMot = AS_getValueBonusWord(S_getBonus(*square));
-	AS_setBonus(adjacentSquare, AS_getBonus(*adjacentSquare) - vBonusMot);
+	int vBonusWord = AS_getValueBonusWord(S_getBonus(*square));
+	AS_setBonus(adjacentSquare, AS_getBonus(*adjacentSquare) - vBonusWord);
 
 	if (vBonusLetter == 0)
 	{
