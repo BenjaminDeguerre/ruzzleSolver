@@ -1,7 +1,7 @@
 /*Michel Cressant 11/12/2014*/
 
 /** \file createGridToSolve.h
- *	\brief Contient la fonction qui permet de create la grille à resoudre
+ *	\brief Contient la fonction qui permet de create la grille à solve
  *	\version 1.0
  *	\date 26/12/2014
  */
