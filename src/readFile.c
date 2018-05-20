@@ -5,27 +5,23 @@
 
 #include "readFile.h"
 
-D_Dictionary readFile(FILE *file)
-{
-	D_Dictionary dictionary = D_createDictionary();
-	char *string = (char*)malloc(100 * sizeof(char));
+D_Dictionary readFile(FILE *file) {
+  D_Dictionary dictionary = D_createDictionary();
+  char *string = (char *)malloc(100 * sizeof(char));
 
-	while (fscanf(file, "%s", string) == 1)
-	{
-		if (strcmp(string, "Internet") != 0)
-		{
-			if (strcmp(string, "Länder") == 0)
-			{
-				string = "Lander";
-			}
+  while (fscanf(file, "%s", string) == 1) {
+    if (strcmp(string, "Internet") != 0) {
+      if (strcmp(string, "Länder") == 0) {
+        string = "Lander";
+      }
 
-			W_Word *word = W_createWord(ch);
-			D_add(word, &dictionary);
-			W_delete((void *)word);
-		}
-	}
+      W_Word *word = W_createWord(string);
+      D_add(word, &dictionary);
+      W_delete((void *)word);
+    }
+  }
 
-	free(string);
+  free(string);
 
-	return dictionary;
+  return dictionary;
 }
