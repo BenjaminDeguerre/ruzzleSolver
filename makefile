@@ -16,13 +16,13 @@ all : ruzzleSolver transcode tests
 transcode : $(BINDIR)/$(EXECTRANSCODE)
 
 $(BINDIR)/$(EXECTRANSCODE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.a $(LIBDIR)/libsearchbinarytree.a $(SRCDIR)/mainTranscode.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/subString.o $(SRCDIR)/transcode.o
-	$(CC) -o $@ $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/subString.o $(SRCDIR)/transcode.o $(SRCDIR)/mainTranscode.o $(LDFLAGS) -ldictionary -larbrebinairederecherche -llisteordonnee
+	$(CC) -o $@ $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/subString.o $(SRCDIR)/transcode.o $(SRCDIR)/mainTranscode.o $(LDFLAGS) -ldictionary -lsearchbinarytree -lorderedlist
 
 #ruzzleSolver
 ruzzleSolver : $(BINDIR)/$(EXECRUZZLE)
 
 $(BINDIR)/$(EXECRUZZLE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.a $(LIBDIR)/libsearchbinarytree.a $(SRCDIR)/Square.o $(SRCDIR)/AdjacentSquares.o $(SRCDIR)/Grid.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/subString.o $(SRCDIR)/isSolution.o
-	$(CC) -o $@ $(SRCDIR)/Square.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/AdjacentSquares.o $(SRCDIR)/Grid.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/subString.o $(SRCDIR)/isSolution.o $(LDFLAGS) -ldictionary -larbrebinairederecherche -llisteordonnee
+	$(CC) -o $@ $(SRCDIR)/Square.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/AdjacentSquares.o $(SRCDIR)/Grid.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/subString.o $(SRCDIR)/isSolution.o $(LDFLAGS) -ldictionary -lsearchbinarytree -lorderedlist
 
 $(LIBDIR)/libdictionary.a : $(SRCDIR)/Dictionary.o $(SRCDIR)/Word.o
 	$(AR) -r $@ $^
@@ -72,12 +72,12 @@ $(TESTDIR)/testsWord : $(SRCDIR)/$(TESTDIR)/testsWord.o $(SRCDIR)/Word.o $(SRCDI
 testsAdjacentSquares : $(TESTDIR)/testsAdjacentSquares
 
 $(TESTDIR)/testsAdjacentSquares : $(SRCDIR)/$(TESTDIR)/testsAdjacentSquares.o $(SRCDIR)/AdjacentSquares.o $(SRCDIR)/Square.o $(SRCDIR)/Grid.o
-	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsAdjacentSquares.o $(SRCDIR)/AdjacentSquares.o $(SRCDIR)/Grid.o $(SRCDIR)/Square.o -lcunit -llisteordonnee
+	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsAdjacentSquares.o $(SRCDIR)/AdjacentSquares.o $(SRCDIR)/Grid.o $(SRCDIR)/Square.o -lcunit -lorderedlist
 	
 testsLinkedList : $(TESTDIR)/testsLinkedList
 
 $(TESTDIR)/testsLinkedList : $(SRCDIR)/$(TESTDIR)/testsLinkedList.o $(SRCDIR)/Word.o 
-	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsLinkedList.o $(SRCDIR)/Word.o -lcunit -llisteordonnee
+	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsLinkedList.o $(SRCDIR)/Word.o -lcunit -lorderedlist
 
 $(SRCDIR)/$(TESTDIR)/%.o : $(SRCDIR)/$(TESTDIR)/%.c
 	$(CC) -o $@ -c $< $(CFLAGS)
