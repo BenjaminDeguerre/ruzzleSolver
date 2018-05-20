@@ -12,21 +12,21 @@ G_Grid G_createGrid(char *arrayParameters[G_LENGTH]) {
   int i;
 
   for (i = 0; i < G_LENGTH; i++) {
-    S_defineSquare(c, arrayParameters[i], i);
-    grille.arraySquares[i] = *square;
+    S_defineSquare(square, arrayParameters[i], i);
+    grid.arraySquares[i] = *square;
   }
 
-  S_delete(c);
-  return grille;
+  S_delete(square);
+  return grid;
 }
 
 S_SQUARE G_getSquare(G_Grid grid, int squareNumber) {
-  return g.arraySquares[squareNumber];
+  return grid.arraySquares[squareNumber];
 }
 
 LL_LinkedList G_getNeighbours(G_Grid grid, S_SQUARE square) {
 
-  int squareNumber = S_getPosition(c);
+  int squareNumber = S_getPosition(square);
   LL_LinkedList linkedList = LL_createLinkedList();
   int neighbours[8] = {-1, -1, -1, -1, -1, -1, -1, -1};
   int i;
@@ -57,7 +57,7 @@ LL_LinkedList G_getNeighbours(G_Grid grid, S_SQUARE square) {
 
   for (i = 0; i < 8; i++) {
     if ((neighbours[i] >= 0) && (neighbours[i] < G_LENGTH)) {
-      *neighbour = G_getSquare(g, neighbours[i]);
+      *neighbour = G_getSquare(grid, neighbours[i]);
       LL_add(&linkedList, neighbour, S_copy);
     }
   }

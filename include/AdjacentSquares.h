@@ -48,7 +48,7 @@ AS_AdjacentSquares *AS_createAdjacentSquares();
  *
  *	Les cases déjà préssentes dans la suite de cases contigues ne seront pas
  *renvoyées
- *	\param *grid la grille dans laquelle se trouve la case (pointeur)
+ *	\param *grid la grid dans laquelle se trouve la case (pointeur)
  *	\param *adjacentSquare les cases contigues (pointeur)
  *	\return LL_LinkedList
  */

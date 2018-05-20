@@ -12,12 +12,12 @@
 /**
  *	\typedef S_SQUARE
  *	\brief Structure Square, contient une string de caractère ainsi que ça
- *position dans la grille
+ *position dans la grid
  */
 typedef struct {
   char *value; /**< string de caractère contenant la lettre, la value de la case
                   et le bonus associé (dans cet ordre !) */
-  int number; /**< integer représentant la position de la case dans la grille*/
+  int number;  /**< integer représentant la position de la case dans la grid*/
 } S_SQUARE;
 
 #define S_MEMORY_ERROR 1
@@ -62,7 +62,7 @@ char S_getLetter(S_SQUARE square);
 
 /**
  *	\fn int S_getPosition(S_SQUARE square)
- *	\brief retourne la position de la case dans la grille
+ *	\brief retourne la position de la case dans la grid
  *	\param c la case
  *	\return int
  */
