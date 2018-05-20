@@ -40,7 +40,7 @@ G_Grid G_createGrid(char *string[G_LENGTH]);
  *	\fn S_SQUARE* G_getSquare(G_Grid, int squareNumber)
  *	\brief Permet d'get un pointer sur la ieme case d'une grille (0-11,
  *gauche-droite, haut-bas)
- *	\param g la grille cible
+ *	\param g la grille target
  *	\param squareNumber le numéro de la case que l'on souhaite get
  *	\return S_SQUARE*
  */
@@ -51,7 +51,7 @@ S_SQUARE G_getSquare(G_Grid grid, int squareNumber);
  *	\brief Permet d'get les neighbours d'une case donnée dans une grille
  *
  *	retourne une liste ordonnée contenant tous les neighbours possible
- *	\param g La grille cible
+ *	\param g La grille target
  *	\param c La case dont on veut les neighbours
  *	\return LL_LinkedList
  */

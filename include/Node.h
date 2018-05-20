@@ -34,7 +34,7 @@ N_Node *N_createNode(int isLast, char value);
 /**
  *	\fn int N_isLast(N_Node n)
  *	\brief Renvoit un int définissant la finalité d'un noeus=d
- *	\param n le node cible
+ *	\param n le node target
  *	\return int
  */
 int N_isLast(N_Node node);
@@ -60,7 +60,7 @@ void N_defineEnd(N_Node *node, int isLast);
 /**
  *	\fn N_getValue(N_Node n)
  *	\brief	Permet d'get la value d'un node
- *	\param	n le node cible
+ *	\param	n le node target
  *	\return char
  */
 char N_getValue(N_Node node);

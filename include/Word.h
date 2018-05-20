@@ -31,7 +31,7 @@ W_Word *W_createWord(char *value);
 /**
  *	\fn char* W_getString(W_Word word)
  *	\brief Permet d'get la string de caractère représentant le mot
- *	\param word le mot cible
+ *	\param word le mot target
  *	\return char*
  */
 char *W_getString(W_Word word);
@@ -40,7 +40,7 @@ char *W_getString(W_Word word);
  *	\fn char W_getIthCharacter(W_Word word, int position)
  *	\brief Retourne le ieme caractère du mot
  *	\pre position > 0 && position < W_getLength(mot)
- *	\param word le mot cible
+ *	\param word le mot target
  *	\param position La position de la lettre
  *	\return char
  */
@@ -49,7 +49,7 @@ char W_getIthCharacter(W_Word word, int position);
 /**
  *	\fn int W_getLength(W_Word word)
  *	\brief Permet d'get la length d'un mot
- *	\param word le mot cible
+ *	\param word le mot target
  *	\return int
  */
 int W_getLength(W_Word word);

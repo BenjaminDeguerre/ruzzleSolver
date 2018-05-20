@@ -70,7 +70,7 @@ void AS_addSquare(AS_AdjacentSquares *adjacentSquare, S_SQUARE *square);
 /**
  *	\fn void AS_deleteSquare(AS_AdjacentSquares *adjacentSquare)
  *	\brief Supprime la dernière case d'une suite de cases contigues
- *	\param *adjacentSquare la suite de cases contigues cible
+ *	\param *adjacentSquare la suite de cases contigues target
  *	\return void
  */
 void AS_deleteSquare(AS_AdjacentSquares *adjacentSquare);
@@ -79,7 +79,7 @@ void AS_deleteSquare(AS_AdjacentSquares *adjacentSquare);
  *	\fn char *AS_readSquares(AS_AdjacentSquares adjacentSquare)
  *	\brief retourne les strings de caractères présentes dans chaque cases
  *sous la forme d'une longue string de caractère
- *	\param adjacentSquare la suite de cases contigues cible
+ *	\param adjacentSquare la suite de cases contigues target
  *	\return char*
  */
 char *AS_readSquares(AS_AdjacentSquares adjacentSquare);
@@ -87,7 +87,7 @@ char *AS_readSquares(AS_AdjacentSquares adjacentSquare);
 /**
  *	\fn int AS_countPoints(AS_AdjacentSquares adjacentSquare)
  *	\brief retourne la value en point de la suite de cases contigues
- *	\param adjacentSquare la suite de cases contigues cible
+ *	\param adjacentSquare la suite de cases contigues target
  *	\return int
  */
 int AS_countPoints(AS_AdjacentSquares adjacentSquare);
@@ -95,7 +95,7 @@ int AS_countPoints(AS_AdjacentSquares adjacentSquare);
 /**
  *	\fn int AS_getLength(AS_AdjacentSquares adjacentSquare)
  *	\brief retourne la longeur de la suite de cases contigues
- *	\param adjacentSquare la suite de cases contigues cible
+ *	\param adjacentSquare la suite de cases contigues target
  *	\return int
  */
 int AS_getLength(AS_AdjacentSquares adjacentSquare);
@@ -104,7 +104,7 @@ int AS_getLength(AS_AdjacentSquares adjacentSquare);
  *	\fn int AS_getBonus(AS_AdjacentSquares adjacentSquare)
  *	\brief retourne la value du coefficient bonus de la string de cases
  *contigues
- *	\param adjacentSquare la suite de cases contigues cible
+ *	\param adjacentSquare la suite de cases contigues target
  *	\return int
  */
 int AS_getBonus(AS_AdjacentSquares adjacentSquare);
@@ -112,7 +112,7 @@ int AS_getBonus(AS_AdjacentSquares adjacentSquare);
 /**
  *	\fn int AS_getNumberOfPoints(AS_AdjacentSquares adjacentSquare)
  *	\brief retourne numberOfPoints, value sans les bonus sur le mot
- *	\param adjacentSquare la suite de cases contigues cible
+ *	\param adjacentSquare la suite de cases contigues target
  *	\return int
  */
 int AS_getNumberOfPoints(AS_AdjacentSquares adjacentSquare);
@@ -121,7 +121,7 @@ int AS_getNumberOfPoints(AS_AdjacentSquares adjacentSquare);
  *	\fn LL_LinkedList* AS_getLinkedList(AS_AdjacentSquares *adjacentSquare)
  *	\brief retourne un pointeur sur la liste ordonnée contenue dans la
  *structure caseContigues
- *	\param *adjacentSquare la suite de cases contigues cible (pointeur)
+ *	\param *adjacentSquare la suite de cases contigues target (pointeur)
  *	\return LL_LinkedList*
  */
 LL_LinkedList *AS_getLinkedList(AS_AdjacentSquares *adjacentSquare);
@@ -129,7 +129,7 @@ LL_LinkedList *AS_getLinkedList(AS_AdjacentSquares *adjacentSquare);
 /**
  *	\fn void AS_setBonus(AS_AdjacentSquares *adjacentSquare, int bonus)
  *	\brief permet d'initialiser le bonus d'une suite de cases contigues
- *	\param *adjacentSquare la suite de cases contigues cible (pointeur)
+ *	\param *adjacentSquare la suite de cases contigues target (pointeur)
  *	\param bonus la value du bonus
  *	\return void
  */
@@ -139,7 +139,7 @@ void AS_setBonus(AS_AdjacentSquares *adjacentSquare, int bonus);
  *	\fn void AS_setNbPoints(AS_AdjacentSquares *adjacentSquare, int points)
  *	\brief permet d'initialiser la value de numberOfPoints d'une suite de
  *cases contigues
- *	\param *adjacentSquare la suite de cases contigues cible (pointeur)
+ *	\param *adjacentSquare la suite de cases contigues target (pointeur)
  *	\param points la value des points
  *	\return void
  */
@@ -148,7 +148,7 @@ void AS_setNbPoints(AS_AdjacentSquares *adjacentSquare, int points);
 /**
  *	\fn S_SQUARE *AS_getSquare(AS_AdjacentSquares*, int)
  *	\brief Permet d'get la ième cases d'une suite de cases contigues
- *	\param *adjacentSquare la suite de cases contigues cible (pointeur)
+ *	\param *adjacentSquare la suite de cases contigues target (pointeur)
  *	\param no le numéro de la case
  *	\return S_SQUARE
  */
