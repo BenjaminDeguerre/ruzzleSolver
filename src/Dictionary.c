@@ -61,7 +61,7 @@ void insert(W_Word *word, BT_BinaryTree *tree)
       {
         if (W_getIthCharacter(*word, 0) == N_getValue(*BT_getRoot(*tree)))
         {
-          N_defineEnd(BT_getRoot(*tree), N_estFin(*BT_getRoot(*tree)) || (W_getLength(*word) == 1));
+          N_defineEnd(BT_getRoot(*tree), N_isLast(*BT_getRoot(*tree)) || (W_getLength(*word) == 1));
           tmp = BT_getLeftChild(*tree);
           insert(wordReduced, &tmp);
           if (!BT_isEmpty(tmp))
@@ -94,7 +94,7 @@ void serializeTree(FILE *file, BT_BinaryTree *tree)
 
   fprintf(file, "%c\n", N_getValue(*BT_getRoot(*tree)));
 
-  if (N_estFin(*BT_getRoot(*tree)))
+  if (N_isLast(*BT_getRoot(*tree)))
   {
     fprintf(file, ";\n");
   }
@@ -151,7 +151,7 @@ int wordIsINR(char *stringToTest, BT_BinaryTree *tree)
     }
     else if (stringToTest == adjacentCurrentTree)
     {
-      if (N_estFin(*BT_getRoot(*tree)))
+      if (N_isLast(*BT_getRoot(*tree)))
       {
         res = 1;
       }
