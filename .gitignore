@@ -37,3 +37,4 @@ Rapport/*
 settings.json
 bin/*
 tests/*
+*.dat
