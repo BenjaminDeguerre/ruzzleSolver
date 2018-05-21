@@ -10,9 +10,10 @@
 int init_suite_success(void) { return 0; }
 int clean_suite_success(void) { return 0; }
 
-void test_W_global(void) {
+void test_W_global(void)
+{
   W_Word *word1 = W_createWord("avion");
-  W_Word *word2 = W_copy(m1);
+  W_Word *word2 = W_copy(word1);
 
   CU_ASSERT_EQUAL(W_getLength(*word1), 5);
   CU_ASSERT_STRING_EQUAL(W_getString(*word1), "avion");
@@ -23,14 +24,16 @@ void test_W_global(void) {
   CU_ASSERT_EQUAL(W_getIthCharacter(*word1, 4), 'n');
 
   CU_ASSERT_STRING_EQUAL(W_getString(*word1), W_getString(*word2));
-  CU_ASSERT(W_compare(m1, m2));
+  CU_ASSERT(W_compare(word1, word2));
 }
 
-int test_Word(CU_pSuite pSuite) {
+int test_Word(CU_pSuite pSuite)
+{
   return ((NULL == CU_add_test(pSuite, "W_global", test_W_global)));
 }
 
-int main() {
+int main()
+{
   CU_pSuite pSuite = NULL;
 
   if (CUE_SUCCESS != CU_initialize_registry())
@@ -38,12 +41,14 @@ int main() {
 
   pSuite = CU_add_suite("Tests boite blanche", init_suite_success,
                         clean_suite_success);
-  if (NULL == pSuite) {
+  if (NULL == pSuite)
+  {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
-  if (test_Word(pSuite)) {
+  if (test_Word(pSuite))
+  {
     CU_cleanup_registry();
     return CU_get_error();
   }

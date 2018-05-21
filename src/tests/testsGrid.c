@@ -14,78 +14,73 @@ int init_suite_success(void) { return 0; }
 
 int clean_suite_success(void) { return 0; }
 
-void test_1_Grid(void)
-{
+void test_1_Grid(void) {
   char *string =
       "T1LDR1  A1  S1MTE1LTN1  C3LTE1  U1  R1  I1  L2MDS1  O1MDP3  S1  ";
   G_Grid grid = createGridToSolve(string);
   S_SQUARE *squareTest = S_createSquare();
   S_SQUARE *squareRef = S_createSquare();
-  S_defineSquare(cRef, "T1LD", 0);
-  *squareTest = G_getSquare(g, 0);
+  S_defineSquare(squareRef, "T1LD", 0);
+  *squareTest = G_getSquare(grid, 0);
   char *stringTest = S_getValue(*squareTest);
   printf("%s \n", stringTest);
   char *stringRef = S_getValue(*squareRef);
   printf("%s", stringRef);
   CU_ASSERT_STRING_EQUAL(stringTest, stringRef);
-  S_delete((void *)cTest);
-  S_delete((void *)cRef);
-  G_deleteGrid(g);
+  S_delete((void *)squareTest);
+  S_delete((void *)squareRef);
+  G_deleteGrid(grid);
 }
 
-void test_2_Grid(void)
-{
+void test_2_Grid(void) {
   char *string =
       "T1LDR1  A1  S1MTE1LTN1  C3LTE1  U1  R1  I1  L2MDS1  O1MDP3  S1  ";
   G_Grid grid = createGridToSolve(string);
   S_SQUARE *squareTest = S_createSquare();
   S_SQUARE *squareRef = S_createSquare();
-  S_defineSquare(cRef, "A1  ", 2);
-  *squareTest = G_getSquare(g, 2);
+  S_defineSquare(squareRef, "A1  ", 2);
+  *squareTest = G_getSquare(grid, 2);
   char *stringTest = S_getValue(*squareTest);
   char *stringRef = S_getValue(*squareRef);
   CU_ASSERT_STRING_EQUAL(stringTest, stringRef);
-  S_delete((void *)cTest);
-  S_delete((void *)cRef);
-  G_deleteGrid(g);
+  S_delete((void *)squareTest);
+  S_delete((void *)squareRef);
+  G_deleteGrid(grid);
 }
 
-void test_3_Grid(void)
-{
+void test_3_Grid(void) {
   char *string =
       "T1LDR1  A1  S1MTE1LTN1  C3LTE1  U1  R1  I1  L2MDS1  O1MDP3  S1  ";
   G_Grid grid = createGridToSolve(string);
   S_SQUARE *squareTest = S_createSquare();
   S_SQUARE *squareRef = S_createSquare();
-  S_defineSquare(cRef, "A1  ", 2);
-  *squareTest = G_getSquare(g, 2);
+  S_defineSquare(squareRef, "A1  ", 2);
+  *squareTest = G_getSquare(grid, 2);
   char *stringTest = S_getValue(*squareTest);
   char *stringRef = S_getValue(*squareRef);
   CU_ASSERT_STRING_EQUAL(stringTest, stringRef);
-  S_delete((void *)cTest);
-  S_delete((void *)cRef);
-  G_deleteGrid(g);
+  S_delete((void *)squareTest);
+  S_delete((void *)squareRef);
+  G_deleteGrid(grid);
 }
 
-void test_4_Grid(void)
-{
+void test_4_Grid(void) {
   char *string =
       "T1LDR1  A1  S1MTE1LTN1  C3LTE1  U1  R1  I1  L2MDS1  O1MDP3  S1  ";
   G_Grid grid = createGridToSolve(string);
   S_SQUARE *squareTest = S_createSquare();
   S_SQUARE *squareRef = S_createSquare();
-  S_defineSquare(cRef, "A1  ", 2);
-  *squareTest = G_getSquare(g, 2);
+  S_defineSquare(squareRef, "A1  ", 2);
+  *squareTest = G_getSquare(grid, 2);
   char *stringTest = S_getValue(*squareTest);
   char *stringRef = S_getValue(*squareRef);
   CU_ASSERT_STRING_EQUAL(stringTest, stringRef);
-  S_delete((void *)cTest);
-  S_delete((void *)cRef);
-  G_deleteGrid(g);
+  S_delete((void *)squareTest);
+  S_delete((void *)squareRef);
+  G_deleteGrid(grid);
 }
 
-int test_Grid(CU_pSuite pSuite)
-{
+int test_Grid(CU_pSuite pSuite) {
   return ((NULL == CU_add_test(pSuite, "G_createGrid", test_1_Grid)) ||
           (NULL == CU_add_test(pSuite,
                                "extraction d'une case de la grid (troisième)",
@@ -96,8 +91,7 @@ int test_Grid(CU_pSuite pSuite)
            CU_add_test(pSuite, "S_defineSquare(c,b2MD) == MD", test_4_Grid)));
 }
 
-int main()
-{
+int main() {
 
   CU_pSuite pSuite = NULL;
 
@@ -106,14 +100,12 @@ int main()
 
   pSuite = CU_add_suite("Tests boite blanche", init_suite_success,
                         clean_suite_success);
-  if (NULL == pSuite)
-  {
+  if (NULL == pSuite) {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
-  if (test_Grid(pSuite))
-  {
+  if (test_Grid(pSuite)) {
     CU_cleanup_registry();
     return CU_get_error();
   }
