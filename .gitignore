@@ -36,3 +36,4 @@ doc/*
 Rapport/*
 settings.json
 bin/*
+tests/*
