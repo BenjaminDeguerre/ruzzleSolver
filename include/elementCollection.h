@@ -2,8 +2,7 @@
 /* Arthur Hamelin - 05/01/2015 */
 
 /** \file elementCollection.h
- *	\brief Déclaration des fonctions copy, delete et compare pour l'ensemble
- *des collections.
+ *	\brief Type for the compare, delete and copy function, general types.
  *	\version 1.0
  *	\date 05/01/2015
  */
