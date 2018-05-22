@@ -2,9 +2,8 @@
 /* Arthur Hamelin - 05/01/2015 */
 
 /** \file transcode.h
- *	\brief Contient la fonction qui permet de réécrire le dictionary en un
- *format lisible pour la résolution de la Grid. But : get un dictionary
- *"sérialisé" que l'on appelle fileIntelligent
+ *	\brief Contains the function to rewrite a dictionary in an intelligent
+ *format faster to process.
  *	\version 1.0
  *	\date 05/01/2015
  */
@@ -18,14 +17,12 @@
 
 /**
  *	\fn int transcode(char *, char *)
- *	\brief récupère un file source.txt pour le ressortir en un format
- *sérialisé de type arbre multiple.
+ *	\brief Get a file source.txt and output an other file serialized as a
+ *tree.
  *
- *	Pour la string de caractères "abaissables", le but de transcode permet
- *d'get l'ensemble de mots "a","abaissa","baissa","abaissable",etc.
- *	\param * pointeur sur notre dictionary.txt de référence
- *	\param * pointeur sur notre dictionary.dat une fois sérialisé
- *	\return dictionary.dat
+ *	\param char* pointer to file name of the dictionary not serialized.
+ *	\param char* pointer to file name of the dictionary once serialized.
+ *	\return 1 if all goes well
  */
 
 int transcode(char *, char *);
