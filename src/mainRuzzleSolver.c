@@ -10,8 +10,9 @@
 int main(int argc, char **argv)
 {
 
-  // Test values, uncomment to avoid re-entering everything each time when testing
-  argv[1] = "T1LDR1  A1  S1MTE1LTN1  C3LTE1  U1  R1  I1  L2MDS1  O1MDP3  S1  ";
+  // Test values, uncomment to avoid re-entering everything each time when
+  // testing
+  argv[1] = "T1LDR1  A1  S1WTE1LTN1  C3LTE1  U1  R1  I1  L2WDS1  O1WDP3  S1  ";
   argv[2] = "dictionary.dat";
   LL_LinkedList listSolutions = solveRuzzle(argv[1], argv[2]);
   char *valueArray[LL_length(listSolutions) + 1];
@@ -23,6 +24,5 @@ int main(int argc, char **argv)
     printf("%s\n", valueArray[i]);
     listSolutions = LL_getNextList(listSolutions);
   }
-
   return EXIT_SUCCESS;
 }
