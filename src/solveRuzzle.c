@@ -4,7 +4,7 @@
 #include "solveRuzzle.h"
 #include "Dictionary.h"
 #include "Grid.h"
-#include "LinkedList.h"
+
 #include "createGridToSolve.h"
 #include "openFile.h"
 #include "readFile.h"
@@ -15,7 +15,8 @@
 
 #define SQUARE_NUMBER G_LENGTH
 
-LL_LinkedList solveRuzzle(char *stringGrid, char *pathToIntelligentFile) {
+LL_LinkedList solveRuzzle(char *stringGrid, char *pathToIntelligentFile)
+{
 
   G_Grid gridToSolve;
   D_Dictionary dictionary;

@@ -11,6 +11,7 @@
 #ifndef __SOLVE_RUZZLE__
 #define __SOLVE_RUZZLE__
 
+#include "LinkedList.h"
 /**
  *	\fn LL_LinkedList solveRuzzle(char *stringGrid, char
  *pathToIntelligentFile, float *tpsReel, float *tpsUtilisateur, float
