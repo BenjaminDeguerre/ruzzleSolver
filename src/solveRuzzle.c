@@ -2,8 +2,13 @@
 /* Alexandre DUVAL - 17/12/2014 */
 
 #include "solveRuzzle.h"
+#include "Dictionary.h"
+#include "Grid.h"
+#include "LinkedList.h"
+#include "createGridToSolve.h"
 #include "openFile.h"
 #include "readFile.h"
+#include "solveGrid.h"
 
 #include <assert.h>
 #include <string.h>
