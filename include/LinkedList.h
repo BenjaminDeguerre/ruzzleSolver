@@ -8,9 +8,10 @@
 #include <errno.h>
 
 typedef struct LL_Node *LL_LinkedList;
-typedef struct LL_Node {
+typedef struct LL_Node
+{
   void *element;
-  LL_LinkedList newtLinkedList;
+  LL_LinkedList newLinkedList;
 } LL_Node;
 
 #define LL_MEMORY_ERROR 1
@@ -57,7 +58,8 @@ int LL_isEmpty(LL_LinkedList list);
  *	\param fonction pour copy l'element
  *	\return void
  */
-void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement);
+void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement,
+            EC_compare compareElement);
 
 /**
  *	\fn void* LL_getElement(LL_LinkedList);
@@ -124,7 +126,8 @@ void LL_delete(LL_LinkedList *list, EC_delete freeElement);
  *	\param copyElement
  *	\return LL_LinkedList
  */
-LL_LinkedList LL_copy(LL_LinkedList list, EC_copy copyElement);
+LL_LinkedList LL_copy(LL_LinkedList list, EC_copy copyElement,
+                      EC_compare compareElement);
 
 /**
  *	\fn int LL_equals(LL_LinkedList, LL_LinkedList, EC_compare);

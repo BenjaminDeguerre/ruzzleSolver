@@ -2,6 +2,7 @@
 /* Alexandre DUVAL - 22/12/2014 */
 
 #include "LinkedList.h"
+#include "Square.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,7 +25,7 @@ LL_LinkedList LL_createLinkedList() {
   LL_LinkedList pNode = (LL_LinkedList)malloc(sizeof(LL_Node));
   if (pNode != NULL) {
     pNode->element = NULL;
-    pNode->newtLinkedList = NULL;
+    pNode->newLinkedList = NULL;
   } else {
     errno = LL_MEMORY_ERROR;
   }
@@ -38,26 +39,47 @@ int LL_elementIsNull(LL_LinkedList list) {
 
 int LL_newtListIsNull(LL_LinkedList list) {
   errno = 0;
-  return list->newtLinkedList == NULL;
+  return list->newLinkedList == NULL;
 }
 
 int LL_isEmpty(LL_LinkedList list) {
   errno = 0;
-  return (list->element == NULL) && (list->newtLinkedList == NULL);
+  return (list->element == NULL) && (list->newLinkedList == NULL);
 }
 
-void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement) {
-  LL_LinkedList pNode = (LL_LinkedList)malloc(sizeof(LL_Node));
+void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement,
+            EC_compare compareElement) {
+  LL_LinkedList *current, pNode = (LL_LinkedList)malloc(sizeof(LL_Node));
   void *donnee = copyElement(source);
-  if ((pNode != NULL) || (donnee != NULL)) {
-    errno = 0;
+  int inserted = 0;
 
-    pNode->element = donnee;
-    pNode->newtLinkedList = *list;
-
-    *list = pNode;
-  } else {
-    errno = LL_MEMORY_ERROR;
+  if (((*list)->element) == NULL) {
+    (*list)->element = donnee;
+    return;
+  }
+  pNode->element = donnee;
+  current = list;
+  while (current && !inserted) {
+    if (!((*current)->newLinkedList)) {
+      if (compareElement(donnee, (*list)->element) == 1) {
+        pNode->newLinkedList = *list;
+        *list = pNode;
+        inserted = 1;
+      } else {
+        (*current)->newLinkedList = pNode;
+        inserted = 1;
+      }
+    } else if (compareElement(donnee, (*list)->element) == 1) {
+      pNode->newLinkedList = *list;
+      *list = pNode;
+      inserted = 1;
+    } else if (compareElement(donnee, (*list)->element) == 0) {
+      pNode->newLinkedList = (*current)->newLinkedList;
+      (*current)->newLinkedList = pNode;
+      inserted = 1;
+    } else {
+      *current = ((*current)->newLinkedList);
+    }
   }
 }
 
@@ -70,13 +92,13 @@ void *LL_getElement(LL_LinkedList list) {
 LL_LinkedList LL_getNextList(LL_LinkedList list) {
   assert(!LL_isEmpty(list));
   errno = 0;
-  return list->newtLinkedList;
+  return list->newLinkedList;
 }
 
 void LL_setNextList(LL_LinkedList *list, LL_LinkedList newtList) {
   assert(!LL_isEmpty(*list));
   errno = 0;
-  (*list)->newtLinkedList = newtList;
+  (*list)->newLinkedList = newtList;
 }
 
 void LL_setElement(LL_LinkedList *list, void *source, EC_copy copyElement,
@@ -116,7 +138,8 @@ void LL_delete(LL_LinkedList *list, EC_delete freeElement) {
   free(*list);
 }
 
-LL_LinkedList LL_copy(LL_LinkedList list, EC_copy copyElement) {
+LL_LinkedList LL_copy(LL_LinkedList list, EC_copy copyElement,
+                      EC_compare compareElement) {
   LL_LinkedList tmp;
 
   errno = 0;
@@ -124,8 +147,8 @@ LL_LinkedList LL_copy(LL_LinkedList list, EC_copy copyElement) {
   if (LL_isEmpty(list)) {
     return LL_createLinkedList();
   } else {
-    tmp = LL_copy(LL_getNextList(list), copyElement);
-    LL_add(&tmp, LL_getElement(list), copyElement);
+    tmp = LL_copy(LL_getNextList(list), copyElement, compareElement);
+    LL_add(&tmp, LL_getElement(list), copyElement, compareElement);
 
     return tmp;
   }
