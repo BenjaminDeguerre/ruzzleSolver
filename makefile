@@ -21,8 +21,8 @@ $(BINDIR)/$(EXECTRANSCODE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.
 #ruzzleSolver
 ruzzleSolver : $(BINDIR)/$(EXECRUZZLE)
 
-$(BINDIR)/$(EXECRUZZLE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.a $(LIBDIR)/libsearchbinarytree.a $(SRCDIR)/Square.o $(SRCDIR)/AdjacentSquares.o $(SRCDIR)/Grid.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/subString.o $(SRCDIR)/isSolution.o
-	$(CC) -o $@ $(SRCDIR)/Square.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/AdjacentSquares.o $(SRCDIR)/Grid.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/subString.o $(SRCDIR)/isSolution.o $(LDFLAGS) -ldictionary -lsearchbinarytree -lorderedlist
+$(BINDIR)/$(EXECRUZZLE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.a $(LIBDIR)/libsearchbinarytree.a $(SRCDIR)/Square.o $(SRCDIR)/AdjacentSquares.o $(SRCDIR)/Grid.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/subString.o $(SRCDIR)/isSolution.o $(SRCDIR)/Solution.o
+	$(CC) -o $@ $(SRCDIR)/Square.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/AdjacentSquares.o $(SRCDIR)/Grid.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/subString.o $(SRCDIR)/isSolution.o $(SRCDIR)/Solution.o $(LDFLAGS) -ldictionary -lsearchbinarytree -lorderedlist
 
 $(LIBDIR)/libdictionary.a : $(SRCDIR)/Dictionary.o $(SRCDIR)/Word.o
 	$(AR) -r $@ $^
@@ -37,13 +37,18 @@ $(SRCDIR)/%.o : $(SRCDIR)/%.c
 	$(CC) -o $@ -c $< $(CFLAGS)
 
 # tests
-tests : testsSubString testsNode testsSquare testsGrid testsDictionary testsWord testsLinkedList testsAdjacentSquares
+tests : testsSubString testsNode testsSquare testsGrid testsDictionary testsWord testsLinkedList testsAdjacentSquares testsSolution
 
 testsSubString : $(TESTDIR)/testsSubString
 
 $(TESTDIR)/testsSubString : $(SRCDIR)/$(TESTDIR)/testsSubString.o $(SRCDIR)/subString.o
 	 $(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsSubString.o $(SRCDIR)/subString.o -lcunit 
+	 
+testsSolution : $(TESTDIR)/testsSolution
 	
+$(TESTDIR)/testsSolution : $(SRCDIR)/$(TESTDIR)/testsSolution.o $(SRCDIR)/Solution.o
+	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsSolution.o $(SRCDIR)/Solution.o -lcunit
+
 testsNode : $(TESTDIR)/testsNode
 	
 $(TESTDIR)/testsNode : $(SRCDIR)/$(TESTDIR)/testsNode.o $(SRCDIR)/Node.o
