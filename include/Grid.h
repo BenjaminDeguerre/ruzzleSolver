@@ -19,8 +19,9 @@
  *	\typedef G_Grid
  *	\brief Structure d'une grid, tableau de case
  */
-typedef struct {
-  S_SQUARE arraySquares[G_LENGTH]; /**< Le tableau de Squares */
+typedef struct
+{
+  S_SQUARE *arraySquares[G_LENGTH]; /**< Le tableau de Squares */
 } G_Grid;
 
 /**
@@ -34,7 +35,7 @@ typedef struct {
  *cases
  *	\return G_Grid
  */
-G_Grid G_createGrid(char *string[G_LENGTH]);
+G_Grid G_createGrid(char **string);
 
 /**
  *	\fn S_SQUARE* G_getSquare(G_Grid, int squareNumber)
@@ -44,7 +45,7 @@ G_Grid G_createGrid(char *string[G_LENGTH]);
  *	\param squareNumber le numéro de la case que l'on souhaite get
  *	\return S_SQUARE*
  */
-S_SQUARE G_getSquare(G_Grid grid, int squareNumber);
+S_SQUARE *G_getSquare(G_Grid grid, int squareNumber);
 
 /**
  *	\fn LL_LinkedList G_getNeighbours(G_Grid grid, S_SQUARE square)
