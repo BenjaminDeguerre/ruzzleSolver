@@ -81,8 +81,9 @@ $(TESTDIR)/testsAdjacentSquares : $(SRCDIR)/$(TESTDIR)/testsAdjacentSquares.o $(
 	
 testsLinkedList : $(TESTDIR)/testsLinkedList
 
-$(TESTDIR)/testsLinkedList : $(SRCDIR)/$(TESTDIR)/testsLinkedList.o $(SRCDIR)/Word.o 
-	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsLinkedList.o $(SRCDIR)/Word.o -lcunit -lorderedlist
+$(TESTDIR)/testsLinkedList : $(SRCDIR)/$(TESTDIR)/testsLinkedList.o $(SRCDIR)/Solution.o 
+
+	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsLinkedList.o $(SRCDIR)/Solution.o -lcunit -lorderedlist
 
 $(SRCDIR)/$(TESTDIR)/%.o : $(SRCDIR)/$(TESTDIR)/%.c
 	$(CC) -o $@ -c $< $(CFLAGS)

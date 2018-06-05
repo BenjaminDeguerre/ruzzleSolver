@@ -13,9 +13,11 @@
 /* private */
 void LL_deleteR(LL_LinkedList *list, EC_delete freeElement) {
   errno = 0;
-  if (!LL_isEmpty(*list)) {
-    LL_deleteHead(list, freeElement);
-    LL_deleteR(list, freeElement);
+  LL_LinkedList *nextList = &((*list)->newLinkedList);
+  freeElement((*list)->element);
+  free(*list);
+  if (*nextList) {
+    LL_deleteR(nextList, freeElement);
   }
 }
 
@@ -134,8 +136,11 @@ void LL_deleteHead(LL_LinkedList *list, EC_delete freeElement) {
 void LL_delete(LL_LinkedList *list, EC_delete freeElement) {
 
   errno = 0;
-  LL_deleteR(list, freeElement);
-  free(*list);
+  if (!LL_isEmpty(*list)) {
+    LL_deleteR(list, freeElement);
+  } else {
+    free(*list);
+  }
 }
 
 LL_LinkedList LL_copy(LL_LinkedList list, EC_copy copyElement,
@@ -177,8 +182,10 @@ int LL_equals(LL_LinkedList list1, LL_LinkedList list2,
 }
 
 int LL_length(LL_LinkedList list) {
-  if (LL_newtListIsNull(list)) {
+  if (LL_newtListIsNull(list) && LL_elementIsNull(list)) {
     return 0;
+  } else if (LL_newtListIsNull(list)) {
+    return 1;
   } else {
     return (LL_length(LL_getNextList(list)) + 1);
   }

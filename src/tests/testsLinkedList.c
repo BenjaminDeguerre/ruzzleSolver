@@ -8,7 +8,7 @@
 #include <string.h>
 
 #include "LinkedList.h"
-#include "Word.h"
+#include "Solution.h"
 
 int init_suite_success(void) { return 0; }
 
@@ -18,63 +18,68 @@ void test_createLinkedList(void) {
   LL_LinkedList list = LL_createLinkedList();
   CU_ASSERT(list->element == NULL);
   CU_ASSERT(list->newLinkedList == NULL);
-
-  LL_delete(&list, W_delete);
+  LL_delete(&list, So_delete);
 }
 
 void test_elementIsNull(void) {
-  LL_LinkedList maList = LL_createLinkedList();
-  W_Word *wordTest = W_createWord("plop");
-  LL_add(&maList, (void *)wordTest, W_copy, W_compare);
-  CU_ASSERT_FALSE(LL_isEmpty(maList));
-  LL_delete(&maList, W_delete);
+  LL_LinkedList list = LL_createLinkedList();
+  CU_ASSERT(LL_elementIsNull(list));
+
+  So_Solution *solution = So_createSolution("allo", 35);
+  LL_add(&list, solution, So_copy, So_compare);
+  CU_ASSERT_FALSE(LL_elementIsNull(list));
+  LL_delete(&list, So_delete);
 }
 
 void test_newListIsNull(void) {
-  LL_LinkedList maList = LL_createLinkedList();
-  W_Word *wordTest = W_createWord("plop");
-  LL_add(&maList, (void *)wordTest, W_copy, W_compare);
-  CU_ASSERT(W_compare(LL_getElement(maList), (void *)wordTest));
-  LL_delete(&maList, W_delete);
+  LL_LinkedList list = LL_createLinkedList();
+  CU_ASSERT(LL_newtListIsNull(list));
+
+  So_Solution *solution = So_createSolution("allo", 35);
+  So_Solution *solution2 = So_createSolution("allo", 35);
+  LL_add(&list, solution, So_copy, So_compare);
+  LL_add(&list, solution2, So_copy, So_compare);
+  CU_ASSERT_FALSE(LL_newtListIsNull(list));
+  LL_delete(&list, So_delete);
 }
 
 void test_isEmpty(void) {
-  LL_LinkedList maList = LL_createLinkedList();
-  LL_LinkedList maListTemp = maList;
-  W_Word *wordTest = W_createWord("plop");
-  LL_add(&maList, (void *)wordTest, W_copy, W_compare);
-  CU_ASSERT(LL_getNextList(maList) == maListTemp);
-  LL_delete(&maList, W_delete);
+  LL_LinkedList list = LL_createLinkedList();
+  CU_ASSERT(LL_isEmpty(list));
+
+  So_Solution *solution = So_createSolution("allo", 35);
+  LL_add(&list, solution, So_copy, So_compare);
+  CU_ASSERT_FALSE(LL_isEmpty(list));
+
+  LL_delete(&list, So_delete);
 }
 
 void test_add(void) {
   LL_LinkedList maList = LL_createLinkedList();
   LL_LinkedList maList1 = LL_createLinkedList();
-  W_Word *wordTest = W_createWord("plop");
-  LL_add(&maList, (void *)wordTest, W_copy, W_compare);
-  LL_add(&maList1, (void *)wordTest, W_copy, W_compare);
-  CU_ASSERT(LL_equals(maList, maList1, W_compare));
-  LL_delete(&maList, W_delete);
 }
 
-void test_getsetElement(void) {
-  LL_LinkedList maList = LL_createLinkedList();
-  W_Word *wordTest = W_createWord("plop");
-  for (int i = 1; i <= 4; i++) {
-    LL_add(&maList, (void *)wordTest, W_copy, W_compare);
-    CU_ASSERT(LL_length(maList) == i);
-  }
-
-  LL_delete(&maList, W_delete);
-}
+void test_getsetElement(void) { LL_LinkedList maList = LL_createLinkedList(); }
 void test_getsetNextList(void) {}
 
 void test_deleteHead(void) {}
 
-void test_copy(void) {}
+void test_copy_equals(void) {}
 
-void test_equals(void) {}
-void test_length(void) {}
+void test_length(void) {
+  LL_LinkedList list = LL_createLinkedList();
+  So_Solution *solution = So_createSolution("allo", 35);
+  So_Solution *solution2 = So_createSolution("allo", 35);
+  LL_add(&list, solution, So_copy, So_compare);
+  LL_add(&list, solution2, So_copy, So_compare);
+  CU_ASSERT(LL_length(list) == 2);
+
+  So_Solution *solution3 = So_createSolution("allo", 35);
+  LL_add(&list, solution3, So_copy, So_compare);
+  CU_ASSERT(LL_length(list) == 3);
+
+  LL_delete(&list, So_delete);
+}
 
 int test_LinkedList(CU_pSuite pSuite) {
   return (
@@ -86,8 +91,7 @@ int test_LinkedList(CU_pSuite pSuite) {
       (NULL == CU_add_test(pSuite, "LL_getsetElement", test_getsetElement)) ||
       (NULL == CU_add_test(pSuite, "LL_getsetNextList", test_getsetNextList)) ||
       (NULL == CU_add_test(pSuite, "LL_deleteHead", test_deleteHead)) ||
-      (NULL == CU_add_test(pSuite, "LL_copy", test_copy)) ||
-      (NULL == CU_add_test(pSuite, "LL_equals", test_equals)) ||
+      (NULL == CU_add_test(pSuite, "LL_copy", test_copy_equals)) ||
       (NULL == CU_add_test(pSuite, "LL_length", test_length)));
 }
 
