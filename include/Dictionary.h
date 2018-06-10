@@ -8,9 +8,6 @@
 
 #include "BinaryTree.h"
 #include "Word.h"
-#include "elementCollection.h"
-#include "openFile.h"
-#include "subString.h"
 
 /**
  *	\typedef D_Dictionary

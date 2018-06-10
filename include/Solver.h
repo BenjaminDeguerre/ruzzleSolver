@@ -1,12 +1,12 @@
-/** \file Solution.h
- *	\brief Definition of a solution. The solver prints a list of solutions.
- *	\version 1.0
- *	\date 22/05/2018
- */
 #ifndef __SOLVER__
 #define __SOLVER__
 
+#include <string.h>
+
+#include "Dictionary.h"
+#include "Grid.h"
 #include "LinkedList.h"
+
 /**
  *	\fn LL_LinkedList solveRuzzle(char *stringGrid, char
  *pathToIntelligentFile, float *tpsReel, float *tpsUtilisateur, float
@@ -28,13 +28,6 @@
 
 LL_LinkedList solveRuzzle(char *stringGrid, char *pathToIntelligentFile);
 
-#include <string.h>
-
-#include "Dictionary.h"
-#include "Grid.h"
-#include "LinkedList.h"
-#include "Word.h"
-
 /**
  *	\typedef sG_Word
  *	\brief Contient un mot avec sa value en point dans la grid
@@ -54,11 +47,6 @@ typedef struct sG_Word {
  */
 
 LL_LinkedList solveGrid(D_Dictionary dictionary, G_Grid gridToSolve);
-#include "Dictionary.h"
-#include "Grid.h"
-#include "LinkedList.h"
-#include "Word.h"
-#include "subString.h"
 
 /**
  *	\fn G_Grid *squarereerGridAResoudre(char *stringParametersGrid)

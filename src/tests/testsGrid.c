@@ -1,21 +1,20 @@
 /* Deguerre Benjamin - 23/12/2014 */
 /* Deguerre Benjamin - 30/12/2014 */
 
-#include "Grid.h"
-#include "LinkedList.h"
-#include "Square.h"
-#include "createGridToSolve.h"
 #include <CUnit/Basic.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "Grid.h"
+#include "LinkedList.h"
+#include "Solver.h"
+#include "Square.h"
 
 int init_suite_success(void) { return 0; }
 
 int clean_suite_success(void) { return 0; }
 
-void test_createGrid(void)
-{
+void test_createGrid(void) {
   char *string =
       "T1LDR1  A1  S1MTE1LTN1  C3LTE1  U1  R1  I1  L2MDS1  O1MDP3  S1  ";
 
@@ -64,8 +63,7 @@ void test_createGrid(void)
   G_deleteGrid(grid);
 }
 
-void test_getNeighbours(void)
-{
+void test_getNeighbours(void) {
   char *string =
       "T1LDR1  A1  S1MTE1LTN1  C3LTE1  U1  R1  I1  L2MDS1  O1MDP3  S1  ";
   G_Grid grid = createGridToSolve(string);
@@ -286,30 +284,24 @@ void test_getNeighbours(void)
   CU_ASSERT(list == NULL);
 }
 
-int test_Grid(CU_pSuite pSuite)
-{
+int test_Grid(CU_pSuite pSuite) {
   return ((NULL ==
            CU_add_test(pSuite, "G_createGrid/G_getSquare", test_createGrid)) ||
           (NULL == CU_add_test(pSuite, "G_getNeighbours", test_getNeighbours)));
 }
 
-int main()
-{
-
+int main() {
   CU_pSuite pSuite = NULL;
 
-  if (CUE_SUCCESS != CU_initialize_registry())
-    return CU_get_error();
+  if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
 
   pSuite = CU_add_suite("Tests grid", init_suite_success, clean_suite_success);
-  if (NULL == pSuite)
-  {
+  if (NULL == pSuite) {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
-  if (test_Grid(pSuite))
-  {
+  if (test_Grid(pSuite)) {
     CU_cleanup_registry();
     return CU_get_error();
   }

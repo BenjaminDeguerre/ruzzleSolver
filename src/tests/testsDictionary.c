@@ -11,7 +11,6 @@
 #include "Grid.h"
 #include "LinkedList.h"
 #include "Square.h"
-#include "createGridToSolve.h"
 
 int init_suite_success(void) { return 0; }
 int clean_suite_success(void) { return 0; }
@@ -95,8 +94,7 @@ int test_Dictionary(CU_pSuite pSuite) {
 int main() {
   CU_pSuite pSuite = NULL;
 
-  if (CUE_SUCCESS != CU_initialize_registry())
-    return CU_get_error();
+  if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
 
   pSuite = CU_add_suite("Tests boite blanche", init_suite_success,
                         clean_suite_success);

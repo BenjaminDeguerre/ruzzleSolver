@@ -12,8 +12,7 @@
 #define __TRANSCODER__
 
 #include "Dictionary.h"
-#include "openFile.h"
-#include "readFile.h"
+#include "Utils.h"
 
 /**
  *	\fn int transcode(char *, char *)

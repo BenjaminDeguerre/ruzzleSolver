@@ -9,8 +9,6 @@
 
 #include "LinkedList.h"
 #include "Square.h"
-#include "Square.h"
-#include "subString.h"
 
 #define G_COTE 4
 #define G_LENGTH (G_COTE * G_COTE)
@@ -19,8 +17,7 @@
  *	\typedef G_Grid
  *	\brief Structure d'une grid, tableau de case
  */
-typedef struct
-{
+typedef struct {
   S_SQUARE *arraySquares[G_LENGTH]; /**< Le tableau de Squares */
 } G_Grid;
 

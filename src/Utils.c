@@ -5,6 +5,7 @@
 
 #include "Dictionary.h"
 #include "Utils.h"
+#include "Word.h"
 
 char* subString(char* string, int begin, int end) {
   assert(end >= begin);
