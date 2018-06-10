@@ -16,8 +16,7 @@
  *	\typedef D_Dictionary
  *	\struct BT_BinaryTree
  */
-typedef struct D_Dictionary
-{
+typedef struct D_Dictionary {
   BT_BinaryTree wordsBT;
   int size;
 } D_Dictionary;
@@ -29,6 +28,8 @@ typedef struct D_Dictionary
  *	\return D_Dictionary
  */
 D_Dictionary D_createDictionary();
+
+int isSolution(D_Dictionary *dictionary, char *stringToTest);
 
 /**
  *	\fn int D_wordIsIN (W_Word *word, D_Dictionary dictionary);
@@ -77,7 +78,8 @@ int D_isEmpty(D_Dictionary *dictionary);
  *	\fn int D_serialize(D_Dictionary dictionary, FILE* targetFile);
  *	\brief Serialize the dictionary to a file.
  *	\param dictionary The D_Dictionary to write.
- *	\param *targetFile A pointer to the name of the file to write the dictionary to.
+ *	\param *targetFile A pointer to the name of the file to write the
+ *dictionary to.
  *	\return int
  */
 int D_serialize(D_Dictionary dictionary, FILE *targetFile);
@@ -85,7 +87,8 @@ int D_serialize(D_Dictionary dictionary, FILE *targetFile);
 /**
  *	\fn D_Dictionary D_unserialize(char *pathToFile);
  *	\brief Read a serialized dictionary from a file.
- *	\param *pathToFile Pointer to the file containing the serialized dictionary.
+ *	\param *pathToFile Pointer to the file containing the serialized
+ *dictionary.
  *	\return D_Dictionary
  */
 D_Dictionary D_unserialize(char *pathToFile);
