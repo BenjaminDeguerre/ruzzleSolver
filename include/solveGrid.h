@@ -16,13 +16,13 @@
 #include "Grid.h"
 #include "LinkedList.h"
 #include "Word.h"
-#include "isSolution.h"
 
 /**
  *	\typedef sG_Word
  *	\brief Contient un mot avec sa value en point dans la grid
  */
-typedef struct sG_Word {
+typedef struct sG_Word
+{
   char *word; /**< le mot */
   int point;  /**< Valeur en point du mot */
 } sG_Word;
