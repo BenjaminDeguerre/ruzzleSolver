@@ -38,3 +38,4 @@ settings.json
 bin/*
 tests/*
 *.dat
+.vscode/
