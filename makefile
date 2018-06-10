@@ -15,14 +15,14 @@ all : ruzzleSolver transcode tests
 
 transcode : $(BINDIR)/$(EXECTRANSCODE)
 
-$(BINDIR)/$(EXECTRANSCODE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.a $(LIBDIR)/libsearchbinarytree.a $(SRCDIR)/mainTranscode.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/subString.o $(SRCDIR)/transcode.o
-	$(CC) -o $@ $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/subString.o $(SRCDIR)/transcode.o $(SRCDIR)/mainTranscode.o $(LDFLAGS) -ldictionary -lsearchbinarytree -lorderedlist
+$(BINDIR)/$(EXECTRANSCODE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.a $(LIBDIR)/libsearchbinarytree.a $(SRCDIR)/mainTranscode.o $(SRCDIR)/Utils.o $(SRCDIR)/transcode.o
+	$(CC) -o $@ $(SRCDIR)/Utils.o $(SRCDIR)/transcode.o $(SRCDIR)/mainTranscode.o $(LDFLAGS) -ldictionary -lsearchbinarytree -lorderedlist
 
 #ruzzleSolver
 ruzzleSolver : $(BINDIR)/$(EXECRUZZLE)
 
-$(BINDIR)/$(EXECRUZZLE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.a $(LIBDIR)/libsearchbinarytree.a $(SRCDIR)/Square.o $(SRCDIR)/Grid.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/subString.o $(SRCDIR)/Solution.o
-	$(CC) -o $@ $(SRCDIR)/Square.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/Grid.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/subString.o $(SRCDIR)/Solution.o $(LDFLAGS) -ldictionary -lsearchbinarytree -lorderedlist
+$(BINDIR)/$(EXECRUZZLE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.a $(LIBDIR)/libsearchbinarytree.a $(SRCDIR)/Square.o $(SRCDIR)/Grid.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/Utils.o $(SRCDIR)/Solution.o
+	$(CC) -o $@ $(SRCDIR)/Square.o $(SRCDIR)/Grid.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/Utils.o $(SRCDIR)/Solution.o $(LDFLAGS) -ldictionary -lsearchbinarytree -lorderedlist
 
 $(LIBDIR)/libdictionary.a : $(SRCDIR)/Dictionary.o $(SRCDIR)/Word.o
 	$(AR) -r $@ $^
@@ -37,12 +37,12 @@ $(SRCDIR)/%.o : $(SRCDIR)/%.c
 	$(CC) -o $@ -c $< $(CFLAGS)
 
 # tests
-tests : testsSubString testsNode testsSquare testsGrid testsDictionary testsWord testsLinkedList testsSolution
+tests : testsUtils testsNode testsSquare testsGrid testsDictionary testsWord testsLinkedList testsSolution
 
-testsSubString : $(TESTDIR)/testsSubString
+testsUtils : $(TESTDIR)/testsUtils
 
-$(TESTDIR)/testsSubString : $(SRCDIR)/$(TESTDIR)/testsSubString.o $(SRCDIR)/subString.o
-	 $(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsSubString.o $(SRCDIR)/subString.o -lcunit 
+$(TESTDIR)/testsUtils : $(SRCDIR)/$(TESTDIR)/testsUtils.o $(SRCDIR)/Utils.o
+	 $(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsUtils.o $(SRCDIR)/Utils.o -lcunit 
 	 
 testsSolution : $(TESTDIR)/testsSolution
 	
@@ -61,18 +61,18 @@ $(TESTDIR)/testsSquare : $(SRCDIR)/$(TESTDIR)/testsSquare.o $(SRCDIR)/Square.o
 	
 testsGrid : $(TESTDIR)/testsGrid
 
-$(TESTDIR)/testsGrid : $(SRCDIR)/$(TESTDIR)/testsGrid.o $(SRCDIR)/Grid.o $(SRCDIR)/Square.o $(SRCDIR)/LinkedList.o $(SRCDIR)/subString.o $(SRCDIR)/createGridToSolve.o
-	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsGrid.o $(SRCDIR)/Grid.o $(SRCDIR)/Square.o $(SRCDIR)/LinkedList.o $(SRCDIR)/subString.o $(SRCDIR)/createGridToSolve.o -lcunit
+$(TESTDIR)/testsGrid : $(SRCDIR)/$(TESTDIR)/testsGrid.o $(SRCDIR)/Grid.o $(SRCDIR)/Square.o $(SRCDIR)/LinkedList.o $(SRCDIR)/Utils.o $(SRCDIR)/createGridToSolve.o
+	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsGrid.o $(SRCDIR)/Grid.o $(SRCDIR)/Square.o $(SRCDIR)/LinkedList.o $(SRCDIR)/Utils.o $(SRCDIR)/createGridToSolve.o -lcunit
 
 testsDictionary : $(TESTDIR)/testsDictionary
 
-$(TESTDIR)/testsDictionary : $(SRCDIR)/$(TESTDIR)/testsDictionary.o $(SRCDIR)/BinaryTree.o $(SRCDIR)/Node.o $(SRCDIR)/Word.o $(SRCDIR)/subString.o $(SRCDIR)/Dictionary.o
-	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsDictionary.o $(SRCDIR)/BinaryTree.o $(SRCDIR)/Node.o $(SRCDIR)/Word.o $(SRCDIR)/subString.o $(SRCDIR)/Dictionary.o -lcunit
+$(TESTDIR)/testsDictionary : $(SRCDIR)/$(TESTDIR)/testsDictionary.o $(SRCDIR)/BinaryTree.o $(SRCDIR)/Node.o $(SRCDIR)/Word.o $(SRCDIR)/Utils.o $(SRCDIR)/Dictionary.o
+	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsDictionary.o $(SRCDIR)/BinaryTree.o $(SRCDIR)/Node.o $(SRCDIR)/Word.o $(SRCDIR)/Utils.o $(SRCDIR)/Dictionary.o -lcunit
 	
 testsWord : $(TESTDIR)/testsWord
 
 $(TESTDIR)/testsWord : $(SRCDIR)/$(TESTDIR)/testsWord.o $(SRCDIR)/Word.o $(SRCDIR)/Dictionary.o $(SRCDIR)/BinaryTree.o $(SRCDIR)/Node.o
-	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsWord.o $(SRCDIR)/Word.o $(SRCDIR)/subString.o $(SRCDIR)/Dictionary.o $(SRCDIR)/BinaryTree.o $(SRCDIR)/Node.o -lcunit
+	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsWord.o $(SRCDIR)/Word.o $(SRCDIR)/Utils.o $(SRCDIR)/Dictionary.o $(SRCDIR)/BinaryTree.o $(SRCDIR)/Node.o -lcunit
 	
 testsLinkedList : $(TESTDIR)/testsLinkedList
 
