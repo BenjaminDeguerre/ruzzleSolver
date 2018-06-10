@@ -21,8 +21,8 @@ $(BINDIR)/$(EXECTRANSCODE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.
 #ruzzleSolver
 ruzzleSolver : $(BINDIR)/$(EXECRUZZLE)
 
-$(BINDIR)/$(EXECRUZZLE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.a $(LIBDIR)/libsearchbinarytree.a $(SRCDIR)/Square.o $(SRCDIR)/Grid.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/subString.o $(SRCDIR)/isSolution.o $(SRCDIR)/Solution.o
-	$(CC) -o $@ $(SRCDIR)/Square.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/Grid.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/subString.o $(SRCDIR)/isSolution.o $(SRCDIR)/Solution.o $(LDFLAGS) -ldictionary -lsearchbinarytree -lorderedlist
+$(BINDIR)/$(EXECRUZZLE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.a $(LIBDIR)/libsearchbinarytree.a $(SRCDIR)/Square.o $(SRCDIR)/Grid.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/subString.o $(SRCDIR)/Solution.o
+	$(CC) -o $@ $(SRCDIR)/Square.o $(SRCDIR)/readFile.o $(SRCDIR)/openFile.o $(SRCDIR)/Grid.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/subString.o $(SRCDIR)/Solution.o $(LDFLAGS) -ldictionary -lsearchbinarytree -lorderedlist
 
 $(LIBDIR)/libdictionary.a : $(SRCDIR)/Dictionary.o $(SRCDIR)/Word.o
 	$(AR) -r $@ $^
