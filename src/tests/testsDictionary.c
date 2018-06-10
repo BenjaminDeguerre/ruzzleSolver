@@ -15,47 +15,20 @@
 int init_suite_success(void) { return 0; }
 int clean_suite_success(void) { return 0; }
 
-void test_D_add(void) {
+void test_createDictionary(void) {
   D_Dictionary dictionary = D_createDictionary();
-  W_Word *word1, *word2, *word3, *word4, *word5, *word6;
 
-  // ajout des mots
-  word1 = W_createWord("aller");
-  D_add(word1, &dictionary);
-  word2 = W_createWord("voitUre");
-  D_add(word2, &dictionary);
-  word3 = W_createWord("aviAtion");
-  D_add(word3, &dictionary);
-  word4 = W_createWord("wordotorola");
-  D_add(word4, &dictionary);
-  word5 = W_createWord("wordoto");
-  D_add(word5, &dictionary);
-  word6 = W_createWord("aller");
-  D_add(word6, &dictionary);
+  CU_ASSERT_EQUAL(D_size(dictionary), 0);
+  CU_ASSERT(D_isEmpty(dictionary));
 
-  printf("begin test \n");
-  printf("%c\n", N_getValue(*BT_getRoot(dictionary.wordsBT)));
-  printf("%c\n", N_getValue(*BT_getRoot(BT_getLeftChild(
-                     BT_getRightChild(BT_getRightChild(dictionary.wordsBT))))));
-
-  printf("fin test\n");
-
-  printf("%c\n", N_getValue(*BT_getRoot((dictionary.wordsBT))));
-  printf("%c\n", N_getValue(*BT_getRoot(BT_getRightChild(dictionary.wordsBT))));
-  printf("%c\n", N_getValue(*BT_getRoot(
-                     BT_getLeftChild(BT_getRightChild(dictionary.wordsBT)))));
-  printf("%c\n", N_getValue(*BT_getRoot(BT_getLeftChild(
-                     BT_getLeftChild(BT_getRightChild(dictionary.wordsBT))))));
-  printf("%c\n", N_getValue(*BT_getRoot(BT_getLeftChild(BT_getLeftChild(
-                     BT_getLeftChild(BT_getRightChild(dictionary.wordsBT)))))));
-  CU_ASSERT_TRUE(1);
+  D_delete(dictionary);
 }
 
-void test_D_wordIsIN(void) {
+void test_wordIsIN(void) {
   D_Dictionary dictionary = D_createDictionary();
-  W_Word *word1, *word2, *word3, *word4, *word5, *word6, *word7, *word8, *word9;
+  W_Word *word1, *word2, *word3, *word4, *word5, *word6, *word7, *word8, *word9,
+      *word10, *word11, *word12;
 
-  // ajout des mots
   word1 = W_createWord("voiturettE");
   D_add(word1, &dictionary);
   word2 = W_createWord("voiture");
@@ -74,7 +47,10 @@ void test_D_wordIsIN(void) {
   word9 = W_createWord("Zblaaa");
   D_add(word9, &dictionary);
 
-  // tests contenu dictionary
+  word10 = W_createWord("azer");
+  word11 = W_createWord("qsdf");
+  word12 = W_createWord("qsdf");
+
   CU_ASSERT_TRUE(D_wordIsIN(word1, dictionary));
   CU_ASSERT_TRUE(D_wordIsIN(word2, dictionary));
   CU_ASSERT_TRUE(D_wordIsIN(word3, dictionary));
@@ -84,11 +60,33 @@ void test_D_wordIsIN(void) {
   CU_ASSERT_FALSE(D_wordIsIN(word7, dictionary));
   CU_ASSERT_TRUE(D_wordIsIN(word8, dictionary));
   CU_ASSERT_TRUE(D_wordIsIN(word9, dictionary));
+  CU_ASSERT_FALSE(D_wordIsIN(word10, dictionary));
+  CU_ASSERT_FALSE(D_wordIsIN(word11, dictionary));
+  CU_ASSERT_FALSE(D_wordIsIN(word12, dictionary));
+
+  D_delete(dictionary);
+  W_delete(word1);
+  W_delete(word2);
+  W_delete(word3);
+  W_delete(word4);
+  W_delete(word5);
+  W_delete(word6);
+  W_delete(word7);
+  W_delete(word8);
+  W_delete(word9);
+  W_delete(word10);
+  W_delete(word11);
+  W_delete(word12);
 }
 
+void test_serialize_deserialize(void) {}
+
 int test_Dictionary(CU_pSuite pSuite) {
-  return ((NULL == CU_add_test(pSuite, "D_add", test_D_add)) ||
-          (NULL == CU_add_test(pSuite, "D_wordIsIN", test_D_wordIsIN)));
+  return ((NULL == CU_add_test(pSuite, "test_createDictionary",
+                               test_createDictionary)) ||
+          (NULL == CU_add_test(pSuite, "test_wordIsIN", test_wordIsIN)) ||
+          (NULL == CU_add_test(pSuite, "test_serialize_deserialize",
+                               test_serialize_deserialize)));
 }
 
 int main() {
@@ -96,8 +94,8 @@ int main() {
 
   if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
 
-  pSuite = CU_add_suite("Tests boite blanche", init_suite_success,
-                        clean_suite_success);
+  pSuite =
+      CU_add_suite("Tests white box", init_suite_success, clean_suite_success);
   if (NULL == pSuite) {
     CU_cleanup_registry();
     return CU_get_error();

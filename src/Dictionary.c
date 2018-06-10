@@ -1,6 +1,3 @@
-/* Arthur HAMELIN - 10/12/2014 */
-/* Alexandre DUVAL - 31/12/2014 */
-
 #include <assert.h>
 #include <errno.h>
 #include <stdio.h>
@@ -10,7 +7,6 @@
 #include "Dictionary.h"
 #include "Utils.h"
 
-/* private */
 W_Word *reduce(W_Word word) {
   if (W_getLength(word) == 1) {
     return W_createWord("");
@@ -20,13 +16,6 @@ W_Word *reduce(W_Word word) {
     free(string);
     return newWord;
   }
-}
-
-int isSolution(D_Dictionary *dictionary, char *stringToTest) {
-  W_Word *word = W_createWord(stringToTest);
-  int res = D_wordIsIN(word, *dictionary);
-  W_delete(word);
-  return res;
 }
 
 void insert(W_Word *word, BT_BinaryTree *tree) {
@@ -230,8 +219,8 @@ void D_add(W_Word *word, D_Dictionary *dictionary) {
 
 void D_remove(W_Word *word, D_Dictionary *dictionary) {}
 
-int D_isEmpty(D_Dictionary *dictionary) {
-  return BT_isEmpty((*dictionary).wordsBT);
+int D_isEmpty(D_Dictionary dictionary) {
+  return BT_isEmpty(dictionary.wordsBT);
 }
 
 int D_serialize(D_Dictionary dictionary, FILE *targetFile) {
@@ -245,12 +234,16 @@ D_Dictionary D_unserialize(char *pathToFile) {
 
   if (inputFile == NULL) {
     fprintf(stderr,
-            "\tERROR : impossible to open %s, check if the file exists "
-            "and the permission on it.\n\t (Dictionary.c)\n",
+            "\tERROR : Unable to open %s, check if the file exists "
+            "and the permission on it.\n\t",
             pathToFile);
     exit(1);
   }
   unserializeTree(inputFile, &(dictionary.wordsBT));
 
   return dictionary;
+}
+
+void D_delete(D_Dictionary dictionary) {
+  BT_delete(&(dictionary.wordsBT), W_delete);
 }

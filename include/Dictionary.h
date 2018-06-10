@@ -1,6 +1,3 @@
-/* Arthur Hamelin - 10/12/2014 */
-/* Alexandre DUVAL - 22/12/2014 */
-
 #ifndef __DICTIONARY__
 #define __DICTIONARY__
 
@@ -12,6 +9,7 @@
 /**
  *	\typedef D_Dictionary
  *	\struct BT_BinaryTree
+ *  \brief A dictionary is caracterised by its size and a binary tree.
  */
 typedef struct D_Dictionary {
   BT_BinaryTree wordsBT;
@@ -25,8 +23,6 @@ typedef struct D_Dictionary {
  *	\return D_Dictionary
  */
 D_Dictionary D_createDictionary();
-
-int isSolution(D_Dictionary *dictionary, char *stringToTest);
 
 /**
  *	\fn int D_wordIsIN (W_Word *word, D_Dictionary dictionary);
@@ -47,7 +43,7 @@ int D_size(D_Dictionary dictionary);
 
 /**
  *	\fn void D_add(W_Word *word, D_Dictionary *dictionary);
- *	\brief Add a word into the dictionary.
+ *	\brief Adds a word into the dictionary.
  *	\param *word A pointer to a W_Word to add.
  *	\param *dictionary A pointer to the dictionary to add the word to.
  *	\return void
@@ -69,7 +65,7 @@ void D_remove(W_Word *word, D_Dictionary *dictionary);
  *	\param *dictionary Pointer to the dictionary to check.
  *	\return int
  */
-int D_isEmpty(D_Dictionary *dictionary);
+int D_isEmpty(D_Dictionary dictionary);
 
 /**
  *	\fn int D_serialize(D_Dictionary dictionary, FILE* targetFile);
@@ -89,5 +85,13 @@ int D_serialize(D_Dictionary dictionary, FILE *targetFile);
  *	\return D_Dictionary
  */
 D_Dictionary D_unserialize(char *pathToFile);
+
+/**
+ *	\fn D_Dictionary D_delete(D_Dictionary dictionary);
+ *	\brief Delete a dictionary.
+ *	\param dictionary The dictionary to delete.
+ *	\return void
+ */
+void D_delete(D_Dictionary dictionary);
 
 #endif

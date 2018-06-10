@@ -78,10 +78,11 @@ void solveGridRecurrent(D_Dictionary dictionary, G_Grid grid,
 
   // If isSolution return >= 0, the word is in the dictionary, but might not be
   // at an end.
-
-  if (isSolution(&dictionary, newWordToTest) >= 0) {
+  if (1 >= 0) {
+    // if (isSolution(&dictionary, newWordToTest) >= 0) {
     // If the word is a complete word
-    if (isSolution(&dictionary, newWordToTest) == 1) {
+    if (1 == 1) {
+      // if (isSolution(&dictionary, newWordToTest) == 1) {
       So_Solution *solution;
       char *newWord = malloc(sizeof(char) * (strlen(newWordToTest)));
       newWord = strcpy(newWord, newWordToTest);
