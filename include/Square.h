@@ -1,132 +1,118 @@
-/* Arthur Hamelin - 10/12/2014 */
-/* Benjamin Deguerre - 26/12/2014 */
-
-/** \file Square.h
- *	\brief Implémentation du TAD Square
- *	\version 1.0
- *	\date 26/12/2014
- */
 #ifndef __SQUARE__
 #define __SQUARE__
 
 /**
- *	\typedef S_SQUARE
- *	\brief Structure Square, contient une string de caractère ainsi que ça
- *position dans la grid
+ *	\typedef S_Square
+ *	\brief Structure Square, contains a string and an integer (position in
+ *the grid)
  */
 typedef struct {
-  char *value; /**< string de caractère contenant la lettre, la value de la case
-                  et le bonus associé (dans cet ordre !) */
-  int number;  /**< integer représentant la position de la case dans la grid*/
-} S_SQUARE;
+  char *value;
+  int number;
+} S_Square;
 
 #define S_MEMORY_ERROR 1
 
 /**
- *	\fn S_SQUARE S_createSquare()
- *	\brief Creer une case vide de toute value
+ *	\fn S_Square S_createSquare()
+ *	\brief Create an empty square
  *
- *	La case est initialisée à NULL sur la string de caractère et 0 sur le no
- *de case
- *	\return S_SQUARE*
+ *	\return S_Square*
  */
-S_SQUARE *S_createSquare();
+S_Square *S_createSquare();
 
 /**
- *	\fn int S_isEmpty(S_SQUARE square)
- *	\brief Permet de savoir si une cae est vide ou non
+ *	\fn int S_isEmpty(S_Square square)
+ *	\brief Tells if the square is empty.
  *
- *	retourne 1 si la case est vide, 0 sinon. Attention, la fonction ne
- *regarde que si la string de caractère st a NULL ou non
- *	\param c la case
+ *	Return 1 if empty, else 0.
+ *	\param square, the S_Square
  *	\return int
  */
-int S_isEmpty(S_SQUARE square);
+int S_isEmpty(S_Square square);
 
 /**
- *	\fn char *S_getValue(S_SQUARE)
- *	\brief retourne la string de caractère complète de la case
- *	\param c la case
+ *	\fn char *S_getValue(S_Square)
+ *	\brief Return the string of the square.
+ *	\param square, the S_Square
  *	\return char*
  */
-char *S_getValue(S_SQUARE square);
+char *S_getValue(S_Square square);
 
 /**
- *	\fn char S_getLetter(S_SQUARE square)
- *	\brief retourne la lettre contenue dans la case (première value de la
- *string de caractère)
- *	\param c la case
+ *	\fn char S_getLetter(S_Square square)
+ *	\brief Return the letter of the string (first value).
+ *	\param square, the S_Square
  *	\return char
  */
-char S_getLetter(S_SQUARE square);
+char S_getLetter(S_Square square);
 
 /**
- *	\fn int S_getPosition(S_SQUARE square)
- *	\brief retourne la position de la case dans la grid
- *	\param c la case
+ *	\fn int S_getPosition(S_Square square)
+ *	\brief Return the position of the square in the grid.
+ *	\param square, the S_Square
  *	\return int
  */
-int S_getPosition(S_SQUARE square);
+int S_getPosition(S_Square square);
 
 /**
- *	\fn int S_getPointsNumber(S_SQUARE square)
- *	\brief retourne la value simple de la case, c'est à dire sans les bonus
- *	\param c la case
+ *	\fn int S_getPointsNumber(S_Square square)
+ *	\brief Return the value of the square (with out the bonuses).
+ *	\param square, the S_Square
  *	\return int
  */
-int S_getPointsNumber(S_SQUARE square);
+int S_getPointsNumber(S_Square square);
 
 /**
- *	\fn char *S_getBonus(S_SQUARE square)
- *	\brief retourne la string de caractère contenant les bonus
+ *	\fn char *S_getBonus(S_Square square)
+ *	\brief Return the string with the bonuses (pos 2 and 3).
  *
- *	Allocation avec malloc, un free sera nécéssaire
- *	\param c la case
+ *  Malloc is used.
+ *	\param square, the S_Square
  *	\return char*
  */
-char *S_getBonus(S_SQUARE square);
+char *S_getBonus(S_Square square);
 
 /**
- *	\fn S_SQUARE S_defineSquare(S_SQUARE square, char *value, int
+ *	\fn S_Square S_defineSquare(S_Square *square, char *value, int
  *squareNumber)
- *	\brief permet de remplir la case avec les bonnes values
- *	\param c la case
- *	\param *value, string de caractère contenant la lettre, la value de la
- *case et le bonus associé
- *	\param squareNumber le numéro de la case
+ *	\brief Fills the square with the provided values.
+ *
+ *	\param square, the S_Square
+ *	\param *value, The string with the letter value and bonuses.
+ *	\param squareNumber Square number.
  *	\return void
  */
-void S_defineSquare(S_SQUARE *square, char *value, int squareNumber);
+void S_defineSquare(S_Square *square, char *value, int squareNumber);
 
 /**
- *	\fn void* S_copy(void* c)
- *	\brief fonction permettant de copy une case
+ *	\fn void* S_copy(void* square)
+ *	\brief Copy a square
  *
- *	appel de la fonction : var NewVar = S_copy(OldVar), la value de
- *l'ancienne variable est copié dans la new, malloc est utilisé
- *	\param *square la case à copy (pointeur)
+ *	\param *square The square to copy.
  *	\return void*
  */
 void *S_copy(void *square);
 
 /**
  *	\fn void S_delete(void *square)
- *	\brief fonction permettant de delete une case et de libérer l'espace
- *mémoire utilisé
- *	\param *square la case à delete (pointeur)
+ *	\brief Function to delete the square.
+ *
+ *	\param *square The square to delete.
  *	\return void
  */
 void S_delete(void *square);
 
 /**
  *	\fn S_compare(void *square1, void *square2)
- *	\brief fonction permettant de compare deux cases
+ *	\brief Function to compare two squares.
  *
- *	Deux cases sont égales quand elles ont la même value, ced même string de
- *caractère
- *	\param *square1 la première case à compare (pointeur)
- *	\param *square1 la deuxième case à compare (pointeur)
- *	\return int
+ *	The squares are equal if they have the same position.
+ *
+ *	\param *square1 The first square.
+ *	\param *square1 The second square.
+ *	\return int -1 if position of square1 < position square2, 0 if ==, 1
+ *else.
  */
 int S_compare(void *square1, void *square2);
 #endif

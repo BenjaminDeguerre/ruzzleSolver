@@ -8,7 +8,7 @@
 
 G_Grid G_createGrid(char **arrayParameters) {
   G_Grid grid;
-  S_SQUARE *square;
+  S_Square *square;
   int i;
   for (i = 0; i < G_LENGTH; i++) {
     square = S_createSquare();
@@ -18,16 +18,16 @@ G_Grid G_createGrid(char **arrayParameters) {
   return grid;
 }
 
-S_SQUARE *G_getSquare(G_Grid grid, int squareNumber) {
-  return (S_SQUARE *)S_copy((S_SQUARE *)grid.arraySquares[squareNumber]);
+S_Square *G_getSquare(G_Grid grid, int squareNumber) {
+  return (S_Square *)S_copy((S_Square *)grid.arraySquares[squareNumber]);
 }
 
-LL_LinkedList G_getNeighbours(G_Grid grid, S_SQUARE square) {
+LL_LinkedList G_getNeighbours(G_Grid grid, S_Square square) {
   int squareNumber = S_getPosition(square);
   LL_LinkedList linkedList = LL_createLinkedList();
   int neighbours[8] = {-1, -1, -1, -1, -1, -1, -1, -1};
   int i;
-  S_SQUARE *neighbour;
+  S_Square *neighbour;
   if (squareNumber % 4 == 0) {
     // left column of the grid
     neighbours[1] = squareNumber - G_COTE;

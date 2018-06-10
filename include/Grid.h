@@ -18,7 +18,7 @@
  *	\brief Structure d'une grid, tableau de case
  */
 typedef struct {
-  S_SQUARE *arraySquares[G_LENGTH]; /**< Le tableau de Squares */
+  S_Square *arraySquares[G_LENGTH]; /**< Le tableau de Squares */
 } G_Grid;
 
 /**
@@ -35,17 +35,17 @@ typedef struct {
 G_Grid G_createGrid(char **string);
 
 /**
- *	\fn S_SQUARE* G_getSquare(G_Grid, int squareNumber)
+ *	\fn S_Square* G_getSquare(G_Grid, int squareNumber)
  *	\brief Permet d'get un pointer sur la ieme case d'une grid (0-11,
  *gauche-droite, haut-bas)
  *	\param g la grid target
  *	\param squareNumber le numéro de la case que l'on souhaite get
- *	\return S_SQUARE*
+ *	\return S_Square*
  */
-S_SQUARE *G_getSquare(G_Grid grid, int squareNumber);
+S_Square *G_getSquare(G_Grid grid, int squareNumber);
 
 /**
- *	\fn LL_LinkedList G_getNeighbours(G_Grid grid, S_SQUARE square)
+ *	\fn LL_LinkedList G_getNeighbours(G_Grid grid, S_Square square)
  *	\brief Permet d'get les neighbours d'une case donnée dans une grid
  *
  *	retourne une liste ordonnée contenant tous les neighbours possible
@@ -53,7 +53,7 @@ S_SQUARE *G_getSquare(G_Grid grid, int squareNumber);
  *	\param c La case dont on veut les neighbours
  *	\return LL_LinkedList
  */
-LL_LinkedList G_getNeighbours(G_Grid grid, S_SQUARE square);
+LL_LinkedList G_getNeighbours(G_Grid grid, S_Square square);
 
 /**
  *	\fn void G_suppirmerGrid(G_Grid grid)

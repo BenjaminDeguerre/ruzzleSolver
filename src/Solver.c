@@ -59,10 +59,10 @@ int AS_getValueBonusLetter(char *bonus) {
   return res;
 }
 void solveGridRecurrent(D_Dictionary dictionary, G_Grid grid,
-                        int usedSquare[G_LENGTH], S_SQUARE square,
+                        int usedSquare[G_LENGTH], S_Square square,
                         char *wordToTest, LL_LinkedList *l, int point) {
   int i, position;
-  S_SQUARE *newSquare;
+  S_Square *newSquare;
   char *newWordToTest = append(wordToTest, S_getLetter(square));
 
   char *Bonus = S_getBonus(square);
@@ -99,7 +99,7 @@ void solveGridRecurrent(D_Dictionary dictionary, G_Grid grid,
     int compteur = LL_length(neighbours);
 
     for (i = 0; i < compteur; i++) {
-      newSquare = (S_SQUARE *)LL_getElement(tmp);
+      newSquare = (S_Square *)LL_getElement(tmp);
       position = S_getPosition(*newSquare);
 
       if (usedSquare[position] != 1) {
@@ -123,7 +123,7 @@ LL_LinkedList solveGrid(D_Dictionary dictionary, G_Grid gridToSolve) {
   int i;
   LL_LinkedList solution = LL_createLinkedList();
   for (i = 0; i < 16; i++) {
-    S_SQUARE *square = G_getSquare(gridToSolve, i);
+    S_Square *square = G_getSquare(gridToSolve, i);
     int usedSquare[G_LENGTH] = {0};
     char *wordToTest = "";
     solveGridRecurrent(dictionary, gridToSolve, usedSquare, *square, wordToTest,

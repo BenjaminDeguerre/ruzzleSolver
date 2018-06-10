@@ -1,11 +1,11 @@
 /* Deguerre Benjamin - 23/12/2014 */
 /* Deguerre Benjamin - 30/12/2014 */
 
-#include "Solution.h"
 #include <CUnit/Basic.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "Solution.h"
 
 int init_suite_success(void) { return 0; }
 
@@ -24,7 +24,16 @@ void test_createSolution(void) {
   So_delete((void *)solution2);
 }
 
-void test_copySolution(void) { CU_ASSERT_TRUE('b' == 'b'); }
+void test_copySolution(void) {
+  So_Solution *solution = So_createSolution("winner", 42);
+  So_Solution *solution2;
+
+  solution2 = So_copy(solution);
+  CU_ASSERT_TRUE(So_compare((void *)solution, (void *)solution2) == 0);
+  CU_ASSERT_STRING_EQUAL(So_getString(*solution), So_getString(*solution2));
+  So_delete((void *)solution);
+  So_delete((void *)solution2);
+}
 
 void test_compareSolution(void) {
   So_Solution *solution1 = So_createSolution("winner", 42);
@@ -51,12 +60,10 @@ int test_Solution(CU_pSuite pSuite) {
 }
 
 int main() {
-
   CU_pSuite pSuite = NULL;
 
   /* initialisation du registre de test */
-  if (CUE_SUCCESS != CU_initialize_registry())
-    return CU_get_error();
+  if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
 
   /* ajout d’une suite de test */
   pSuite = CU_add_suite("Tests boite noire", init_suite_success,

@@ -15,7 +15,7 @@ So_Solution *So_createSolution(char *word, int value) {
     solution->word = newWord;
     solution->value = value;
   } else {
-    errno = S_MEMORY_ERROR;
+    errno = SO_MEMORY_ERROR;
     exit(errno);
   }
   return solution;

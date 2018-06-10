@@ -10,7 +10,7 @@ typedef struct {
   int value;
 } So_Solution;
 
-#define S_MEMORY_ERROR 1
+#define SO_MEMORY_ERROR 1
 
 /**
  *	\fn So_Solution* S_createSolution(char *word, int value)

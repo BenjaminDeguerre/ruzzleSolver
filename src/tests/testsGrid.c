@@ -20,7 +20,7 @@ void test_createGrid(void) {
 
   G_Grid grid = createGridToSolve(string);
 
-  S_SQUARE *squareTest, *squareRef = S_createSquare();
+  S_Square *squareTest, *squareRef = S_createSquare();
   char *stringTest, *stringRef;
 
   S_defineSquare(squareRef, "T1LD", 0);
@@ -68,20 +68,20 @@ void test_getNeighbours(void) {
       "T1LDR1  A1  S1MTE1LTN1  C3LTE1  U1  R1  I1  L2MDS1  O1MDP3  S1  ";
   G_Grid grid = createGridToSolve(string);
   LL_LinkedList list;
-  S_SQUARE *squareTest, *squareList;
+  S_Square *squareTest, *squareList;
 
   // Testing the top left corner
   squareTest = G_getSquare(grid, 0);
   list = G_getNeighbours(grid, *squareTest);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "N1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "E1LT");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "R1  ");
 
   list = LL_getNextList(list);
@@ -91,15 +91,15 @@ void test_getNeighbours(void) {
   squareTest = G_getSquare(grid, 12);
   list = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "O1MD");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "R1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "U1  ");
 
   list = LL_getNextList(list);
@@ -109,15 +109,15 @@ void test_getNeighbours(void) {
   squareTest = G_getSquare(grid, 3);
   list = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "E1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "C3LT");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "A1  ");
 
   list = LL_getNextList(list);
@@ -127,15 +127,15 @@ void test_getNeighbours(void) {
   squareTest = G_getSquare(grid, 15);
   list = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "P3  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "L2MD");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "I1  ");
 
   list = LL_getNextList(list);
@@ -145,23 +145,23 @@ void test_getNeighbours(void) {
   squareTest = G_getSquare(grid, 1);
   list = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "C3LT");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "N1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "E1LT");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "A1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "T1LD");
 
   list = LL_getNextList(list);
@@ -171,23 +171,23 @@ void test_getNeighbours(void) {
   squareTest = G_getSquare(grid, 14);
   list = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "S1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "O1MD");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "L2MD");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "I1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "R1  ");
 
   list = LL_getNextList(list);
@@ -197,23 +197,23 @@ void test_getNeighbours(void) {
   squareTest = G_getSquare(grid, 8);
   list = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "O1MD");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "S1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "R1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "N1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "E1LT");
 
   list = LL_getNextList(list);
@@ -223,23 +223,23 @@ void test_getNeighbours(void) {
   squareTest = G_getSquare(grid, 7);
   list = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "L2MD");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "I1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "C3LT");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "S1MT");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "A1  ");
 
   list = LL_getNextList(list);
@@ -249,35 +249,35 @@ void test_getNeighbours(void) {
   squareTest = G_getSquare(grid, 9);
   list = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "P3  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "O1MD");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "S1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "I1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "U1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "C3LT");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "N1  ");
 
   list = LL_getNextList(list);
-  squareList = (S_SQUARE *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "E1LT");
 
   list = LL_getNextList(list);

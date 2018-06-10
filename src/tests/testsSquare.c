@@ -1,38 +1,38 @@
 /* Deguerre Benjamin - 23/12/2014 */
 /* Deguerre Benjamin - 30/12/2014 */
 
-#include "Square.h"
 #include <CUnit/Basic.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "Square.h"
 
 int init_suite_success(void) { return 0; }
 
 int clean_suite_success(void) { return 0; }
 
 void test_1_Square(void) {
-  S_SQUARE *square = S_createSquare();
+  S_Square *square = S_createSquare();
   CU_ASSERT_TRUE(S_isEmpty(*square) == 1);
   S_delete((void *)square);
 }
 
 void test_2_Square(void) {
-  S_SQUARE *square = S_createSquare();
+  S_Square *square = S_createSquare();
   S_defineSquare(square, "b2MD", 1);
   CU_ASSERT_TRUE(S_getLetter(*square) == 'b');
   S_delete((void *)square);
 }
 
 void test_3_Square(void) {
-  S_SQUARE *square = S_createSquare();
+  S_Square *square = S_createSquare();
   S_defineSquare(square, "b2MD", 1);
-  CU_ASSERT_TRUE(S_getPointsNumber(*square) == '2');
+  CU_ASSERT_TRUE(S_getPointsNumber(*square) == 2);
   S_delete((void *)square);
 }
 
 void test_4_Square(void) {
-  S_SQUARE *square = S_createSquare();
+  S_Square *square = S_createSquare();
   S_defineSquare(square, "b2MD", 1);
   char *bonus = S_getBonus(*square);
   CU_ASSERT_STRING_EQUAL(bonus, "MD");
@@ -41,9 +41,9 @@ void test_4_Square(void) {
 }
 
 void test_5_Square(void) {
-  S_SQUARE *square1 = S_createSquare(), *square2 = S_createSquare();
+  S_Square *square1 = S_createSquare(), *square2;
   S_defineSquare(square1, "b2MD", 1);
-  square2 = (S_SQUARE *)S_copy((void *)square1);
+  square2 = (S_Square *)S_copy((void *)square1);
   char *bonus1 = S_getBonus(*square1);
   char *bonus2 = S_getBonus(*square2);
   CU_ASSERT_STRING_EQUAL(bonus1, bonus2);
@@ -74,28 +74,22 @@ int test_Square(CU_pSuite pSuite) {
 }
 
 int main() {
-
   CU_pSuite pSuite = NULL;
 
-  /* initialisation du registre de test */
-  if (CUE_SUCCESS != CU_initialize_registry())
-    return CU_get_error();
+  if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
 
-  /* ajout d’une suite de test */
-  pSuite = CU_add_suite("Tests boite noire", init_suite_success,
-                        clean_suite_success);
+  pSuite =
+      CU_add_suite("Tests black box", init_suite_success, clean_suite_success);
   if (NULL == pSuite) {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
-  /* ajout des tests à la suite de tests boite noire */
   if (test_Square(pSuite)) {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
-  /* Lancement des tests */
   CU_basic_set_mode(CU_BRM_VERBOSE);
   CU_basic_run_tests();
   printf("\n");
