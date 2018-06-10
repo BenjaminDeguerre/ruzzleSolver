@@ -3,8 +3,7 @@
 
 #include <CUnit/Basic.h>
 #include <CUnit/CUnit.h>
-#include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
 #include "Utils.h"
 
 int init_suite_success(void) { return 0; }
@@ -12,15 +11,21 @@ int init_suite_success(void) { return 0; }
 int clean_suite_success(void) { return 0; }
 
 void test_1_subString(void) {
-  CU_ASSERT_STRING_EQUAL(subString("bonjour", 0, 0), "b");
+  char* sub = subString("bonjour", 0, 0);
+  CU_ASSERT_STRING_EQUAL(sub, "b");
+  free(sub);
 }
 
 void test_2_subString(void) {
-  CU_ASSERT_STRING_EQUAL(subString("bonjour", 0, 2), "bon");
+  char* sub = subString("bonjour", 0, 2);
+  CU_ASSERT_STRING_EQUAL(sub, "bon");
+  free(sub);
 }
 
 void test_3_subString(void) {
-  CU_ASSERT_STRING_EQUAL(subString("bonjour", 3, 6), "jour");
+  char* sub = subString("bonjour", 3, 6);
+  CU_ASSERT_STRING_EQUAL(sub, "jour");
+  free(sub);
 }
 
 int test_subString(CU_pSuite pSuite) {
