@@ -21,8 +21,8 @@ $(BINDIR)/$(EXECTRANSCODE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.
 #ruzzleSolver
 ruzzleSolver : $(BINDIR)/$(EXECRUZZLE)
 
-$(BINDIR)/$(EXECRUZZLE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.a $(LIBDIR)/libsearchbinarytree.a $(SRCDIR)/Square.o $(SRCDIR)/Grid.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/Utils.o $(SRCDIR)/Solution.o
-	$(CC) -o $@ $(SRCDIR)/Square.o $(SRCDIR)/Grid.o $(SRCDIR)/createGridToSolve.o $(SRCDIR)/solveGrid.o $(SRCDIR)/solveRuzzle.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/Utils.o $(SRCDIR)/Solution.o $(LDFLAGS) -ldictionary -lsearchbinarytree -lorderedlist
+$(BINDIR)/$(EXECRUZZLE) : $(LIBDIR)/libdictionary.a $(LIBDIR)/liborderedlist.a $(LIBDIR)/libsearchbinarytree.a $(SRCDIR)/Square.o $(SRCDIR)/Grid.o $(SRCDIR)/Solver.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/Utils.o $(SRCDIR)/Solution.o
+	$(CC) -o $@ $(SRCDIR)/Square.o $(SRCDIR)/Grid.o $(SRCDIR)/Solver.o $(SRCDIR)/mainRuzzleSolver.o $(SRCDIR)/Utils.o $(SRCDIR)/Solution.o $(LDFLAGS) -ldictionary -lsearchbinarytree -lorderedlist
 
 $(LIBDIR)/libdictionary.a : $(SRCDIR)/Dictionary.o $(SRCDIR)/Word.o
 	$(AR) -r $@ $^
@@ -42,7 +42,7 @@ tests : testsUtils testsNode testsSquare testsGrid testsDictionary testsWord tes
 testsUtils : $(TESTDIR)/testsUtils
 
 $(TESTDIR)/testsUtils : $(SRCDIR)/$(TESTDIR)/testsUtils.o $(SRCDIR)/Utils.o
-	 $(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsUtils.o $(SRCDIR)/Utils.o -lcunit 
+	 $(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsUtils.o $(SRCDIR)/Utils.o -ldictionary -lsearchbinarytree -lcunit 
 	 
 testsSolution : $(TESTDIR)/testsSolution
 	
@@ -61,8 +61,8 @@ $(TESTDIR)/testsSquare : $(SRCDIR)/$(TESTDIR)/testsSquare.o $(SRCDIR)/Square.o
 	
 testsGrid : $(TESTDIR)/testsGrid
 
-$(TESTDIR)/testsGrid : $(SRCDIR)/$(TESTDIR)/testsGrid.o $(SRCDIR)/Grid.o $(SRCDIR)/Square.o $(SRCDIR)/LinkedList.o $(SRCDIR)/Utils.o $(SRCDIR)/createGridToSolve.o
-	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsGrid.o $(SRCDIR)/Grid.o $(SRCDIR)/Square.o $(SRCDIR)/LinkedList.o $(SRCDIR)/Utils.o $(SRCDIR)/createGridToSolve.o -lcunit
+$(TESTDIR)/testsGrid : $(SRCDIR)/$(TESTDIR)/testsGrid.o $(SRCDIR)/Grid.o $(SRCDIR)/Square.o $(SRCDIR)/LinkedList.o $(SRCDIR)/Utils.o $(SRCDIR)/Solver.o $(SRCDIR)/Solution.o
+	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsGrid.o $(SRCDIR)/Grid.o $(SRCDIR)/Square.o $(SRCDIR)/LinkedList.o $(SRCDIR)/Utils.o $(SRCDIR)/Solver.o $(SRCDIR)/Solution.o -lcunit -ldictionary -lsearchbinarytree
 
 testsDictionary : $(TESTDIR)/testsDictionary
 
