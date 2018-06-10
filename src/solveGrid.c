@@ -16,25 +16,76 @@ char *append(char *s, char c)
   res[len + 1] = '\0';
   return res;
 }
-
-void *sG_copyWord(void *wordToCopy)
+int AS_getValueBonusWord(char *bonus)
 {
-  char *copy = malloc(sizeof(char) * strlen(wordToCopy) + 1);
-  copy = strcpy(copy, (char *)wordToCopy);
-  return (void *)copy;
+  int res;
+  if (bonus[0] == 'W')
+  {
+    switch (bonus[1])
+    {
+    case 'D':
+      res = 2;
+      break;
+    case 'T':
+      res = 3;
+      break;
+    default:
+      res = 0;
+      break;
+    }
+  }
+  else
+  {
+    res = 0;
+  }
+  return res;
 }
 
+int AS_getValueBonusLetter(char *bonus)
+{
+  int res;
+  if (bonus[0] == 'L')
+  {
+    switch (bonus[1])
+    {
+    case 'D':
+      res = 2;
+      break;
+    case 'T':
+      res = 3;
+      break;
+    default:
+      res = 0;
+      break;
+    }
+  }
+  else
+  {
+    res = 0;
+  }
+  return res;
+}
 void solveGridRecurrent(D_Dictionary dictionary, G_Grid grid,
                         int usedSquare[G_LENGTH], S_SQUARE square,
-                        char *wordToTest, LL_LinkedList *l,
-                        AS_AdjacentSquares *adjacentSquare)
+                        char *wordToTest, LL_LinkedList *l, int point)
 {
 
   int i, position;
   S_SQUARE *newSquare;
-
   char *newWordToTest = append(wordToTest, S_getLetter(square));
-  AS_addSquare(adjacentSquare, &square);
+
+  char *Bonus = S_getBonus(square);
+  int vBonusWord = AS_getValueBonusWord(Bonus);
+  int vBonusLetter = AS_getValueBonusLetter(Bonus);
+  if (vBonusLetter == 0)
+  {
+    point = point + S_getPointsNumber(square) - 48;
+  }
+  else
+  {
+    point = point + (S_getPointsNumber(square) - 48) * vBonusLetter;
+  }
+  free(Bonus);
   usedSquare[S_getPosition(square)] = 1;
 
   // If isSolution return >= 0, the word is in the dictionary, but might not be
@@ -45,16 +96,14 @@ void solveGridRecurrent(D_Dictionary dictionary, G_Grid grid,
     // If the word is a complete word
     if (isSolution(&dictionary, newWordToTest) == 1)
     {
-      int point;
       So_Solution *solution;
       char *newWord = malloc(sizeof(char) * (strlen(newWordToTest)));
-
       newWord = strcpy(newWord, newWordToTest);
-      point = AS_countPoints(*adjacentSquare);
       solution = So_createSolution(newWord, point);
       LL_add(l, (void *)solution, So_copy, So_compare);
 
       free(newWord);
+      So_delete(solution);
     }
     // We keep testing for all the neighbours square in the grid not already
     // used.
@@ -65,7 +114,6 @@ void solveGridRecurrent(D_Dictionary dictionary, G_Grid grid,
 
     for (i = 0; i < compteur; i++)
     {
-
       newSquare = (S_SQUARE *)LL_getElement(tmp);
       position = S_getPosition(*newSquare);
 
@@ -77,12 +125,12 @@ void solveGridRecurrent(D_Dictionary dictionary, G_Grid grid,
           tmpSquareUsed[j] = usedSquare[j];
         }
         solveGridRecurrent(dictionary, grid, tmpSquareUsed, *newSquare,
-                           newWordToTest, l, adjacentSquare);
+                           newWordToTest, l, point);
         free(tmpSquareUsed);
       }
       tmp = LL_getNextList(tmp);
     }
-    // LL_delete(&neighbours, S_delete);
+    LL_delete(&neighbours, S_delete);
   }
   free(newWordToTest);
 }
@@ -95,13 +143,11 @@ LL_LinkedList solveGrid(D_Dictionary dictionary, G_Grid gridToSolve)
   LL_LinkedList solution = LL_createLinkedList();
   for (i = 0; i < 16; i++)
   {
-    AS_AdjacentSquares *adjacentSquare = AS_createAdjacentSquares();
-    S_SQUARE square = G_getSquare(gridToSolve, i);
+    S_SQUARE *square = G_getSquare(gridToSolve, i);
     int usedSquare[G_LENGTH] = {0};
     char *wordToTest = "";
-    solveGridRecurrent(dictionary, gridToSolve, usedSquare, square, wordToTest,
-                       &solution, adjacentSquare);
-    AS_deleteSquare(adjacentSquare);
+    solveGridRecurrent(dictionary, gridToSolve, usedSquare, *square, wordToTest,
+                       &solution, 0);
   }
   return solution;
 }
