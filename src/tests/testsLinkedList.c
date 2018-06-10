@@ -25,7 +25,7 @@ void test_elementIsNull(void) {
   LL_LinkedList list = LL_createLinkedList();
   CU_ASSERT(LL_elementIsNull(list));
 
-  So_Solution *solution = So_createSolution("allo", 35);
+  So_Solution *solution = So_createSolution("hello", 35);
   LL_add(&list, solution, So_copy, So_compare);
   CU_ASSERT_FALSE(LL_elementIsNull(list));
   LL_delete(&list, So_delete);
@@ -35,8 +35,8 @@ void test_newListIsNull(void) {
   LL_LinkedList list = LL_createLinkedList();
   CU_ASSERT(LL_newtListIsNull(list));
 
-  So_Solution *solution = So_createSolution("allo", 35);
-  So_Solution *solution2 = So_createSolution("allo", 35);
+  So_Solution *solution = So_createSolution("hello", 35);
+  So_Solution *solution2 = So_createSolution("hello", 35);
   LL_add(&list, solution, So_copy, So_compare);
   LL_add(&list, solution2, So_copy, So_compare);
   CU_ASSERT_FALSE(LL_newtListIsNull(list));
@@ -47,7 +47,7 @@ void test_isEmpty(void) {
   LL_LinkedList list = LL_createLinkedList();
   CU_ASSERT(LL_isEmpty(list));
 
-  So_Solution *solution = So_createSolution("allo", 35);
+  So_Solution *solution = So_createSolution("hello", 35);
   LL_add(&list, solution, So_copy, So_compare);
   CU_ASSERT_FALSE(LL_isEmpty(list));
 
@@ -55,16 +55,87 @@ void test_isEmpty(void) {
 }
 
 void test_add(void) {
-  LL_LinkedList maList = LL_createLinkedList();
-  LL_LinkedList maList1 = LL_createLinkedList();
+  LL_LinkedList list = LL_createLinkedList();
+
+  So_Solution *solution = So_createSolution("hello", 35);
+  So_Solution *solution2 = So_createSolution("by", 42);
+  LL_add(&list, solution, So_copy, So_compare);
+  LL_add(&list, solution2, So_copy, So_compare);
+
+  CU_ASSERT(So_compare(LL_getElement(list), solution2) == 0);
+  CU_ASSERT(So_compare(LL_getElement(LL_getNextList(list)), solution) == 0);
+  LL_delete(&list, So_delete);
 }
 
-void test_getsetElement(void) { LL_LinkedList maList = LL_createLinkedList(); }
-void test_getsetNextList(void) {}
+void test_setElement(void) {
+  LL_LinkedList list = LL_createLinkedList();
+  So_Solution *solutionToGet;
+  So_Solution *solution = So_createSolution("hello", 35);
+  So_Solution *solution2 = So_createSolution("by", 42);
+  So_Solution *solution3 = So_createSolution("third", 33);
 
-void test_deleteHead(void) {}
+  LL_add(&list, solution, So_copy, So_compare);
+  LL_add(&list, solution2, So_copy, So_compare);
+  solutionToGet = (So_Solution *)LL_getElement(list);
+  CU_ASSERT_STRING_EQUAL(So_getString(*solutionToGet), "by");
+  CU_ASSERT_TRUE(So_getValue(*solutionToGet) == 42);
 
-void test_copy_equals(void) {}
+  LL_setElement(&list, (void *)solution3, So_copy, So_delete);
+  solutionToGet = (So_Solution *)LL_getElement(list);
+  CU_ASSERT_STRING_EQUAL(So_getString(*solutionToGet), "third");
+  CU_ASSERT_TRUE(So_getValue(*solutionToGet) == 33);
+
+  LL_delete(&list, So_delete);
+  So_delete(solution);
+  So_delete(solution2);
+  So_delete(solution3);
+}
+
+void test_setNextList(void) {
+  LL_LinkedList list = LL_createLinkedList();
+  LL_LinkedList list2 = LL_createLinkedList();
+
+  So_Solution *solution = So_createSolution("hello", 35);
+  So_Solution *solution2 = So_createSolution("by", 42);
+  LL_add(&list, solution, So_copy, So_compare);
+  LL_add(&list2, solution2, So_copy, So_compare);
+
+  LL_setNextList(&list, list2);
+
+  CU_ASSERT(LL_equals(LL_getNextList(list), list2, So_compare) == 1);
+
+  LL_delete(&list, So_delete);
+}
+
+void test_deleteHead(void) {
+
+  LL_LinkedList list = LL_createLinkedList();
+  So_Solution *solutionToGet;
+  So_Solution *solution = So_createSolution("hello", 35);
+  So_Solution *solution2 = So_createSolution("by", 42);
+  LL_add(&list, solution, So_copy, So_compare);
+  LL_add(&list, solution2, So_copy, So_compare);
+  LL_deleteHead(&list, So_delete);
+  solutionToGet = (So_Solution *)LL_getElement(list);
+
+  CU_ASSERT_STRING_EQUAL(So_getString(*solutionToGet), "hello");
+  CU_ASSERT_TRUE(So_getValue(*solutionToGet) == 35);
+  LL_delete(&list, So_delete);
+}
+
+void test_copy_equals(void) {
+  LL_LinkedList list = LL_createLinkedList();
+  LL_LinkedList list2;
+
+  So_Solution *solution = So_createSolution("hello", 35);
+  So_Solution *solution2 = So_createSolution("by", 42);
+  LL_add(&list, solution, So_copy, So_compare);
+  LL_add(&list, solution2, So_copy, So_compare);
+  list2 = LL_copy(list, So_copy, So_compare);
+  CU_ASSERT(LL_equals(list, list2, So_compare) == 1);
+  LL_delete(&list, So_delete);
+  LL_delete(&list2, So_delete);
+}
 
 void test_length(void) {
   LL_LinkedList list = LL_createLinkedList();
@@ -88,8 +159,8 @@ int test_LinkedList(CU_pSuite pSuite) {
       (NULL == CU_add_test(pSuite, "LL_newListIsNull()", test_newListIsNull)) ||
       (NULL == CU_add_test(pSuite, "LL_isEmpty", test_isEmpty)) ||
       (NULL == CU_add_test(pSuite, "LL_add", test_add)) ||
-      (NULL == CU_add_test(pSuite, "LL_getsetElement", test_getsetElement)) ||
-      (NULL == CU_add_test(pSuite, "LL_getsetNextList", test_getsetNextList)) ||
+      (NULL == CU_add_test(pSuite, "LL_getsetElement", test_setElement)) ||
+      (NULL == CU_add_test(pSuite, "LL_getsetNextList", test_setNextList)) ||
       (NULL == CU_add_test(pSuite, "LL_deleteHead", test_deleteHead)) ||
       (NULL == CU_add_test(pSuite, "LL_copy", test_copy_equals)) ||
       (NULL == CU_add_test(pSuite, "LL_length", test_length)));

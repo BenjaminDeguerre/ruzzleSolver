@@ -98,14 +98,13 @@ LL_LinkedList LL_getNextList(LL_LinkedList list) {
 }
 
 void LL_setNextList(LL_LinkedList *list, LL_LinkedList newtList) {
-  assert(!LL_isEmpty(*list));
+  assert(!LL_elementIsNull(*list));
   errno = 0;
   (*list)->newLinkedList = newtList;
 }
 
 void LL_setElement(LL_LinkedList *list, void *source, EC_copy copyElement,
                    EC_delete freeElement) {
-  assert(!LL_isEmpty(*list));
   errno = 0;
 
   void *donnee = copyElement(source);
@@ -151,10 +150,13 @@ LL_LinkedList LL_copy(LL_LinkedList list, EC_copy copyElement,
 
   if (LL_isEmpty(list)) {
     return LL_createLinkedList();
+  } else if (LL_newtListIsNull(list)) {
+    tmp = LL_createLinkedList();
+    LL_add(&tmp, LL_getElement(list), copyElement, compareElement);
+    return tmp;
   } else {
     tmp = LL_copy(LL_getNextList(list), copyElement, compareElement);
     LL_add(&tmp, LL_getElement(list), copyElement, compareElement);
-
     return tmp;
   }
 }
@@ -169,7 +171,10 @@ int LL_equals(LL_LinkedList list1, LL_LinkedList list2,
     if (LL_isEmpty(list1) || LL_isEmpty(list2)) {
       return 0;
     } else {
-      if (compareElement(LL_getElement(list1), LL_getElement(list2))) {
+      if (compareElement(LL_getElement(list1), LL_getElement(list2)) == 0) {
+        if (LL_newtListIsNull(list1) && LL_newtListIsNull(list2)) {
+          return 1;
+        }
         return LL_equals(LL_getNextList(list1), LL_getNextList(list2),
                          compareElement);
       } else {
@@ -177,7 +182,6 @@ int LL_equals(LL_LinkedList list1, LL_LinkedList list2,
       }
     }
   }
-
   return 0;
 }
 
