@@ -10,7 +10,7 @@ So_Solution *So_createSolution(char *word, int value) {
   char *newWord;
 
   if (solution != NULL) {
-    newWord = malloc(sizeof(char) * strlen(word));
+    newWord = malloc(sizeof(char) * strlen(word) + 1);
     strcpy(newWord, word);
     solution->word = newWord;
     solution->value = value;
