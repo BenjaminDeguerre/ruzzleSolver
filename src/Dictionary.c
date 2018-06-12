@@ -157,14 +157,14 @@ void unserializeTree(FILE *file, BT_BinaryTree *tree) {
       if (BT_isEmpty(*tree)) {
         N_Node *N1 = N_createNode(0, line[0]);
         *tree = BT_addRoot(BT_createSBT(), BT_createSBT(), N1, (EC_copy)N_copy);
-        N_free(N1);
+        N_delete(N1);
         unserializeTree(file, tree);
       } else if (!BT_isEmpty(*tree) && BT_isEmpty(BT_getLeftChild(*tree)) &&
                  !BT_isProcessed(tree)) {
         N_Node *N2 = N_createNode(0, line[0]);
         BT_setLeftChild(tree, BT_addRoot(BT_createSBT(), BT_createSBT(), N2,
                                          (EC_copy)N_copy));
-        N_free(N2);
+        N_delete(N2);
         BT_BinaryTree tmp1 = BT_getLeftChild(*tree);
         unserializeTree(file, &tmp1);
         BT_setLeftChild(tree, tmp1);
@@ -175,7 +175,7 @@ void unserializeTree(FILE *file, BT_BinaryTree *tree) {
         N_Node *N3 = N_createNode(0, line[0]);
         BT_setRightChild(tree, BT_addRoot(BT_createSBT(), BT_createSBT(), N3,
                                           (EC_copy)N_copy));
-        N_free(N3);
+        N_delete(N3);
         BT_BinaryTree tmp2 = BT_getRightChild(*tree);
         unserializeTree(file, &tmp2);
         BT_setRightChild(tree, tmp2);
