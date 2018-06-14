@@ -9,15 +9,6 @@
 #include "Square.h"
 
 /* private */
-void LL_deleteR(LL_LinkedList *list, EC_delete freeElement) {
-  errno = 0;
-  LL_LinkedList *nextList = &((*list)->newLinkedList);
-  freeElement((*list)->element);
-  free(*list);
-  if (*nextList) {
-    LL_deleteR(nextList, freeElement);
-  }
-}
 
 /* public */
 LL_LinkedList LL_createLinkedList() {
@@ -49,7 +40,7 @@ int LL_isEmpty(LL_LinkedList list) {
 
 void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement,
             EC_compare compareElement) {
-  LL_LinkedList *current, pNode = (LL_LinkedList)malloc(sizeof(LL_Node));
+  LL_LinkedList *current, pNode;
   void *donnee = copyElement(source);
   int inserted = 0;
 
@@ -58,13 +49,12 @@ void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement,
     return;
   }
 
+  pNode = LL_createLinkedList();
   pNode->element = donnee;
 
   current = list;
 
   while (current && !inserted) {
-    (*current)->newLinkedList;
-    compareElement(donnee, (*list)->element);
     if (!((*current)->newLinkedList)) {
       if (compareElement(donnee, (*list)->element) == 1) {
         pNode->newLinkedList = *list;
@@ -137,8 +127,18 @@ void LL_deleteHead(LL_LinkedList *list, EC_delete freeElement) {
 
 void LL_delete(LL_LinkedList *list, EC_delete freeElement) {
   errno = 0;
+  LL_LinkedList nextList;
   if (!LL_isEmpty(*list)) {
-    LL_deleteR(list, freeElement);
+    if (!LL_elementIsNull(*list)) {
+      freeElement((*list)->element);
+    }
+    if (!LL_newtListIsNull(*list)) {
+      nextList = LL_getNextList(*list);
+      free(*list);
+      LL_delete(&nextList, freeElement);
+    } else {
+      free(*list);
+    }
   } else {
     free(*list);
   }

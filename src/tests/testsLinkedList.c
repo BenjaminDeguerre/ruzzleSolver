@@ -28,6 +28,8 @@ void test_elementIsNull(void) {
   So_Solution *solution = So_createSolution("hello", 35);
   LL_add(&list, solution, So_copy, So_compare);
   CU_ASSERT_FALSE(LL_elementIsNull(list));
+
+  So_delete(solution);
   LL_delete(&list, So_delete);
 }
 
@@ -40,6 +42,9 @@ void test_newListIsNull(void) {
   LL_add(&list, solution, So_copy, So_compare);
   LL_add(&list, solution2, So_copy, So_compare);
   CU_ASSERT_FALSE(LL_newtListIsNull(list));
+
+  So_delete(solution);
+  So_delete(solution2);
   LL_delete(&list, So_delete);
 }
 
@@ -51,6 +56,7 @@ void test_isEmpty(void) {
   LL_add(&list, solution, So_copy, So_compare);
   CU_ASSERT_FALSE(LL_isEmpty(list));
 
+  So_delete(solution);
   LL_delete(&list, So_delete);
 }
 
@@ -64,6 +70,8 @@ void test_add(void) {
 
   CU_ASSERT(So_compare(LL_getElement(list), solution2) == 0);
   CU_ASSERT(So_compare(LL_getElement(LL_getNextList(list)), solution) == 0);
+  So_delete(solution);
+  So_delete(solution2);
   LL_delete(&list, So_delete);
 }
 
@@ -103,12 +111,12 @@ void test_setNextList(void) {
   LL_setNextList(&list, list2);
 
   CU_ASSERT(LL_equals(LL_getNextList(list), list2, So_compare) == 1);
-
+  So_delete(solution);
+  So_delete(solution2);
   LL_delete(&list, So_delete);
 }
 
 void test_deleteHead(void) {
-
   LL_LinkedList list = LL_createLinkedList();
   So_Solution *solutionToGet;
   So_Solution *solution = So_createSolution("hello", 35);
@@ -121,6 +129,8 @@ void test_deleteHead(void) {
   CU_ASSERT_STRING_EQUAL(So_getString(*solutionToGet), "hello");
   CU_ASSERT_TRUE(So_getValue(*solutionToGet) == 35);
   LL_delete(&list, So_delete);
+  So_delete(solution);
+  So_delete(solution2);
 }
 
 void test_copy_equals(void) {
@@ -135,6 +145,8 @@ void test_copy_equals(void) {
   CU_ASSERT(LL_equals(list, list2, So_compare) == 1);
   LL_delete(&list, So_delete);
   LL_delete(&list2, So_delete);
+  So_delete(solution);
+  So_delete(solution2);
 }
 
 void test_length(void) {
@@ -148,7 +160,9 @@ void test_length(void) {
   So_Solution *solution3 = So_createSolution("allo", 35);
   LL_add(&list, solution3, So_copy, So_compare);
   CU_ASSERT(LL_length(list) == 3);
-
+  So_delete(solution);
+  So_delete(solution2);
+  So_delete(solution3);
   LL_delete(&list, So_delete);
 }
 
@@ -167,12 +181,10 @@ int test_LinkedList(CU_pSuite pSuite) {
 }
 
 int main() {
-
   CU_pSuite pSuite = NULL;
 
   /* initialisation du registre de test */
-  if (CUE_SUCCESS != CU_initialize_registry())
-    return CU_get_error();
+  if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
 
   /* ajout d’une suite de test */
   pSuite = CU_add_suite("Tests boite noire", init_suite_success,
