@@ -7,18 +7,23 @@
 #include <string.h>
 #include "Grid.h"
 #include "LinkedList.h"
-#include "Solver.h"
 #include "Square.h"
+#include "Utils.h"
 
 int init_suite_success(void) { return 0; }
 
 int clean_suite_success(void) { return 0; }
 
 void test_createGrid(void) {
-  char *string =
+  char **string = malloc(sizeof(char *) * G_LENGTH);
+  char *entry =
       "T1LDR1  A1  S1MTE1LTN1  C3LTE1  U1  R1  I1  L2MDS1  O1MDP3  S1  ";
+  int i;
+  for (i = 0; i < G_LENGTH; i++) {
+    string[i] = subString(entry, i * G_COTE, i * G_COTE + G_COTE - 1);
+  }
 
-  G_Grid grid = createGridToSolve(string);
+  G_Grid grid = G_createGrid(string);
 
   S_Square *squareTest, *squareRef = S_createSquare();
   char *stringTest, *stringRef;
@@ -30,7 +35,6 @@ void test_createGrid(void) {
   stringRef = S_getValue(*squareRef);
 
   CU_ASSERT_STRING_EQUAL(stringTest, stringRef);
-  S_delete((void *)squareTest);
 
   S_defineSquare(squareRef, "A1  ", 2);
   squareTest = G_getSquare(grid, 2);
@@ -39,7 +43,6 @@ void test_createGrid(void) {
   stringRef = S_getValue(*squareRef);
 
   CU_ASSERT_STRING_EQUAL(stringTest, stringRef);
-  S_delete((void *)squareTest);
 
   S_defineSquare(squareRef, "C3LT", 6);
   squareTest = G_getSquare(grid, 6);
@@ -48,7 +51,6 @@ void test_createGrid(void) {
   stringRef = S_getValue(*squareRef);
 
   CU_ASSERT_STRING_EQUAL(stringTest, stringRef);
-  S_delete((void *)squareTest);
 
   S_defineSquare(squareRef, "S1  ", 15);
   squareTest = G_getSquare(grid, 15);
@@ -57,26 +59,34 @@ void test_createGrid(void) {
   stringRef = S_getValue(*squareRef);
 
   CU_ASSERT_STRING_EQUAL(stringTest, stringRef);
-  S_delete((void *)squareTest);
 
   S_delete((void *)squareRef);
   G_deleteGrid(grid);
+  for (i = 0; i < G_LENGTH; i++) {
+    free(string[i]);
+  }
+  free(string);
 }
 
 void test_getNeighbours(void) {
-  char *string =
+  char **string = malloc(sizeof(char *) * G_LENGTH);
+  char *entry =
       "T1LDR1  A1  S1MTE1LTN1  C3LTE1  U1  R1  I1  L2MDS1  O1MDP3  S1  ";
-  G_Grid grid = createGridToSolve(string);
-  LL_LinkedList list;
+  int i;
+  for (i = 0; i < G_LENGTH; i++) {
+    string[i] = subString(entry, i * G_COTE, i * G_COTE + G_COTE - 1);
+  }
+  G_Grid grid = G_createGrid(string);
+  LL_LinkedList list, head;
   S_Square *squareTest, *squareList;
 
   // Testing the top left corner
   squareTest = G_getSquare(grid, 0);
-  list = G_getNeighbours(grid, *squareTest);
-  squareList = (S_Square *)LL_getElement(list);
+  head = G_getNeighbours(grid, *squareTest);
+  squareList = (S_Square *)LL_getElement(head);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "N1  ");
 
-  list = LL_getNextList(list);
+  list = LL_getNextList(head);
   squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "E1LT");
 
@@ -86,15 +96,16 @@ void test_getNeighbours(void) {
 
   list = LL_getNextList(list);
   CU_ASSERT(list == NULL);
+  LL_delete(&head, S_delete);
 
   // Testing the bottom left corner
   squareTest = G_getSquare(grid, 12);
-  list = G_getNeighbours(grid, *squareTest);
+  head = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_Square *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(head);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "O1MD");
 
-  list = LL_getNextList(list);
+  list = LL_getNextList(head);
   squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "R1  ");
 
@@ -104,15 +115,16 @@ void test_getNeighbours(void) {
 
   list = LL_getNextList(list);
   CU_ASSERT(list == NULL);
+  LL_delete(&head, S_delete);
 
   // Testing the top right corner
   squareTest = G_getSquare(grid, 3);
-  list = G_getNeighbours(grid, *squareTest);
+  head = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_Square *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(head);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "E1  ");
 
-  list = LL_getNextList(list);
+  list = LL_getNextList(head);
   squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "C3LT");
 
@@ -122,15 +134,16 @@ void test_getNeighbours(void) {
 
   list = LL_getNextList(list);
   CU_ASSERT(list == NULL);
+  LL_delete(&head, S_delete);
 
   // Testing the bottom right corner
   squareTest = G_getSquare(grid, 15);
-  list = G_getNeighbours(grid, *squareTest);
+  head = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_Square *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(head);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "P3  ");
 
-  list = LL_getNextList(list);
+  list = LL_getNextList(head);
   squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "L2MD");
 
@@ -140,15 +153,16 @@ void test_getNeighbours(void) {
 
   list = LL_getNextList(list);
   CU_ASSERT(list == NULL);
+  LL_delete(&head, S_delete);
 
   // Testing the top middle
   squareTest = G_getSquare(grid, 1);
-  list = G_getNeighbours(grid, *squareTest);
+  head = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_Square *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(head);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "C3LT");
 
-  list = LL_getNextList(list);
+  list = LL_getNextList(head);
   squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "N1  ");
 
@@ -166,15 +180,16 @@ void test_getNeighbours(void) {
 
   list = LL_getNextList(list);
   CU_ASSERT(list == NULL);
+  LL_delete(&head, S_delete);
 
   // Testing the bottom middle
   squareTest = G_getSquare(grid, 14);
-  list = G_getNeighbours(grid, *squareTest);
+  head = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_Square *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(head);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "S1  ");
 
-  list = LL_getNextList(list);
+  list = LL_getNextList(head);
   squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "O1MD");
 
@@ -192,15 +207,16 @@ void test_getNeighbours(void) {
 
   list = LL_getNextList(list);
   CU_ASSERT(list == NULL);
+  LL_delete(&head, S_delete);
 
   // Testing the left middle
   squareTest = G_getSquare(grid, 8);
-  list = G_getNeighbours(grid, *squareTest);
+  head = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_Square *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(head);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "O1MD");
 
-  list = LL_getNextList(list);
+  list = LL_getNextList(head);
   squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "S1  ");
 
@@ -218,15 +234,16 @@ void test_getNeighbours(void) {
 
   list = LL_getNextList(list);
   CU_ASSERT(list == NULL);
+  LL_delete(&head, S_delete);
 
   // Testing the right middle
   squareTest = G_getSquare(grid, 7);
-  list = G_getNeighbours(grid, *squareTest);
+  head = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_Square *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(head);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "L2MD");
 
-  list = LL_getNextList(list);
+  list = LL_getNextList(head);
   squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "I1  ");
 
@@ -244,15 +261,16 @@ void test_getNeighbours(void) {
 
   list = LL_getNextList(list);
   CU_ASSERT(list == NULL);
+  LL_delete(&head, S_delete);
 
   // Testing the middle
   squareTest = G_getSquare(grid, 9);
-  list = G_getNeighbours(grid, *squareTest);
+  head = G_getNeighbours(grid, *squareTest);
 
-  squareList = (S_Square *)LL_getElement(list);
+  squareList = (S_Square *)LL_getElement(head);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "P3  ");
 
-  list = LL_getNextList(list);
+  list = LL_getNextList(head);
   squareList = (S_Square *)LL_getElement(list);
   CU_ASSERT_STRING_EQUAL(S_getValue(*squareList), "O1MD");
 
@@ -282,6 +300,13 @@ void test_getNeighbours(void) {
 
   list = LL_getNextList(list);
   CU_ASSERT(list == NULL);
+
+  for (i = 0; i < G_LENGTH; i++) {
+    free(string[i]);
+  }
+  free(string);
+  LL_delete(&head, S_delete);
+  G_deleteGrid(grid);
 }
 
 int test_Grid(CU_pSuite pSuite) {

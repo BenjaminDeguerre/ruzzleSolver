@@ -9,6 +9,8 @@
 G_Grid G_createGrid(char **arrayParameters) {
   G_Grid grid;
   S_Square *square;
+  grid.arraySquares = malloc(sizeof(S_Square *) * G_LENGTH);
+
   int i;
   for (i = 0; i < G_LENGTH; i++) {
     square = S_createSquare();
@@ -19,7 +21,7 @@ G_Grid G_createGrid(char **arrayParameters) {
 }
 
 S_Square *G_getSquare(G_Grid grid, int squareNumber) {
-  return (S_Square *)S_copy((S_Square *)grid.arraySquares[squareNumber]);
+  return grid.arraySquares[squareNumber];
 }
 
 LL_LinkedList G_getNeighbours(G_Grid grid, S_Square square) {
@@ -57,7 +59,6 @@ LL_LinkedList G_getNeighbours(G_Grid grid, S_Square square) {
     if ((neighbours[i] >= 0) && (neighbours[i] < G_LENGTH)) {
       neighbour = G_getSquare(grid, neighbours[i]);
       LL_add(&linkedList, neighbour, S_copy, S_compare);
-      S_delete(neighbour);
     }
   }
   return linkedList;
@@ -66,6 +67,7 @@ LL_LinkedList G_getNeighbours(G_Grid grid, S_Square square) {
 void G_deleteGrid(G_Grid grid) {
   int i;
   for (i = 0; i < G_LENGTH; i++) {
-    S_delete(G_getSquare(grid, i));
+    S_delete(grid.arraySquares[i]);
   }
+  free(grid.arraySquares);
 }

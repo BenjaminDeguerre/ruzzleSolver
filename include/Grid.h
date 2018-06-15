@@ -1,9 +1,3 @@
-/**
- *	\file Grid.h
- *	\brief Implémentation du TAD Grid
- *	\version 1.0
- *	\date 29/12/2014
- */
 #ifndef __GRILLE__
 #define __GRILLE__
 
@@ -15,51 +9,48 @@
 
 /**
  *	\typedef G_Grid
- *	\brief Structure d'une grid, tableau de case
+ *	\brief Structure of a grid, array of Square.
  */
 typedef struct {
-  S_Square *arraySquares[G_LENGTH]; /**< Le tableau de Squares */
+  S_Square **arraySquares;
 } G_Grid;
 
 /**
  *	\fn G_Grid G_createGrid(char *string[G_LENGTH])
- *	\brief Permet de créer une grid, prend en entrée la string contenant
- *les suites de caractères contenus dans les cases de la grid
- *
- *	La string en entré est de la forme suivante
- *"LetterValeurBonusLetterValeurBonus..." si aucun bonus mettre "  "
- *	\param string[G_LENGTH] la string de caractère contenant la value des
- *cases
- *	\return G_Grid
+ *	\brief Create a grid from a string representing a grid. "T1LDR1  A1
+ *S1WTE1LTN1  C3LTE1  U1  R1  I1  L2WDS1  O1WDP3  S1  ", for the first letter :
+ *T letter, value 1, Letter count Double, for the last letter : S letter, value
+ *1, no bonus.
+ * \param **string The string representing a grid. Should be of size 16 * 4.
+ * \return G_Grid
  */
 G_Grid G_createGrid(char **string);
 
 /**
- *	\fn S_Square* G_getSquare(G_Grid, int squareNumber)
- *	\brief Permet d'get un pointer sur la ieme case d'une grid (0-11,
- *gauche-droite, haut-bas)
- *	\param g la grid target
- *	\param squareNumber le numéro de la case que l'on souhaite get
+ *	\fn S_Square* G_getSquare(G_Grid grid, int squareNumber)
+ *	\brief Return the square in the grid at the required position
+ *
+ *	\param grid The target grid.
+ *	\param squareNumber The number of the square to get.
  *	\return S_Square*
  */
 S_Square *G_getSquare(G_Grid grid, int squareNumber);
 
 /**
  *	\fn LL_LinkedList G_getNeighbours(G_Grid grid, S_Square square)
- *	\brief Permet d'get les neighbours d'une case donnée dans une grid
+ *	\brief Return the square around a given square.
  *
- *	retourne une liste ordonnée contenant tous les neighbours possible
- *	\param g La grid target
+ *	\param grid The
  *	\param c La case dont on veut les neighbours
  *	\return LL_LinkedList
  */
 LL_LinkedList G_getNeighbours(G_Grid grid, S_Square square);
 
 /**
- *	\fn void G_suppirmerGrid(G_Grid grid)
- *	\brief permet de delete les allocation mémoire faite avec la fonction
- *G_creeGrid
- *	\param g la grid à delete
+ *	\fn void G_deleteGrid(G_Grid grid)
+ *	\brief Delete a grid.
+ *	\param grid The grid to delete.
+ *  \param freeElement
  *	\return void
  */
 void G_deleteGrid(G_Grid grid);
