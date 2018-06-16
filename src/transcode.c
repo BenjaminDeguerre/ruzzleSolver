@@ -1,6 +1,3 @@
-/* Alexandre DUVAL - 17/12/2014 */
-/* Alexandre DUVAL - 31/12/2014 */
-
 #include "transcode.h"
 
 int transcode(char *source, char *target) {

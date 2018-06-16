@@ -1,13 +1,3 @@
-/* Alexandre DUVAL - 17/12/2014 */
-/* Arthur Hamelin - 05/01/2015 */
-
-/** \file transcode.h
- *	\brief Contains the function to rewrite a dictionary in an intelligent
- *format faster to process.
- *	\version 1.0
- *	\date 05/01/2015
- */
-
 #ifndef __TRANSCODER__
 #define __TRANSCODER__
 
