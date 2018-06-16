@@ -7,40 +7,39 @@
 
 #include "BinaryTree.h"
 
-BT_BinaryTree BT_createSBT() {
-  BT_BinaryTree tree = NULL;
+BT_BinaryTree BT_createBT() {
+  BT_BinaryTree tree = (BT_BinaryTree)malloc(sizeof(BT_Node));
+
+  if (tree != NULL) {
+    tree->root = NULL;
+    tree->leftChild = NULL;
+    tree->rightChild = NULL;
+    tree->isProcessed = 0;
+  } else {
+    errno = BT_MEMORY_ERROR;
+    exit(errno);
+  }
   return tree;
 }
 
-int BT_isEmpty(BT_BinaryTree myBT) { return myBT == NULL; }
+int BT_isEmpty(BT_BinaryTree tree) { return tree->root == NULL; }
 
-void BT_setLeftChild(BT_BinaryTree *myBT, BT_BinaryTree leftChild) {
-  assert(!BT_isEmpty(*myBT));
-  (*myBT)->leftChild = leftChild;
+void BT_setLeftChild(BT_BinaryTree tree, BT_BinaryTree leftChild) {
+  assert(!BT_isEmpty(tree));
+  tree->leftChild = leftChild;
 }
 
-void BT_setRightChild(BT_BinaryTree *myBT, BT_BinaryTree rightChild) {
-  assert(!BT_isEmpty(*myBT));
-  (*myBT)->rightChild = rightChild;
-}
-
-void BT_setIsProcessed(BT_BinaryTree *myBT, int processed) {
-  assert(!BT_isEmpty(*myBT));
-  (*myBT)->isProcessed = processed;
-}
-
-int BT_isProcessed(BT_BinaryTree *myBT) {
-  assert(!BT_isEmpty(*myBT));
-  return (*myBT)->isProcessed;
+void BT_setRightChild(BT_BinaryTree tree, BT_BinaryTree rightChild) {
+  assert(!BT_isEmpty(tree));
+  tree->rightChild = rightChild;
 }
 
 BT_BinaryTree BT_addRoot(BT_BinaryTree leftChild, BT_BinaryTree rightChild,
                          N_Node *node, EC_copy copy) {
-  BT_BinaryTree tree = (BT_BinaryTree)malloc(sizeof(BT_Node));
+  BT_BinaryTree tree = BT_createBT();
   N_Node *root = (N_Node *)copy(node);
   if ((node != NULL) || (tree != NULL)) {
     errno = 0;
-
     tree->root = root;
     tree->leftChild = leftChild;
     tree->rightChild = rightChild;
@@ -49,42 +48,69 @@ BT_BinaryTree BT_addRoot(BT_BinaryTree leftChild, BT_BinaryTree rightChild,
     return tree;
   } else {
     errno = BT_MEMORY_ERROR;
-    return BT_createSBT();
+    exit(errno);
   }
 }
 
-N_Node *BT_getRoot(BT_BinaryTree myBT) {
-  assert(!BT_isEmpty(myBT));
-  return myBT->root;
+N_Node *BT_getRoot(BT_BinaryTree tree) {
+  assert(!BT_isEmpty(tree));
+  return tree->root;
 }
 
-void BT_deleteRoot(BT_BinaryTree *myBT, BT_BinaryTree *leftChild,
+void BT_deleteRoot(BT_BinaryTree tree, BT_BinaryTree *leftChild,
                    BT_BinaryTree *rightChild, EC_delete freeNode) {
-  *leftChild = BT_getLeftChild(*myBT);
-  *rightChild = BT_getRightChild(*myBT);
+  *leftChild = BT_getLeftChild(tree);
+  *rightChild = BT_getRightChild(tree);
 
-  freeNode(BT_getRoot(*myBT));
-  *myBT = NULL;
-  free(*myBT);
+  freeNode(BT_getRoot(tree));
+  free(tree);
 }
 
-void BT_delete(BT_BinaryTree *myBT, EC_delete freeNode) {
-  BT_BinaryTree leftChild = BT_createSBT();
-  BT_BinaryTree rightChild = BT_createSBT();
+void BT_delete(BT_BinaryTree tree, EC_delete freeNode) {
+  BT_BinaryTree *leftChild = (BT_BinaryTree *)malloc(sizeof(BT_BinaryTree));
+  BT_BinaryTree *rightChild = (BT_BinaryTree *)malloc(sizeof(BT_BinaryTree));
 
-  if (!(BT_isEmpty(*myBT))) {
-    BT_deleteRoot(myBT, &leftChild, &rightChild, freeNode);
-    BT_delete(&leftChild, freeNode);
-    BT_delete(&rightChild, freeNode);
+  if (!(BT_isEmpty(tree))) {
+    BT_deleteRoot(tree, leftChild, rightChild, freeNode);
+    if (*leftChild != NULL) {
+      BT_delete(*leftChild, freeNode);
+    }
+    if (*rightChild != NULL) {
+      BT_delete(*rightChild, freeNode);
+    }
+
+  } else {
+    free(tree);
   }
+  free(leftChild);
+  free(rightChild);
 }
 
-BT_BinaryTree BT_getRightChild(BT_BinaryTree myBT) {
-  assert(!BT_isEmpty(myBT));
-  return myBT->rightChild;
+BT_BinaryTree BT_getRightChild(BT_BinaryTree tree) {
+  assert(!BT_isEmpty(tree));
+  return tree->rightChild;
 }
 
-BT_BinaryTree BT_getLeftChild(BT_BinaryTree myBT) {
-  assert(!BT_isEmpty(myBT));
-  return myBT->leftChild;
+BT_BinaryTree BT_getLeftChild(BT_BinaryTree tree) {
+  assert(!BT_isEmpty(tree));
+  return tree->leftChild;
+}
+
+void BT_setIsProcessed(BT_BinaryTree tree, int processed) {
+  assert(!BT_isEmpty(tree));
+  tree->isProcessed = processed;
+}
+
+int BT_isProcessed(BT_BinaryTree tree) { return tree->isProcessed; }
+
+void BT_setNode(BT_BinaryTree tree, N_Node *node) {
+  if (!BT_isEmpty(tree)) {
+    N_delete(tree->root);
+  }
+  tree->root = N_copy((void *)node);
+}
+
+N_Node *BT_getNode(BT_BinaryTree tree) {
+  assert(!BT_isEmpty(tree));
+  return tree->root;
 }

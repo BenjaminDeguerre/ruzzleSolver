@@ -28,7 +28,7 @@ void insert(W_Word *word, BT_BinaryTree *tree) {
     wordReduced = reduce(*word);
     if (BT_isEmpty(*tree)) {
       node = N_createNode(W_getLength(*word) == 1, W_getIthCharacter(*word, 0));
-      *tree = BT_addRoot(BT_createSBT(), BT_createSBT(), node, (EC_copy)N_copy);
+      *tree = BT_addRoot(BT_createBT(), BT_createBT(), node, (EC_copy)N_copy);
       tmp = BT_getLeftChild(*tree);
       insert(wordReduced, &tmp);
       if (!BT_isEmpty(tmp)) {
@@ -53,7 +53,7 @@ void insert(W_Word *word, BT_BinaryTree *tree) {
         } else {
           node = N_createNode(W_getLength(*word) == 1,
                               W_getIthCharacter(*word, 0));
-          newTree = BT_addRoot(BT_createSBT(), *tree, node, (EC_copy)N_copy);
+          newTree = BT_addRoot(BT_createBT(), *tree, node, (EC_copy)N_copy);
           *tree = newTree;
           tmp = BT_getLeftChild(*tree);
           insert(wordReduced, &tmp);
@@ -156,13 +156,13 @@ void unserializeTree(FILE *file, BT_BinaryTree *tree) {
     if ((line[0] >= 97) && (line[0] <= 122)) {
       if (BT_isEmpty(*tree)) {
         N_Node *N1 = N_createNode(0, line[0]);
-        *tree = BT_addRoot(BT_createSBT(), BT_createSBT(), N1, (EC_copy)N_copy);
+        *tree = BT_addRoot(BT_createBT(), BT_createBT(), N1, (EC_copy)N_copy);
         N_delete(N1);
         unserializeTree(file, tree);
       } else if (!BT_isEmpty(*tree) && BT_isEmpty(BT_getLeftChild(*tree)) &&
                  !BT_isProcessed(tree)) {
         N_Node *N2 = N_createNode(0, line[0]);
-        BT_setLeftChild(tree, BT_addRoot(BT_createSBT(), BT_createSBT(), N2,
+        BT_setLeftChild(tree, BT_addRoot(BT_createBT(), BT_createBT(), N2,
                                          (EC_copy)N_copy));
         N_delete(N2);
         BT_BinaryTree tmp1 = BT_getLeftChild(*tree);
@@ -173,7 +173,7 @@ void unserializeTree(FILE *file, BT_BinaryTree *tree) {
 
           if (!BT_isEmpty(*tree) && BT_isEmpty(BT_getRightChild(*tree))) {
         N_Node *N3 = N_createNode(0, line[0]);
-        BT_setRightChild(tree, BT_addRoot(BT_createSBT(), BT_createSBT(), N3,
+        BT_setRightChild(tree, BT_addRoot(BT_createBT(), BT_createBT(), N3,
                                           (EC_copy)N_copy));
         N_delete(N3);
         BT_BinaryTree tmp2 = BT_getRightChild(*tree);
@@ -199,7 +199,7 @@ D_Dictionary D_createDictionary() {
   errno = 0;
   D_Dictionary dictionary;
 
-  dictionary.wordsBT = BT_createSBT();
+  dictionary.wordsBT = BT_createBT();
   dictionary.size = 0;
 
   return dictionary;

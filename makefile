@@ -37,7 +37,7 @@ $(SRCDIR)/%.o : $(SRCDIR)/%.c
 	$(CC) -o $@ -c $< $(CFLAGS)
 
 # tests
-tests : testsUtils testsNode testsSquare testsGrid testsDictionary testsWord testsLinkedList testsSolution
+tests : testsUtils testsNode testsSquare testsGrid testsDictionary testsWord testsLinkedList testsSolution testsBinaryTree
 
 testsUtils : $(TESTDIR)/testsUtils
 
@@ -58,7 +58,12 @@ testsSquare : $(TESTDIR)/testsSquare
 
 $(TESTDIR)/testsSquare : $(SRCDIR)/$(TESTDIR)/testsSquare.o $(SRCDIR)/Square.o
 	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsSquare.o $(SRCDIR)/Square.o -lcunit
-	
+
+testsBinaryTree : $(TESTDIR)/testsBinaryTree
+
+$(TESTDIR)/testsBinaryTree : $(SRCDIR)/$(TESTDIR)/testsBinaryTree.o $(SRCDIR)/BinaryTree.o
+	$(CC) $(LDFLAGS) -o $@ $(SRCDIR)/$(TESTDIR)/testsBinaryTree.o $(SRCDIR)/BinaryTree.o $(SRCDIR)/Node.o -lcunit
+
 testsGrid : $(TESTDIR)/testsGrid
 
 $(TESTDIR)/testsGrid : $(SRCDIR)/$(TESTDIR)/testsGrid.o $(SRCDIR)/Grid.o $(SRCDIR)/Square.o $(SRCDIR)/LinkedList.o $(SRCDIR)/Utils.o $(SRCDIR)/Solver.o $(SRCDIR)/Solution.o
