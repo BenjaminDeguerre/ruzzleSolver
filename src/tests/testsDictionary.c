@@ -52,18 +52,18 @@ void test_wordIsIN(void) {
   word11 = W_createWord("qsdf");
   word12 = W_createWord("qsdf");
 
-  CU_ASSERT_TRUE(D_wordIsIN(*word1, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word2, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word3, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word4, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word5, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word6, dictionary));
-  CU_ASSERT_FALSE(D_wordIsIN(*word7, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word8, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word9, dictionary));
-  CU_ASSERT_FALSE(D_wordIsIN(*word10, dictionary));
-  CU_ASSERT_FALSE(D_wordIsIN(*word11, dictionary));
-  CU_ASSERT_FALSE(D_wordIsIN(*word12, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word1, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word2, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word3, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word4, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word5, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word6, dictionary));
+  CU_ASSERT_FALSE(D_wordIsIn(*word7, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word8, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word9, dictionary));
+  CU_ASSERT_FALSE(D_wordIsIn(*word10, dictionary));
+  CU_ASSERT_FALSE(D_wordIsIn(*word11, dictionary));
+  CU_ASSERT_FALSE(D_wordIsIn(*word12, dictionary));
 
   D_delete(dictionary);
   W_delete(word1);
@@ -110,18 +110,18 @@ void test_serialize_deserialize(void) {
 
   inputFile = fopen("testFile", "r+");
 
-  CU_ASSERT_TRUE(D_wordIsIN(*word1, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word2, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word3, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word4, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word5, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word6, dictionary));
-  CU_ASSERT_FALSE(D_wordIsIN(*word7, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word8, dictionary));
-  CU_ASSERT_TRUE(D_wordIsIN(*word9, dictionary));
-  CU_ASSERT_FALSE(D_wordIsIN(*word10, dictionary));
-  CU_ASSERT_FALSE(D_wordIsIN(*word11, dictionary));
-  CU_ASSERT_FALSE(D_wordIsIN(*word12, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word1, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word2, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word3, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word4, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word5, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word6, dictionary));
+  CU_ASSERT_FALSE(D_wordIsIn(*word7, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word8, dictionary));
+  CU_ASSERT_TRUE(D_wordIsIn(*word9, dictionary));
+  CU_ASSERT_FALSE(D_wordIsIn(*word10, dictionary));
+  CU_ASSERT_FALSE(D_wordIsIn(*word11, dictionary));
+  CU_ASSERT_FALSE(D_wordIsIn(*word12, dictionary));
 
   D_delete(dictionary);
   D_delete(temp);

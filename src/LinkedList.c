@@ -54,7 +54,7 @@ void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement,
 
   current = list;
 
-  while (current && !inserted) {
+  while (current != NULL && !inserted) {
     if (!((*current)->newLinkedList)) {
       if (compareElement(donnee, (*list)->element) == 1) {
         pNode->newLinkedList = *list;
@@ -73,7 +73,7 @@ void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement,
       (*current)->newLinkedList = pNode;
       inserted = 1;
     } else {
-      *current = ((*current)->newLinkedList);
+      current = &((*current)->newLinkedList);
     }
   }
 }

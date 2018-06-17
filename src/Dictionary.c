@@ -122,9 +122,9 @@ int wordIsINR(char *stringToTest, BT_BinaryTree *tree) {
       }
     } else if (charToTest == nodeValue) {
       if (N_isLast(*BT_getRoot(*tree))) {
-        res = 1;
+        res = 2;
       } else {
-        res = 0;
+        res = 1;
       }
     } else {
       res = 0;
@@ -157,7 +157,7 @@ int wordIsINR(char *stringToTest, BT_BinaryTree *tree) {
 }
 
 void unserializeTree(FILE *file, BT_BinaryTree *tree) {
-  int LINE_LENGTH = 3;
+  int LINE_LENGTH = 10;
   char line[LINE_LENGTH];
   N_Node *node;
   BT_BinaryTree tmp;
@@ -193,12 +193,12 @@ void unserializeTree(FILE *file, BT_BinaryTree *tree) {
         BT_setRightChild(*tree, tmp);
       }
     }
-    if (line[0] == ';' && line[1] == '\n') {
+    if (line[0] == ';') {
       N_defineEnd(BT_getRoot(*tree), 1);
       unserializeTree(file, tree);
     }
 
-    if (line[0] == '.' && line[1] == '\n') {
+    if (line[0] == '.') {
       BT_setIsProcessed(*tree, 1);
       unserializeTree(file, tree);
     }
@@ -215,7 +215,7 @@ D_Dictionary D_createDictionary() {
   return dictionary;
 }
 
-int D_wordIsIN(W_Word word, D_Dictionary dictionary) {
+int D_wordIsIn(W_Word word, D_Dictionary dictionary) {
   char *stringToTest = W_getString(word);
   return wordIsINR(stringToTest, &(dictionary.wordsBT));
 }
@@ -241,6 +241,7 @@ int D_serialize(D_Dictionary dictionary, FILE *targetFile) {
 D_Dictionary D_unserialize(char *pathToFile) {
   D_Dictionary dictionary = D_createDictionary();
   FILE *inputFile = fopen(pathToFile, "r+");
+  char line[3];
 
   if (inputFile == NULL) {
     fprintf(stderr,
@@ -249,6 +250,7 @@ D_Dictionary D_unserialize(char *pathToFile) {
             pathToFile);
     exit(1);
   }
+
   unserializeTree(inputFile, &(dictionary.wordsBT));
   fclose(inputFile);
   return dictionary;

@@ -26,13 +26,13 @@ typedef struct D_Dictionary {
 D_Dictionary D_createDictionary();
 
 /**
- *	\fn int D_wordIsIN (W_Word *word, D_Dictionary dictionary);
+ *	\fn int D_wordIsIn (W_Word *word, D_Dictionary dictionary);
  *	\brief Tell if a word is in the dictionary or not.
  *	\param *word Pointer to the W_Word to check.
  *	\param dictionary The D_Dictionary to check.
  *	\return int
  */
-int D_wordIsIN(W_Word word, D_Dictionary dictionary);
+int D_wordIsIn(W_Word word, D_Dictionary dictionary);
 
 /**
  *	\fn int D_size (D_Dictionary dictionary);

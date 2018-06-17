@@ -37,7 +37,6 @@ D_Dictionary readFile(FILE* file) {
       if (strcmp(string, "Länder") == 0) {
         string = "Lander";
       }
-
       W_Word* word = W_createWord(string);
       D_add(*word, &dictionary);
       W_delete((void*)word);

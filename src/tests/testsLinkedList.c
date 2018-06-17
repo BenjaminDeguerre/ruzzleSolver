@@ -65,13 +65,20 @@ void test_add(void) {
 
   So_Solution *solution = So_createSolution("hello", 35);
   So_Solution *solution2 = So_createSolution("by", 42);
+  So_Solution *solution3 = So_createSolution("thomas", 12);
+
   LL_add(&list, solution, So_copy, So_compare);
   LL_add(&list, solution2, So_copy, So_compare);
+  LL_add(&list, solution3, So_copy, So_compare);
 
+  CU_ASSERT(LL_length(list) == 3);
   CU_ASSERT(So_compare(LL_getElement(list), solution2) == 0);
   CU_ASSERT(So_compare(LL_getElement(LL_getNextList(list)), solution) == 0);
+  CU_ASSERT(So_compare(LL_getElement(LL_getNextList(LL_getNextList(list))),
+                       solution3) == 0);
   So_delete(solution);
   So_delete(solution2);
+  So_delete(solution3);
   LL_delete(&list, So_delete);
 }
 
