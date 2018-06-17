@@ -1,6 +1,3 @@
-/* Alexandre DUVAL - 06/12/14 */
-/* Alexandre DUVAL - 13/12/14 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -20,11 +17,16 @@ int main(int argc, char **argv) {
   int size = LL_length(listSolutions);
 
   printf("%d solutions\n", size);
-
-  for (int i = 0; i < size; i++) {
-    solution = (So_Solution *)LL_getElement(listSolutions);
+  int i = 0;
+  while (listSolutions != NULL) {
+    solution = So_copy((So_Solution *)LL_getElement(listSolutions));
     printf("%s %d\n", So_getString(*solution), So_getValue(*solution));
-    listSolutions = LL_getNextList(listSolutions);
+    LL_removeElements(&listSolutions, (void *)solution, So_compareString,
+                      So_delete);
+    // listSolutions = LL_getNextList(listSolutions);
+    i = i + 1;
+    So_delete(solution);
   }
+  printf("%d\n", i);
   return EXIT_SUCCESS;
 }

@@ -203,3 +203,32 @@ int LL_length(LL_LinkedList list) {
     return (LL_length(LL_getNextList(list)) + 1);
   }
 }
+
+void LL_removeElements(LL_LinkedList *list, void *element, EC_compare compare,
+                       EC_delete deleteElement) {
+  LL_LinkedList *current, *previous, pNode;
+
+  previous = NULL;
+  current = list;
+
+  while (*current != NULL) {
+    if (compare((*current)->element, element) == 0) {
+      if (previous != NULL) {
+        pNode = *current;
+        (*previous)->newLinkedList = (*current)->newLinkedList;
+        current = &((*current)->newLinkedList);
+        deleteElement(pNode->element);
+        free(pNode);
+      } else {
+        pNode = *current;
+        current = &((*current)->newLinkedList);
+        *list = *current;
+        deleteElement(pNode->element);
+        free(pNode);
+      }
+    } else {
+      previous = current;
+      current = &((*current)->newLinkedList);
+    }
+  }
+}

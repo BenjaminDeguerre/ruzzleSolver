@@ -136,4 +136,13 @@ int LL_equals(LL_LinkedList list1, LL_LinkedList list2,
  */
 int LL_length(LL_LinkedList list);
 
+/**
+ *	\fn void LL_removeElements(LL_LinkedList *list, void *element,
+ *EC_compare); \brief Remove all the element from the list matching the source
+ *using compare \param list The list to have the element removed. \param element
+ *The element to remove. \param compare The comparision function. \return int
+ */
+void LL_removeElements(LL_LinkedList *list, void *element, EC_compare compare,
+                       EC_delete deleteElement);
+
 #endif

@@ -46,3 +46,8 @@ int So_compare(void *solution1, void *solution2) {
     return 1;
   }
 }
+
+int So_compareString(void *solution1, void *solution2) {
+  return strcmp(((So_Solution *)solution1)->word,
+                ((So_Solution *)solution2)->word);
+}

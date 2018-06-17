@@ -153,7 +153,6 @@ LL_LinkedList solveRuzzle(char *stringGrid, char *pathToIntelligentFile) {
     char *wordToTest = "";
     solveGridRecurrent(dictionary, gridToSolve, usedSquare, *square, wordToTest,
                        &solution, 0, 1);
-    printf("--------------------------%d\n", LL_length(solution));
   }
 
   return solution;

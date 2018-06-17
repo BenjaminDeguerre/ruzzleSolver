@@ -241,7 +241,6 @@ int D_serialize(D_Dictionary dictionary, FILE *targetFile) {
 D_Dictionary D_unserialize(char *pathToFile) {
   D_Dictionary dictionary = D_createDictionary();
   FILE *inputFile = fopen(pathToFile, "r+");
-  char line[3];
 
   if (inputFile == NULL) {
     fprintf(stderr,

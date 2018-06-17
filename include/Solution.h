@@ -63,4 +63,13 @@ void So_delete(void *solution);
  */
 int So_compare(void *solution1, void *solution2);
 
+/**
+ *	\fn int S_compareString(So_Solution *solution1, So_Solution *solution2)
+ *	\brief Compare two solution by the string.
+ *	\param *solution1 The first So_Solution to compare.
+ *	\param *solution2 The second So_Solution to compare.
+ *	\return int -1 for solution1 < solution2, 0 for solution1 == solution2
+ *else 1
+ */
+int So_compareString(void *solution1, void *solution2);
 #endif
