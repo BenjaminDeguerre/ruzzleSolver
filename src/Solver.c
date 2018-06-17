@@ -62,12 +62,13 @@ int AS_getValueBonusLetter(char *bonus) {
 }
 void solveGridRecurrent(D_Dictionary dictionary, G_Grid grid,
                         int usedSquare[G_LENGTH], S_Square square,
-                        char *wordToTest, LL_LinkedList *l, int point) {
+                        char *wordToTest, LL_LinkedList *l, int point,
+                        int bonusWord) {
   int i, position;
   S_Square *newSquare;
   char *newStringToTest = append(wordToTest, tolower(S_getLetter(square)));
   char *Bonus = S_getBonus(square);
-  char *newWord;
+
   W_Word *newWordToTest = W_createWord(newStringToTest);
   int vBonusWord = AS_getValueBonusWord(Bonus);
   int vBonusLetter = AS_getValueBonusLetter(Bonus);
@@ -82,6 +83,9 @@ void solveGridRecurrent(D_Dictionary dictionary, G_Grid grid,
   } else {
     point = point + (S_getPointsNumber(square)) * vBonusLetter;
   }
+  if (vBonusWord != 0) {
+    bonusWord = bonusWord * vBonusWord;
+  }
 
   free(Bonus);
   usedSquare[S_getPosition(square)] = 1;
@@ -92,7 +96,7 @@ void solveGridRecurrent(D_Dictionary dictionary, G_Grid grid,
   if (wordIn >= 1) {
     if (wordIn == 2) {
       // printf("%s\n", newStringToTest);
-      solution = So_createSolution(newStringToTest, point);
+      solution = So_createSolution(newStringToTest, point * bonusWord);
       LL_add(l, solution, So_copy, So_compare);
       So_delete(solution);
     }
@@ -114,7 +118,7 @@ void solveGridRecurrent(D_Dictionary dictionary, G_Grid grid,
           tmpSquareUsed[j] = usedSquare[j];
         }
         solveGridRecurrent(dictionary, grid, tmpSquareUsed, *newSquare,
-                           newStringToTest, l, point);
+                           newStringToTest, l, point, bonusWord);
         free(tmpSquareUsed);
       }
       tmp = LL_getNextList(tmp);
@@ -148,7 +152,7 @@ LL_LinkedList solveRuzzle(char *stringGrid, char *pathToIntelligentFile) {
     int usedSquare[G_LENGTH] = {0};
     char *wordToTest = "";
     solveGridRecurrent(dictionary, gridToSolve, usedSquare, *square, wordToTest,
-                       &solution, 0);
+                       &solution, 0, 1);
     printf("--------------------------%d\n", LL_length(solution));
   }
 
