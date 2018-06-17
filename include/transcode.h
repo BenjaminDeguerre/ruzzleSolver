@@ -2,7 +2,6 @@
 #define __TRANSCODER__
 
 #include "Dictionary.h"
-#include "Utils.h"
 
 /**
  *	\fn int transcode(char *, char *)

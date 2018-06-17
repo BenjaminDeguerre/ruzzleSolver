@@ -39,7 +39,7 @@ D_Dictionary readFile(FILE* file) {
       }
 
       W_Word* word = W_createWord(string);
-      D_add(word, &dictionary);
+      D_add(*word, &dictionary);
       W_delete((void*)word);
     }
   }

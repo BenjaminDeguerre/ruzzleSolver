@@ -17,6 +17,7 @@ typedef struct D_Dictionary {
 } D_Dictionary;
 
 #define D_MEMORY_ERROR 1
+#define D_UNSERIALIZATION_ERROR 2
 /**
  *	\fn D_Dictionary D_createDictionary();
  *	\brief Function to create a dictionary.
@@ -31,7 +32,7 @@ D_Dictionary D_createDictionary();
  *	\param dictionary The D_Dictionary to check.
  *	\return int
  */
-int D_wordIsIN(W_Word *word, D_Dictionary dictionary);
+int D_wordIsIN(W_Word word, D_Dictionary dictionary);
 
 /**
  *	\fn int D_size (D_Dictionary dictionary);
@@ -48,7 +49,7 @@ int D_size(D_Dictionary dictionary);
  *	\param *dictionary A pointer to the dictionary to add the word to.
  *	\return void
  */
-void D_add(W_Word *word, D_Dictionary *dictionary);
+void D_add(W_Word word, D_Dictionary *dictionary);
 
 /**
  *	\fn void D_remove(W_Word *word, D_Dictionary *dictionary);

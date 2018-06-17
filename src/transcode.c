@@ -1,4 +1,5 @@
 #include "transcode.h"
+#include "Utils.h"
 
 int transcode(char *source, char *target) {
   FILE *inputFile, *outputFile;

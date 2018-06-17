@@ -18,50 +18,57 @@ W_Word *reduce(W_Word word) {
   }
 }
 
-void insert(W_Word *word, BT_BinaryTree *tree) {
-  BT_BinaryTree newTree;
+void insert(W_Word word, BT_BinaryTree *tree) {
   BT_BinaryTree tmp;
   N_Node *node;
   W_Word *wordReduced;
 
-  if (W_getLength(*word) > 0) {
-    wordReduced = reduce(*word);
+  if (W_getLength(word) > 0) {
+    wordReduced = reduce(word);
     if (BT_isEmpty(*tree)) {
-      node = N_createNode(W_getLength(*word) == 1, W_getIthCharacter(*word, 0));
-      *tree = BT_addRoot(BT_createBT(), BT_createBT(), node, (EC_copy)N_copy);
-      tmp = BT_getLeftChild(*tree);
-      insert(wordReduced, &tmp);
+      node = N_createNode(W_getLength(word) == 1, W_getIthCharacter(word, 0));
+      BT_setNode(*tree, node);
+      tmp = BT_createBT();
+      insert(*wordReduced, &tmp);
       if (!BT_isEmpty(tmp)) {
-        BT_setLeftChild(tree, tmp);
+        BT_setLeftChild(*tree, tmp);
+      } else {
+        BT_delete(tmp, N_delete);
+      }
+      N_delete(node);
+    } else if (W_getIthCharacter(word, 0) > N_getValue(*BT_getRoot(*tree))) {
+      if ((*tree)->rightChild != NULL) {
+        tmp = BT_getRightChild(*tree);
+      } else {
+        tmp = BT_createBT();
+      }
+      insert(word, &tmp);
+      if (!BT_isEmpty(tmp)) {
+        BT_setRightChild(*tree, tmp);
+      } else {
+        BT_delete(tmp, N_delete);
+      }
+    } else if (W_getIthCharacter(word, 0) == N_getValue(*BT_getRoot(*tree))) {
+      N_defineEnd(BT_getRoot(*tree),
+                  N_isLast(*BT_getRoot(*tree)) || (W_getLength(word) == 1));
+      if ((*tree)->leftChild != NULL) {
+        tmp = BT_getLeftChild(*tree);
+      } else {
+        tmp = BT_createBT();
+      }
+      insert(*wordReduced, &tmp);
+      if (!BT_isEmpty(tmp)) {
+        BT_setLeftChild(*tree, tmp);
+      } else {
+        BT_delete(tmp, N_delete);
       }
     } else {
-      if (W_getIthCharacter(*word, 0) > N_getValue(*BT_getRoot(*tree))) {
-        tmp = BT_getRightChild(*tree);
-        insert(word, &tmp);
-        if (!BT_isEmpty(tmp)) {
-          BT_setRightChild(tree, tmp);
-        }
-      } else {
-        if (W_getIthCharacter(*word, 0) == N_getValue(*BT_getRoot(*tree))) {
-          N_defineEnd(BT_getRoot(*tree), N_isLast(*BT_getRoot(*tree)) ||
-                                             (W_getLength(*word) == 1));
-          tmp = BT_getLeftChild(*tree);
-          insert(wordReduced, &tmp);
-          if (!BT_isEmpty(tmp)) {
-            BT_setLeftChild(tree, tmp);
-          }
-        } else {
-          node = N_createNode(W_getLength(*word) == 1,
-                              W_getIthCharacter(*word, 0));
-          newTree = BT_addRoot(BT_createBT(), *tree, node, (EC_copy)N_copy);
-          *tree = newTree;
-          tmp = BT_getLeftChild(*tree);
-          insert(wordReduced, &tmp);
-          if (!BT_isEmpty(tmp)) {
-            BT_setLeftChild(tree, tmp);
-          }
-        }
-      }
+      node = N_createNode(W_getLength(word) == 1, W_getIthCharacter(word, 0));
+
+      *tree = BT_addRoot(BT_createBT(), *tree, node, (EC_copy)N_copy);
+      tmp = BT_getLeftChild(*tree);
+      insert(*wordReduced, &tmp);
+      N_delete(node);
     }
     W_delete(wordReduced);
   }
@@ -77,14 +84,14 @@ void serializeTree(FILE *file, BT_BinaryTree *tree) {
     fprintf(file, ";\n");
   }
 
-  if (BT_isEmpty(BT_getLeftChild(*tree))) {
+  if (BT_getLeftChild(*tree) == NULL) {
     fprintf(file, ".\n");
   } else {
     cadet = BT_getLeftChild(*tree);
     serializeTree(file, &cadet);
   }
 
-  if (BT_isEmpty(BT_getRightChild(*tree))) {
+  if (BT_getRightChild(*tree) == NULL) {
     fprintf(file, ",\n");
   } else {
     brother = BT_getRightChild(*tree);
@@ -93,55 +100,56 @@ void serializeTree(FILE *file, BT_BinaryTree *tree) {
 }
 
 int wordIsINR(char *stringToTest, BT_BinaryTree *tree) {
-  char charToTest, adjacentCurrentTree;
+  assert(!BT_isEmpty(*tree));
+
+  char charToTest, nodeValue;
   char *newtStringToTest;
   BT_BinaryTree tmp;
   int res;
-
-  assert(!BT_isEmpty(*tree));
 
   if (strlen(stringToTest) == 0) {
     res = 0;
   } else if (strlen(stringToTest) == 1) {
     charToTest = stringToTest[0];
-    adjacentCurrentTree = N_getValue(*BT_getRoot(*tree));
-    if (charToTest > adjacentCurrentTree) {
+    nodeValue = N_getValue(*BT_getRoot(*tree));
+
+    if (charToTest > nodeValue) {
       tmp = BT_getRightChild(*tree);
-      if (!BT_isEmpty(tmp)) {
+      if (tmp != NULL) {
         res = wordIsINR(stringToTest, &tmp);
       } else {
-        res = -1;
+        res = 0;
       }
-    } else if (charToTest == adjacentCurrentTree) {
+    } else if (charToTest == nodeValue) {
       if (N_isLast(*BT_getRoot(*tree))) {
         res = 1;
       } else {
         res = 0;
       }
     } else {
-      res = -1;
+      res = 0;
     }
   } else {
     newtStringToTest = subString(stringToTest, 1, strlen(stringToTest) - 1);
     charToTest = stringToTest[0];
-    adjacentCurrentTree = N_getValue(*BT_getRoot(*tree));
+    nodeValue = N_getValue(*BT_getRoot(*tree));
 
-    if (charToTest > adjacentCurrentTree) {
+    if (charToTest > nodeValue) {
       tmp = BT_getRightChild(*tree);
-      if (!BT_isEmpty(tmp)) {
+      if (tmp != NULL) {
         res = wordIsINR(stringToTest, &tmp);
       } else {
-        res = -1;
+        res = 0;
       }
-    } else if (charToTest == adjacentCurrentTree) {
+    } else if (charToTest == nodeValue) {
       tmp = BT_getLeftChild(*tree);
-      if (!BT_isEmpty(tmp)) {
+      if (tmp != NULL) {
         res = (wordIsINR(newtStringToTest, &tmp));
       } else {
-        res = -1;
+        res = 0;
       }
     } else {
-      res = -1;
+      res = 0;
     }
     free(newtStringToTest);
   }
@@ -151,50 +159,52 @@ int wordIsINR(char *stringToTest, BT_BinaryTree *tree) {
 void unserializeTree(FILE *file, BT_BinaryTree *tree) {
   int LINE_LENGTH = 3;
   char line[LINE_LENGTH];
+  N_Node *node;
+  BT_BinaryTree tmp;
 
   if (fgets(line, LINE_LENGTH, file) != NULL) {
     if ((line[0] >= 97) && (line[0] <= 122)) {
       if (BT_isEmpty(*tree)) {
-        N_Node *N1 = N_createNode(0, line[0]);
-        *tree = BT_addRoot(BT_createBT(), BT_createBT(), N1, (EC_copy)N_copy);
-        N_delete(N1);
+        node = N_createNode(0, line[0]);
+        BT_setNode(*tree, node);
+        N_delete(node);
         unserializeTree(file, tree);
-      } else if (!BT_isEmpty(*tree) && BT_isEmpty(BT_getLeftChild(*tree)) &&
-                 !BT_isProcessed(tree)) {
-        N_Node *N2 = N_createNode(0, line[0]);
-        BT_setLeftChild(tree, BT_addRoot(BT_createBT(), BT_createBT(), N2,
-                                         (EC_copy)N_copy));
-        N_delete(N2);
-        BT_BinaryTree tmp1 = BT_getLeftChild(*tree);
-        unserializeTree(file, &tmp1);
-        BT_setLeftChild(tree, tmp1);
-        unserializeTree(file, tree);
-      } else
+      } else if (!BT_isProcessed(*tree) && BT_getLeftChild(*tree) == NULL) {
+        node = N_createNode(0, line[0]);
+        tmp = BT_createBT();
+        BT_setNode(tmp, node);
+        BT_setLeftChild(*tree, tmp);
+        N_delete(node);
 
-          if (!BT_isEmpty(*tree) && BT_isEmpty(BT_getRightChild(*tree))) {
-        N_Node *N3 = N_createNode(0, line[0]);
-        BT_setRightChild(tree, BT_addRoot(BT_createBT(), BT_createBT(), N3,
-                                          (EC_copy)N_copy));
-        N_delete(N3);
-        BT_BinaryTree tmp2 = BT_getRightChild(*tree);
-        unserializeTree(file, &tmp2);
-        BT_setRightChild(tree, tmp2);
+        // Process left child.
+        unserializeTree(file, &tmp);
+        BT_setLeftChild(*tree, tmp);
+        unserializeTree(file, tree);
+
+      } else {
+        node = N_createNode(0, line[0]);
+        tmp = BT_createBT();
+        BT_setNode(tmp, node);
+        BT_setRightChild(*tree, tmp);
+        tmp = BT_getRightChild(*tree);
+        N_delete(node);
+
+        unserializeTree(file, &tmp);
+        BT_setRightChild(*tree, tmp);
       }
     }
-
     if (line[0] == ';' && line[1] == '\n') {
       N_defineEnd(BT_getRoot(*tree), 1);
       unserializeTree(file, tree);
     }
 
     if (line[0] == '.' && line[1] == '\n') {
-      BT_setIsProcessed(tree, 1);
+      BT_setIsProcessed(*tree, 1);
       unserializeTree(file, tree);
     }
   }
 }
 
-/* public */
 D_Dictionary D_createDictionary() {
   errno = 0;
   D_Dictionary dictionary;
@@ -205,14 +215,14 @@ D_Dictionary D_createDictionary() {
   return dictionary;
 }
 
-int D_wordIsIN(W_Word *word, D_Dictionary dictionary) {
-  char *stringToTest = W_getString(*word);
+int D_wordIsIN(W_Word word, D_Dictionary dictionary) {
+  char *stringToTest = W_getString(word);
   return wordIsINR(stringToTest, &(dictionary.wordsBT));
 }
 
 int D_size(D_Dictionary dictionary) { return dictionary.size; }
 
-void D_add(W_Word *word, D_Dictionary *dictionary) {
+void D_add(W_Word word, D_Dictionary *dictionary) {
   insert(word, &((*dictionary).wordsBT));
   (*dictionary).size = (*dictionary).size + 1;
 }
@@ -240,10 +250,10 @@ D_Dictionary D_unserialize(char *pathToFile) {
     exit(1);
   }
   unserializeTree(inputFile, &(dictionary.wordsBT));
-
+  fclose(inputFile);
   return dictionary;
 }
 
 void D_delete(D_Dictionary dictionary) {
-  BT_delete(&(dictionary.wordsBT), W_delete);
+  BT_delete(dictionary.wordsBT, N_delete);
 }
