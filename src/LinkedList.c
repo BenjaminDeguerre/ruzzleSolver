@@ -40,7 +40,7 @@ int LL_isEmpty(LL_LinkedList list) {
 
 void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement,
             EC_compare compareElement) {
-  LL_LinkedList *current, pNode;
+  LL_LinkedList *current, *previous, pNode;
   void *donnee = copyElement(source);
   int inserted = 0;
 
@@ -52,27 +52,34 @@ void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement,
   pNode = LL_createLinkedList();
   pNode->element = donnee;
 
+  previous = NULL;
   current = list;
 
   while (current != NULL && !inserted) {
     if (!((*current)->newLinkedList)) {
-      if (compareElement(donnee, (*list)->element) == 1) {
-        pNode->newLinkedList = *list;
-        *list = pNode;
+      if (compareElement(donnee, (*current)->element) == 1) {
+        pNode->newLinkedList = *current;
+        *current = pNode;
         inserted = 1;
       } else {
         (*current)->newLinkedList = pNode;
         inserted = 1;
       }
-    } else if (compareElement(donnee, (*list)->element) == 1) {
-      pNode->newLinkedList = *list;
-      *list = pNode;
+    } else if (compareElement(donnee, (*current)->element) == 1) {
+      if (previous == NULL) {
+        pNode->newLinkedList = *current;
+        *list = pNode;
+      } else {
+        pNode->newLinkedList = *current;
+        (*previous)->newLinkedList = pNode;
+      }
       inserted = 1;
-    } else if (compareElement(donnee, (*list)->element) == 0) {
+    } else if (compareElement(donnee, (*current)->element) == 0) {
       pNode->newLinkedList = (*current)->newLinkedList;
       (*current)->newLinkedList = pNode;
       inserted = 1;
     } else {
+      previous = current;
       current = &((*current)->newLinkedList);
     }
   }

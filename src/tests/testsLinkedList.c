@@ -63,22 +63,27 @@ void test_isEmpty(void) {
 void test_add(void) {
   LL_LinkedList list = LL_createLinkedList();
 
-  So_Solution *solution = So_createSolution("hello", 35);
-  So_Solution *solution2 = So_createSolution("by", 42);
-  So_Solution *solution3 = So_createSolution("thomas", 12);
+  So_Solution *solution = So_createSolution("hello", 16);
+  So_Solution *solution2 = So_createSolution("by", 114);
+  So_Solution *solution3 = So_createSolution("thomas", 5);
+  So_Solution *solution4 = So_createSolution("bob", 16);
 
   LL_add(&list, solution, So_copy, So_compare);
   LL_add(&list, solution2, So_copy, So_compare);
   LL_add(&list, solution3, So_copy, So_compare);
+  printf("%s\n", So_getString(*solution4));
+  printf("%d\n", So_compare(((void *)solution4), ((void *)solution)));
+  LL_add(&list, solution4, So_copy, So_compare);
 
-  CU_ASSERT(LL_length(list) == 3);
+  CU_ASSERT(LL_length(list) == 4);
   CU_ASSERT(So_compare(LL_getElement(list), solution2) == 0);
   CU_ASSERT(So_compare(LL_getElement(LL_getNextList(list)), solution) == 0);
   CU_ASSERT(So_compare(LL_getElement(LL_getNextList(LL_getNextList(list))),
-                       solution3) == 0);
+                       solution4) == 0);
   So_delete(solution);
   So_delete(solution2);
   So_delete(solution3);
+  So_delete(solution4);
   LL_delete(&list, So_delete);
 }
 
