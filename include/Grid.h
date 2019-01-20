@@ -16,7 +16,7 @@ typedef struct {
 } G_Grid;
 
 /**
- *	\fn G_Grid G_createGrid(char *string[G_LENGTH])
+ *	\fn G_Grid G_createGrid(char **string)
  *	\brief Create a grid from a string representing a grid. "T1LDR1  A1
  *S1WTE1LTN1  C3LTE1  U1  R1  I1  L2WDS1  O1WDP3  S1  ", for the first letter :
  *T letter, value 1, Letter count Double, for the last letter : S letter, value
