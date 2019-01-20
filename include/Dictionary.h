@@ -26,7 +26,7 @@ typedef struct D_Dictionary {
 D_Dictionary D_createDictionary();
 
 /**
- *	\fn int D_wordIsIn (W_Word *word, D_Dictionary dictionary);
+ *	\fn int D_wordIsIn (W_Word word, D_Dictionary dictionary);
  *	\brief Tell if a word is in the dictionary or not.
  *	\param *word Pointer to the W_Word to check.
  *	\param dictionary The D_Dictionary to check.
@@ -43,7 +43,7 @@ int D_wordIsIn(W_Word word, D_Dictionary dictionary);
 int D_size(D_Dictionary dictionary);
 
 /**
- *	\fn void D_add(W_Word *word, D_Dictionary *dictionary);
+ *	\fn void D_add(W_Word word, D_Dictionary *dictionary);
  *	\brief Adds a word into the dictionary.
  *	\param *word A pointer to a W_Word to add.
  *	\param *dictionary A pointer to the dictionary to add the word to.
@@ -61,7 +61,7 @@ void D_add(W_Word word, D_Dictionary *dictionary);
 void D_remove(W_Word *word, D_Dictionary *dictionary);
 
 /**
- *	\fn int D_isEmpty(D_Dictionary *dictionary);
+ *	\fn int D_isEmpty(D_Dictionary dictionary);
  *	\brief Tells if a dictionary is empty.
  *	\param *dictionary Pointer to the dictionary to check.
  *	\return int
