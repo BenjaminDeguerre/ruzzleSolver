@@ -33,7 +33,7 @@ typedef struct BT_Node {
 BT_BinaryTree BT_createBT();
 
 /**
- *	\fn int BT_isEmpty(BT_BinaryTree *tree)
+ *	\fn int BT_isEmpty(BT_BinaryTree tree)
  *	\brief To know if the tree is empty or not.
  *
  *	Return 0 is false, 1 else.
@@ -44,10 +44,9 @@ int BT_isEmpty(BT_BinaryTree tree);
 
 /**
  *	\fn void BT_setLeftChild(BT_BinaryTree tree, BT_BinaryTree leftChild)
- *	\brief Set the left child of the tree. It is the responsability of the
- *coder to handle the non empty case.
- *  \param tree The tree to have its child
- *set.
+ *	\brief Set the left child of the tree. It is the responsability of the coder to handle the non empty case.
+ *
+ *  \param tree The tree to have its child set.
  *  \param leftChild The child to set \return void
  */
 void BT_setLeftChild(BT_BinaryTree tree, BT_BinaryTree leftChild);
@@ -63,8 +62,7 @@ void BT_setLeftChild(BT_BinaryTree tree, BT_BinaryTree leftChild);
 void BT_setRightChild(BT_BinaryTree tree, BT_BinaryTree rightChild);
 
 /**
- *	\fn BT_BinaryTree BT_addRoot(BT_BinaryTree *leftChild, BT_BinaryTree
- **rightChild, N_Node *node, EC_copy copy)
+ *	\fn BT_BinaryTree BT_addRoot(BT_BinaryTree leftChild, BT_BinaryTree rightChild, N_Node *node, EC_copy copy)
  *	\brief Create a new tree and set the right and left child.
  *	\param leftChild The left child.
  *	\param rightChild The right child
@@ -84,8 +82,7 @@ BT_BinaryTree BT_addRoot(BT_BinaryTree leftChild, BT_BinaryTree rightChild,
 N_Node *BT_getRoot(BT_BinaryTree tree);
 
 /**
- *	\fn void BT_deleteRoot(BT_BinaryTree a, BT_BinaryTree leftChild,
- *BT_BinaryTree rightChild, EC_delete freeNode)
+ *	\fn void BT_deleteRoot(BT_BinaryTree tree, BT_BinaryTree *leftChild, BT_BinaryTree *rightChild, EC_delete freeNode)
  *	\brief Delete the root of a tree and create two sub-trees.
  *	\param tree The tree to have the root deleted.
  *	\param leftChild Output, the new tree obtained from the left child of
@@ -97,7 +94,7 @@ void BT_deleteRoot(BT_BinaryTree tree, BT_BinaryTree *leftChild,
                    BT_BinaryTree *rightChild, EC_delete freeNode);
 
 /**
- *	\fn void BT_delete(BT_BinaryTree* a, EC_delete freeNode)
+ *	\fn void BT_delete(BT_BinaryTree tree, EC_delete freeNode)
  *	\brief Delete the whole tree.
  *	\param tree The tree to delete.
  *	\param freeNode Function to delete the nodes.
@@ -106,7 +103,7 @@ void BT_deleteRoot(BT_BinaryTree tree, BT_BinaryTree *leftChild,
 void BT_delete(BT_BinaryTree tree, EC_delete freeNode);
 
 /**
- *	\fn BT_BinaryTree* BT_getRightChild(BT_BinaryTree *tree)
+ *	\fn BT_BinaryTree BT_getRightChild(BT_BinaryTree tree)
  *	\brief Get the right child of a tree.
  *	\param tree The tree to get the right child from.
  *	\return BT_BinaryTree
@@ -114,7 +111,7 @@ void BT_delete(BT_BinaryTree tree, EC_delete freeNode);
 BT_BinaryTree BT_getRightChild(BT_BinaryTree tree);
 
 /**
- *	\fn BT_BinaryTree* BT_getLeftChild(BT_BinaryTree *tree)
+ *	\fn BT_BinaryTree BT_getLeftChild(BT_BinaryTree tree)
  *	\brief Get the left child of a tree.
  *	\param tree The tree to get the left child from.
  *	\return BT_BinaryTree
@@ -122,7 +119,7 @@ BT_BinaryTree BT_getRightChild(BT_BinaryTree tree);
 BT_BinaryTree BT_getLeftChild(BT_BinaryTree tree);
 
 /**
- *	\fn BT_setIsProcessed(BT_BinaryTree *tree, int processed)
+ *	\fn void BT_setIsProcessed(BT_BinaryTree tree, int processed)
  *	\brief
  *	\param tree
  *	\return BT_BinaryTree
@@ -130,7 +127,7 @@ BT_BinaryTree BT_getLeftChild(BT_BinaryTree tree);
 void BT_setIsProcessed(BT_BinaryTree tree, int processed);
 
 /**
- *	\fn BT_isProcessed(BT_BinaryTree *tree, int processed)
+ *	\fn int BT_isProcessed(BT_BinaryTree tree)
  *	\brief
  *	\param tree
  *	\return BT_BinaryTree
@@ -138,7 +135,7 @@ void BT_setIsProcessed(BT_BinaryTree tree, int processed);
 int BT_isProcessed(BT_BinaryTree tree);
 
 /**
- *	\fn BT_setNode(BT_BinaryTree tree, N_Node *node)
+ *	\fn void BT_setNode(BT_BinaryTree tree, N_Node *node)
  *	\brief Setter for the node.
  *	\param tree The tree to have its node set.
  *	\return BT_BinaryTree
@@ -146,7 +143,7 @@ int BT_isProcessed(BT_BinaryTree tree);
 void BT_setNode(BT_BinaryTree tree, N_Node *node);
 
 /**
- *	\fn BT_getNode(BT_BinaryTree tree)
+ *	\fn N_Node *BT_getNode(BT_BinaryTree tree)
  *	\brief Return the node of the tree.
  *	\param tree The tree to get the node from.
  *	\return BT_BinaryTree
