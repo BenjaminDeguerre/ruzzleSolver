@@ -44,11 +44,13 @@ int LL_newtListIsNull(LL_LinkedList list);
 int LL_isEmpty(LL_LinkedList list);
 
 /**
- *	\fn void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement);
+ *	\fn void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement, EC_compare compareElement);
  *	\brief Add a copy of an element to the list. The element are ordered.
+ *
  *	\param *list Pointer to the list to add the element to.
  *  \param *source The element to copy.
  *	\param copyElement The function to copy the element.
+ *  \paramcompareElement The function to compare the element in the linked list.
  *	\return void
  */
 void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement,
@@ -80,11 +82,13 @@ LL_LinkedList LL_getNextList(LL_LinkedList list);
 void LL_setNextList(LL_LinkedList *list, LL_LinkedList newList);
 
 /**
- *	\fn	void LL_setElement(LL_LinkedList*, void*, EC_copy copyElement,
- *EC_delete freeElement) \brief Set the element of a linked list. \param *list
- *The list to change the element of. \param void* source The new element. \param
- *copyElement The function to copy the new element. \param freeElement The
- *function to delete the current element if any. \return void
+ *	\fn	void LL_setElement(LL_LinkedList*, void*, EC_copy copyElement, EC_delete freeElement);
+ * \brief Set the element of a linked list. 
+ * \param *list The list to change the element of.
+ * \param void* source The new element. 
+ * \param copyElement The function to copy the new element.
+ * \param freeElement The function to delete the current element if any. 
+ * \return void
  */
 void LL_setElement(LL_LinkedList *list, void *source, EC_copy copyElement,
                    EC_delete freeElement);
@@ -120,10 +124,12 @@ LL_LinkedList LL_copy(LL_LinkedList list, EC_copy copyElement,
                       EC_compare compareElement);
 
 /**
- *	\fn int LL_equals(LL_LinkedList list1, LL_LinkedList list2, EC_compare
- *compareElement); \brief Tells if two list are equals. \param list1 The first
- *list. \param list2 The second list. \param compareElement The function to
- *compare two elements. \return int
+ *	\fn int LL_equals(LL_LinkedList list1, LL_LinkedList list2, EC_compare compareElement); 
+ * \brief Tells if two list are equals. 
+ * \param list1 The first list. 
+ * \param list2 The second list. 
+ * \param compareElement The function to compare two elements. 
+ * \return int
  */
 int LL_equals(LL_LinkedList list1, LL_LinkedList list2,
               EC_compare compareElement);
@@ -137,10 +143,12 @@ int LL_equals(LL_LinkedList list1, LL_LinkedList list2,
 int LL_length(LL_LinkedList list);
 
 /**
- *	\fn void LL_removeElements(LL_LinkedList *list, void *element,
- *EC_compare); \brief Remove all the element from the list matching the source
- *using compare \param list The list to have the element removed. \param element
- *The element to remove. \param compare The comparision function. \return int
+ * \fn void LL_removeElements(LL_LinkedList *list, void *element, EC_compare compare, EC_delete deleteElement); 
+ * \brief Remove all the element from the list matching the source using compare 
+ * \param list The list to have the element removed. 
+ * \param element The element to remove. 
+ * \param compare The comparision function. 
+ * \return int
  */
 void LL_removeElements(LL_LinkedList *list, void *element, EC_compare compare,
                        EC_delete deleteElement);
