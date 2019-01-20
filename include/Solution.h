@@ -13,7 +13,7 @@ typedef struct {
 #define SO_MEMORY_ERROR 1
 
 /**
- *	\fn So_Solution* S_createSolution(char *word, int value)
+ *	\fn So_Solution* So_createSolution(char *word, int value)
  *	\brief Create a new solution.
  *	\param *word The word associated to the solution.
  *  \param value The value in points of the solution.
@@ -22,7 +22,7 @@ typedef struct {
 So_Solution *So_createSolution(char *word, int value);
 
 /**
- *	\fn char* S_getString(So_Solution solution)
+ *	\fn char* So_getString(So_Solution solution)
  *	\brief Getter for the solution word.
  *	\param solution The So_Solution to get the word from.
  *	\return char*
@@ -30,7 +30,7 @@ So_Solution *So_createSolution(char *word, int value);
 char *So_getString(So_Solution solution);
 
 /**
- *	\fn int W_getValue(So_Solution solution)
+ *	\fn int So_getValue(So_Solution solution)
  *	\brief Get the value of a solution.
  *	\param solution The So_Solution to get the value from.
  *	\return int
@@ -38,7 +38,7 @@ char *So_getString(So_Solution solution);
 int So_getValue(So_Solution solution);
 
 /**
- *	\fn void* S_copy(So_Solution *solution)
+ *	\fn void* So_copy(void *solution)
  *	\brief Cop a solution
  *	\param *solution The solution to copy.
  *	\return void*
@@ -46,7 +46,7 @@ int So_getValue(So_Solution solution);
 void *So_copy(void *solution);
 
 /**
- *	\fn void S_delete(So_Solution *solution)
+ *	\fn void So_delete(void *solution)
  *	\brief Delete a solution.
  *	\param *solution The So_Solution to delete.
  *	\return void
@@ -54,7 +54,7 @@ void *So_copy(void *solution);
 void So_delete(void *solution);
 
 /**
- *	\fn int S_compare(So_Solution *solution1, So_Solution *solution2)
+ *	\fn int So_compare(void *solution1, void *solution2)
  *	\brief Compare two solution by the value.
  *	\param *solution1 The first So_Solution to compare.
  *	\param *solution2 The second So_Solution to compare.
@@ -64,7 +64,7 @@ void So_delete(void *solution);
 int So_compare(void *solution1, void *solution2);
 
 /**
- *	\fn int S_compareString(So_Solution *solution1, So_Solution *solution2)
+ *	\fn int So_compareString(void *solution1, void *solution2)
  *	\brief Compare two solution by the string.
  *	\param *solution1 The first So_Solution to compare.
  *	\param *solution2 The second So_Solution to compare.
