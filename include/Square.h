@@ -74,8 +74,7 @@ int S_getPointsNumber(S_Square square);
 char *S_getBonus(S_Square square);
 
 /**
- *	\fn S_Square S_defineSquare(S_Square *square, char *value, int
- *squareNumber)
+ *	\fn S_Square S_defineSquare(S_Square *square, char *value, int squareNumber)
  *	\brief Fills the square with the provided values.
  *
  *	\param square, the S_Square
