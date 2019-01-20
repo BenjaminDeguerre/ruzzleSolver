@@ -8,9 +8,7 @@
 #include "LinkedList.h"
 
 /**
- *	\fn LL_LinkedList solveRuzzle(char *stringGrid, char
- *pathToIntelligentFile);
-
+ *	\fn LL_LinkedList solveRuzzle(char *stringGrid, char *pathToIntelligentFile);
  *	\brief Solve the ruzzle and return a list with all the words ordered by
  number of points.
  *
