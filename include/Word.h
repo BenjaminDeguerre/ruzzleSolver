@@ -46,7 +46,7 @@ char W_getIthCharacter(W_Word word, int position);
 int W_getLength(W_Word word);
 
 /**
- *	\fn void* W_copy(W_Word* m)
+ *	\fn void* W_copy(void* m)
  *	\brief Copy a word
  *	\param *word The word to copy.
  *	\return void*
@@ -54,7 +54,7 @@ int W_getLength(W_Word word);
 void *W_copy(void *word);
 
 /**
- *	\fn void W_remove(W_Word *word)
+ *	\fn void W_delete(void *word)
  *	\brief Delete the word.
  *	\param *word The word to delete.
  *	\return void
@@ -62,7 +62,7 @@ void *W_copy(void *word);
 void W_delete(void *word);
 
 /**
- *	\fn int W_compareString(W_Word *word1, W_Word *word2)
+ *	\fn int W_compare(void *word1, void *word2)
  *	\brief Compare two word using the alphabetical order.
  *
  *	\param *word1 The first word to compare.
