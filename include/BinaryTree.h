@@ -37,33 +37,37 @@ BT_BinaryTree BT_createBT();
  *	\brief To know if the tree is empty or not.
  *
  *	Return 0 is false, 1 else.
- *	\param tree pointer to a tree.
+ *	\param tree The binary tree.
  *	\return int
  */
 int BT_isEmpty(BT_BinaryTree tree);
 
 /**
  *	\fn void BT_setLeftChild(BT_BinaryTree tree, BT_BinaryTree leftChild)
- *	\brief Set the left child of the tree. It is the responsability of the coder to handle the non empty case.
+ *	\brief Set the left child of the tree.
  *
  *  \param tree The tree to have its child set.
- *  \param leftChild The child to set \return void
+ *  \param leftChild The child to set.
+ * 
+ *  \return void
  */
 void BT_setLeftChild(BT_BinaryTree tree, BT_BinaryTree leftChild);
 
 /**
  *	\fn void BT_setRightChild(BT_BinaryTree tree, BT_BinaryTree rightChild)
- *	\brief Set the right child of a tree. It is the responsability of the
- *coder to handle the non empty case.
- *  \param tree The tree to have its child
- *set.
- *  \param rightChild The child to set \return void
+ *	\brief Set the right child of a tree.
+
+ *  \param tree The tree to have its child set.
+ *  \param rightChild The child to set.
+ * 
+ *  \return void
  */
 void BT_setRightChild(BT_BinaryTree tree, BT_BinaryTree rightChild);
 
 /**
  *	\fn BT_BinaryTree BT_addRoot(BT_BinaryTree leftChild, BT_BinaryTree rightChild, N_Node *node, EC_copy copy)
  *	\brief Create a new tree and set the right and left child.
+ *
  *	\param leftChild The left child.
  *	\param rightChild The right child
  *	\param *node The node to use as root.
@@ -76,6 +80,7 @@ BT_BinaryTree BT_addRoot(BT_BinaryTree leftChild, BT_BinaryTree rightChild,
 /**
  *	\fn N_Node* BT_getRoot(BT_BinaryTree tree)
  *	\brief Return the root of the given tree
+ *
  *	\param tree Tree from which to get the root.
  *	\return N_Node*
  */
@@ -84,6 +89,7 @@ N_Node *BT_getRoot(BT_BinaryTree tree);
 /**
  *	\fn void BT_deleteRoot(BT_BinaryTree tree, BT_BinaryTree *leftChild, BT_BinaryTree *rightChild, EC_delete freeNode)
  *	\brief Delete the root of a tree and create two sub-trees.
+ *
  *	\param tree The tree to have the root deleted.
  *	\param leftChild Output, the new tree obtained from the left child of
  *the current tree. \param rightChild Output, the new tree obtained from the
@@ -96,6 +102,7 @@ void BT_deleteRoot(BT_BinaryTree tree, BT_BinaryTree *leftChild,
 /**
  *	\fn void BT_delete(BT_BinaryTree tree, EC_delete freeNode)
  *	\brief Delete the whole tree.
+ *
  *	\param tree The tree to delete.
  *	\param freeNode Function to delete the nodes.
  *	\return void
@@ -120,7 +127,7 @@ BT_BinaryTree BT_getLeftChild(BT_BinaryTree tree);
 
 /**
  *	\fn void BT_setIsProcessed(BT_BinaryTree tree, int processed)
- *	\brief
+ *	\brief Set a flag on the tree
  *	\param tree
  *	\return BT_BinaryTree
  */
@@ -128,7 +135,7 @@ void BT_setIsProcessed(BT_BinaryTree tree, int processed);
 
 /**
  *	\fn int BT_isProcessed(BT_BinaryTree tree)
- *	\brief
+ *	\brief Get the flag of the tree.
  *	\param tree
  *	\return BT_BinaryTree
  */

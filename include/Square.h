@@ -77,7 +77,7 @@ char *S_getBonus(S_Square square);
  *	\fn S_Square S_defineSquare(S_Square *square, char *value, int squareNumber)
  *	\brief Fills the square with the provided values.
  *
- *	\param square, the S_Square
+ *	\param *square, the S_Square
  *	\param *value, The string with the letter value and bonuses.
  *	\param squareNumber Square number.
  *	\return void

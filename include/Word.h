@@ -46,7 +46,7 @@ char W_getIthCharacter(W_Word word, int position);
 int W_getLength(W_Word word);
 
 /**
- *	\fn void* W_copy(void* m)
+ *	\fn void* W_copy(void* word)
  *	\brief Copy a word
  *	\param *word The word to copy.
  *	\return void*

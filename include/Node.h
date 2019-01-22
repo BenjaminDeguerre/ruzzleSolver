@@ -68,7 +68,7 @@ void N_delete(void *node);
  *	\fn void *N_copy(void*);
  *	\brief Copy a node.
  *	\param *node The node to copy
- *	\return void*
+ *	\return void* The copied node.
  */
 void *N_copy(void *node);
 

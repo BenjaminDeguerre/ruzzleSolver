@@ -40,8 +40,8 @@ S_Square *G_getSquare(G_Grid grid, int squareNumber);
  *	\fn LL_LinkedList G_getNeighbours(G_Grid grid, S_Square square)
  *	\brief Return the square around a given square.
  *
- *	\param grid The
- *	\param c La case dont on veut les neighbours
+ *	\param grid The grid target (holding the squares).
+ *	\param c The square from which we want the neighbours.
  *	\return LL_LinkedList
  */
 LL_LinkedList G_getNeighbours(G_Grid grid, S_Square square);

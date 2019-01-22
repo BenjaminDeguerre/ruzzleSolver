@@ -60,7 +60,7 @@ void LL_add(LL_LinkedList *list, void *source, EC_copy copyElement,
  *	\fn void* LL_getElement(LL_LinkedList);
  *	\brief Get the element of the current list.
  *	\param list The list to get the element from.
- *	\return void
+ *	\return void*
  */
 void *LL_getElement(LL_LinkedList list);
 
@@ -145,9 +145,10 @@ int LL_length(LL_LinkedList list);
 /**
  * \fn void LL_removeElements(LL_LinkedList *list, void *element, EC_compare compare, EC_delete deleteElement); 
  * \brief Remove all the element from the list matching the source using compare 
- * \param list The list to have the element removed. 
- * \param element The element to remove. 
- * \param compare The comparision function. 
+ * \param *list The list to have the element removed. 
+ * \param *element The element to remove. 
+ * \param compare The comparision function.
+ * \param deleteElement The deletion function
  * \return int
  */
 void LL_removeElements(LL_LinkedList *list, void *element, EC_compare compare,

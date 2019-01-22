@@ -14,7 +14,8 @@
  *
  *	\param *stringGrid The grid in the form of a string.
  *	\param *pathToIntelligentFile Pointer to the file containing the
- serialized dictionary. *	\return LL_LinkedList listSolutions
+ serialized dictionary.
+ *	\return LL_LinkedList listSolutions
  */
 
 LL_LinkedList solveRuzzle(char *stringGrid, char *pathToIntelligentFile);
